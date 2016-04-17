@@ -69,7 +69,7 @@ JS
 <? if (!\Yii::$app->user->isGuest): ?>
     <ul class="nav navbar-nav navbar-actions navbar-left">
         <li class="visible-md visible-lg visible-sm visible-xs">
-            <a href="<?= \Yii::$app->cms->moduleAdmin()->createUrl(["admin/index/index"]); ?>" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('app','To main page of admin area')?>"><i class="glyphicon glyphicon-home"></i></a>
+            <a href="<?= \Yii::$app->cms->moduleAdmin->createUrl(["admin/index/index"]); ?>" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('app','To main page of admin area')?>"><i class="glyphicon glyphicon-home"></i></a>
         </li>
 
         <li class="visible-md visible-lg visible-sm visible-xs">

@@ -207,7 +207,7 @@ class AdminMenuItem extends Component
             return "";
         } if (is_array($this->url))
         {
-            return \Yii::$app->cms->moduleAdmin()->createUrl($this->url);
+            return \Yii::$app->cms->moduleAdmin->createUrl($this->url);
         } if (is_string($this->url))
         {
             return (string) $this->img;
