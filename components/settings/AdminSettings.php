@@ -20,7 +20,9 @@ use skeeks\cms\modules\admin\dashboards\CmsInformDashboard;
 use skeeks\cms\modules\admin\dashboards\ContentElementListDashboard;
 use skeeks\cms\modules\admin\dashboards\DiscSpaceDashboard;
 use skeeks\yii2\ckeditor\CKEditorPresets;
+use yii\base\BootstrapInterface;
 use yii\helpers\ArrayHelper;
+use yii\web\Application;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 
@@ -140,13 +142,13 @@ class AdminSettings extends Component
         return $result;
     }
 
-
     public function init()
     {
         parent::init();
 
         \Yii::$app->language = $this->languageCode;
     }
+
 
     public function rules()
     {

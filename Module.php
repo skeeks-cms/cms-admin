@@ -15,8 +15,10 @@ use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Site;
 use skeeks\cms\modules\admin\assets\AdminAsset;
 use skeeks\cms\modules\admin\components\UrlRule;
+use yii\base\BootstrapInterface;
 use yii\base\Event;
 use yii\base\Object;
+use yii\web\Application;
 
 /**
  * Class Module
@@ -43,7 +45,6 @@ class Module extends CmsModule
             if (!$this->noImage)
             {
                 $this->noImage = AdminAsset::getAssetUrl("images/no-photo.gif");
-                //$this->noImage = \Yii::$app->getAssetManager()->getAssetUrl(AdminAsset::register(\Yii::$app->view), "images/no-photo.gif");
             }
         }
     }

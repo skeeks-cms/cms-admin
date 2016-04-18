@@ -1,10 +1,9 @@
 CHANGELOG
 ==============
 
-1.0.0-beta.pre
+1.0.0-alpha.pre
 -----------------
+  * Small changes
   * Removed Cms::moduleAdmin()
-
-1.0.0-alpha
------------------
+  * Removed Cms::moduleAdmin()
   * Can be used

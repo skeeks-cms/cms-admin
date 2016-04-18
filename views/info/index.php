@@ -39,10 +39,8 @@ $autoEnvFile .= "<a class='btn btn-xs btn-primary' href='" . \skeeks\cms\helpers
             \Yii::t('app','Project name') => $application['name'] . " (<a href='" . \skeeks\cms\helpers\UrlHelper::construct('cms/admin-settings')->enableAdmin()->toString() . "'>".\Yii::t('app','edit')."</a>)",
             \Yii::t('app','Environment ({yii_env})',['yii_env' => 'YII_ENV']) => $application['env'],
             \Yii::t('app','Development mode ({yii_debug})',['yii_debug' => 'YII_DEBUG']) => $application['debug'] ? \Yii::t('app','Yes') : \Yii::t('app','No'),
-            \Yii::t('app','Mode autogeneration paths to modules {cms} ({e_m_c})',['e_m_c' => 'ENABLE_MODULES_CONF', 'cms' => 'CMS']) => ENABLE_MODULES_CONF ? \Yii::t('app','Yes') : \Yii::t('app','No'),
             \Yii::t('app','Automatically generated file paths modules {cms} ({agmf})',['cms' => 'cms', 'agmf' => 'AUTO_GENERATED_MODULES_FILE']) => $autoModulesFile,
             \Yii::t('app','A folder with file paths to the modules') => (is_readable(dirname(AUTO_GENERATED_MODULES_FILE)) ? \Yii::t('app','Yes') : \Yii::t('app',"Is not writable")) . " <a class='btn btn-xs btn-default' title='" . dirname(AUTO_GENERATED_MODULES_FILE) . "'>i</a>",
-            \Yii::t('app',"Checks environment variables").' (GETENV_POSSIBLE_NAMES)' => GETENV_POSSIBLE_NAMES,
             \Yii::t('app',"Checks environment variables").' (APP_ENV_GLOBAL_FILE)' => $autoEnvFile . " <a class='btn btn-xs btn-default' title='" . APP_ENV_GLOBAL_FILE . "'>i</a>"
 
             ,
