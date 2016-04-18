@@ -159,7 +159,11 @@ abstract class AdminController extends Controller
             return false;
         }
 
-        \Yii::$app->cmsMarkeplace->info;
+        //TODO: refactor this is
+        if (\Yii::$app->cmsMarketplace)
+        {
+            \Yii::$app->cmsMarketplace->info;
+        }
 
         if (\Yii::$app->admin->requestIsAdmin)
         {

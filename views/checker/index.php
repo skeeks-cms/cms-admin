@@ -44,59 +44,60 @@ CSS
         </div>
     </p>
 
-    <? foreach(\Yii::$app->cms->getModules() as $module) : ?>
-
-        <? if ($checks = $module->loadChecksComponents()) : ?>
-            <? $allCkecks = \yii\helpers\ArrayHelper::merge($allCkecks, $checks); ?>
-            <hr />
-            <h3>Модуль <?= $module->getName(); ?> (проверок: <?= count($checks); ?>)</h3>
-            <?= \skeeks\cms\modules\admin\widgets\GridView::widget([
-                'dataProvider' => new \yii\data\ArrayDataProvider([
-                    'allModels' => $checks
-                ]),
-                'layout' => "{items}",
-                'columns' =>
-                [
+    <? foreach(\Yii::$app->getModules() as $module) : ?>
+        <? if (method_exists($module, 'loadChecksComponents') ) : ?>
+            <? if ($checks = $module->loadChecksComponents() ) : ?>
+                <? $allCkecks = \yii\helpers\ArrayHelper::merge($allCkecks, $checks); ?>
+                <hr />
+                <h3>Модуль <?= $module->getName(); ?> (проверок: <?= count($checks); ?>)</h3>
+                <?= \skeeks\cms\modules\admin\widgets\GridView::widget([
+                    'dataProvider' => new \yii\data\ArrayDataProvider([
+                        'allModels' => $checks
+                    ]),
+                    'layout' => "{items}",
+                    'columns' =>
                     [
-                        'attribute' => "name",
-                        'label'     => 'Тест'
-                    ],
+                        [
+                            'attribute' => "name",
+                            'label'     => 'Тест'
+                        ],
 
-                    [
-                        'class'     => \yii\grid\DataColumn::className(),
-                        'value'     => function(\skeeks\cms\base\CheckComponent $model)
-                        {
-                            $resultId = str_replace("\\", '-', $model->className());
+                        [
+                            'class'     => \yii\grid\DataColumn::className(),
+                            'value'     => function(\skeeks\cms\base\CheckComponent $model)
+                            {
+                                $resultId = str_replace("\\", '-', $model->className());
 
-                            $result = \yii\helpers\Html::tag("div", "-", [
-                                'class' => 'sx-result-container',
-                                'id'    => $resultId,
-                            ]);
+                                $result = \yii\helpers\Html::tag("div", "-", [
+                                    'class' => 'sx-result-container',
+                                    'id'    => $resultId,
+                                ]);
 
-                            return $result;
-                        },
-                        'format' => 'raw'
-                    ],
+                                return $result;
+                            },
+                            'format' => 'raw'
+                        ],
 
 
-                    [
-                        'class'     => \yii\grid\DataColumn::className(),
-                        'value'     => function(\skeeks\cms\base\CheckComponent $model)
-                        {
-                            $optionsJson = \yii\helpers\Json::encode([
-                                'title' => $model->name,
-                                'content' => $model->description,
-                            ]);
+                        [
+                            'class'     => \yii\grid\DataColumn::className(),
+                            'value'     => function(\skeeks\cms\base\CheckComponent $model)
+                            {
+                                $optionsJson = \yii\helpers\Json::encode([
+                                    'title' => $model->name,
+                                    'content' => $model->description,
+                                ]);
 
-                            return \yii\helpers\Html::a("<i class='glyphicon glyphicon-question-sign'></i>", "#", [
-                                'class' => 'btn btn-default',
-                                'onclick' => "sx.dialog({$optionsJson}); return false;"
-                            ]);
-                        },
-                        'format' => 'raw'
-                    ],
-                ]
-            ])?>
+                                return \yii\helpers\Html::a("<i class='glyphicon glyphicon-question-sign'></i>", "#", [
+                                    'class' => 'btn btn-default',
+                                    'onclick' => "sx.dialog({$optionsJson}); return false;"
+                                ]);
+                            },
+                            'format' => 'raw'
+                        ],
+                    ]
+                ])?>
+            <? endif; ?>
         <? endif; ?>
 
     <? endforeach; ?>
