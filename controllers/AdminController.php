@@ -7,7 +7,6 @@
  */
 namespace skeeks\cms\modules\admin\controllers;
 
-use skeeks\cms\base\Controller;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\modules\admin\actions\AdminAction;
 use skeeks\cms\modules\admin\components\UrlRule;
@@ -29,6 +28,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
 use yii\helpers\Inflector;
 use yii\web\Application;
+use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 
 /**
@@ -37,7 +37,7 @@ use yii\web\ForbiddenHttpException;
  * Class AdminController
  * @package skeeks\cms\modules\admin\controllers
  */
-abstract class AdminController extends \yii\web\Controller
+abstract class AdminController extends Controller
 {
     const LAYOUT_EMPTY                  = 'main-empty';
     const LAYOUT_MAIN                   = 'main';
