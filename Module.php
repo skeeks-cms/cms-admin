@@ -10,7 +10,6 @@
  */
 namespace skeeks\cms\modules\admin;
 
-use skeeks\cms\base\Module as CmsModule;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Site;
 use skeeks\cms\modules\admin\assets\AdminAsset;
@@ -24,7 +23,7 @@ use yii\web\Application;
  * Class Module
  * @package skeeks\modules\cms\user
  */
-class Module extends CmsModule
+class Module extends \yii\web\Module
 {
     //Скрывать кнопки действи сущьности
     const SYSTEM_QUERY_NO_ACTIONS_MODEL = 'no-actions';
