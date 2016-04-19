@@ -3,6 +3,7 @@ CHANGELOG
 
 1.0.0-alpha.pre
 -----------------
+  * Removed dbDump. In a separate package skeeks/cms-db-dumper
   * Cancel use cms base controller
   * Removed mailer. In a separate package skeeks/cms-mailer
   * Small changes
