@@ -23,7 +23,7 @@ use yii\web\Application;
  * Class Module
  * @package skeeks\modules\cms\user
  */
-class Module extends \yii\web\Module
+class Module extends \yii\base\Module
 {
     //Скрывать кнопки действи сущьности
     const SYSTEM_QUERY_NO_ACTIONS_MODEL = 'no-actions';
