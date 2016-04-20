@@ -93,7 +93,8 @@ class ClearController extends AdminController
 
             \Yii::$app->db->getSchema()->refresh();
             \Yii::$app->cache->flush();
-            \Yii::$app->cms->generateModulesConfigFile();
+            \Yii::$app->cms->generateTmpConfig();
+            \Yii::$app->cms->generateTmpConsoleConfig();
 
             $rr->success = true;
             $rr->message = \Yii::t('app','Cache cleared');

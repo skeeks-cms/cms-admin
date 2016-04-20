@@ -3,6 +3,7 @@ CHANGELOG
 
 1.0.0-alpha.pre
 -----------------
+  * Rewrote the logic configuration files download
   * To use \Yii::$app->langugae
   * Removed rbac. In a separate package skeeks/cms-rbac
   * Removed ssh. In a separate package skeeks/cms-ssh-console

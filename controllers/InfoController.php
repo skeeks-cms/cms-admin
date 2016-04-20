@@ -85,7 +85,7 @@ class InfoController extends AdminController
      */
     public function actionUpdateModulesFile()
     {
-        if (\Yii::$app->cms->generateModulesConfigFile())
+        if (\Yii::$app->cms->generateTmpConfig() && \Yii::$app->cms->generateTmpConsoleConfig())
         {
             \Yii::$app->session->setFlash('success', \Yii::t('app','File, automatic paths to the modules successfully updated'));
         } else
