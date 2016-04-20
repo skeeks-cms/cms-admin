@@ -324,7 +324,7 @@ JS
      */
     public function getCmsLanguage()
     {
-        return CmsLang::find()->where(['code' => $this->languageCode])->one();
+        return CmsLang::find()->where(['code' => \Yii::$app->language])->one();
     }
 
 
