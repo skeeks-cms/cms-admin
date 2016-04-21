@@ -41,7 +41,7 @@ class AdminOneModelRelatedPropertiesAction extends AdminOneModelEditAction
             'model' => $this->controller->model
         ];
 
-        return $this->controller->render("@admin/views/base-actions/related-properties", (array) $this->viewParams);
+        return $this->controller->render("@skeeks/cms/modules/admin/views/base-actions/related-properties", (array) $this->viewParams);
     }
 
     /**

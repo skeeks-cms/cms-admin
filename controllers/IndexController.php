@@ -99,7 +99,7 @@ class IndexController extends AdminController
             throw new NotFoundHttpException("Рабочий стол не найден");
         }
 
-        $this->layout = '@admin/views/layouts/main-empty';
+        $this->layout = '@skeeks/cms/modules/admin/views/layouts/main-empty';
 
         return $this->render($this->action->id, [
             'dashboard' => $dashboard

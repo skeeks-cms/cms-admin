@@ -37,8 +37,6 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        \Yii::setAlias('@admin/views', $this->viewPath);
-
         if (\Yii::$app->admin->requestIsAdmin)
         {
             if (!$this->noImage)

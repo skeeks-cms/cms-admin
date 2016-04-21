@@ -1,7 +1,11 @@
 CHANGELOG
 ==============
 
-1.0.0-alpha.pre
+1.0.0-beta
+-----------------
+  * Removed @admin/views
+
+1.0.0-alpha
 -----------------
   * Rewrote the logic configuration files download
   * To use \Yii::$app->langugae
