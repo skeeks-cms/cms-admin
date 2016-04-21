@@ -3,6 +3,7 @@ CHANGELOG
 
 1.0.0-beta
 -----------------
+  * Fix bug
   * Removed @admin/views
 
 1.0.0-alpha

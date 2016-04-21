@@ -159,8 +159,8 @@ abstract class AdminController extends Controller
             return false;
         }
 
-        //TODO: refactor this is
-        if (isset(\Yii::$app->cmsMarketplace))
+        //TODO: add di check
+        if (\Yii::$app->get('cmsMarketplace'))
         {
             \Yii::$app->cmsMarketplace->info;
         }
