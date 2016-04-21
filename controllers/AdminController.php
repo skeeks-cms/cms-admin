@@ -160,12 +160,12 @@ abstract class AdminController extends Controller
         }
 
         //TODO: refactor this is
-        if (\Yii::$app->cmsMarketplace)
+        if (isset(\Yii::$app->cmsMarketplace))
         {
             \Yii::$app->cmsMarketplace->info;
         }
 
-        if (\Yii::$app->admin->requestIsAdmin)
+        if (isset(\Yii::$app->admin) && \Yii::$app->admin->requestIsAdmin)
         {
             //TODO: Добавить возможность настройки
             \Yii::$app->view->theme = new Theme([
