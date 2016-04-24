@@ -134,9 +134,14 @@ class AuthController extends AdminController
             if ($user->save(false))
             {
 
-                \Yii::$app->mailer->setViewPath(\Yii::$app->cms->moduleCms->basePath . '/mail');
+                \Yii::$app->mailer->view->theme->pathMap = ArrayHelper::merge(\Yii::$app->mailer->view->theme->pathMap, [
+                    '@app/mail' =>
+                    [
+                        '@skeeks/cms/mail-templates'
+                    ]
+                ]);
 
-                \Yii::$app->mailer->compose('newPassword', ['user' => $user, 'password' => $password])
+                \Yii::$app->mailer->compose('@app/mail/new-password', ['user' => $user, 'password' => $password])
                     ->setFrom([\Yii::$app->cms->adminEmail => \Yii::$app->cms->appName])
                     ->setTo($user->email)
                     ->setSubject(\Yii::t('app','New password') . ' ' . \Yii::$app->cms->appName)
