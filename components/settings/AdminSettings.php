@@ -146,7 +146,10 @@ class AdminSettings extends Component
     {
         parent::init();
 
-        \Yii::$app->language = $this->languageCode;
+        if ($this->requestIsAdmin)
+        {
+            \Yii::$app->language = $this->languageCode;
+        }
     }
 
 

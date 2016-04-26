@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.0.0-rc1
+-----------------
+  * Fixed installation language
+
 1.0.0-beta
 -----------------
   * Fix mail bugs
