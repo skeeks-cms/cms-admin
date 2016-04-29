@@ -65,7 +65,7 @@ class OneImage extends InputWidget
 
             $additionalData['callbackEvent'] = $this->getCallbackEvent();
 
-            $this->selectFileUrl = \skeeks\cms\helpers\UrlHelper::construct('cms/tools/select-file', $additionalData)
+            $this->selectFileUrl = \skeeks\cms\helpers\UrlHelper::construct('cms/admin-tools/select-file', $additionalData)
                                         ->setSystemParam(\skeeks\cms\modules\admin\Module::SYSTEM_QUERY_EMPTY_LAYOUT, 'true')
                                         ->enableAdmin()
                                         ->toString();

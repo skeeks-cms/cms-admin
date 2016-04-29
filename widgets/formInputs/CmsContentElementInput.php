@@ -20,7 +20,7 @@ class CmsContentElementInput extends SelectModelDialogInput
     /**
      * @var string
      */
-    public $baseRoute = 'cms/tools/select-cms-element';
+    public $baseRoute = 'cms/admin-tools/select-cms-element';
 
     /**
      * @var string

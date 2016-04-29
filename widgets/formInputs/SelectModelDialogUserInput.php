@@ -30,7 +30,7 @@ class SelectModelDialogUserInput extends SelectModelDialogInput
     /**
      * @var string
      */
-    public $baseRoute = 'cms/tools/select-cms-user';
+    public $baseRoute = 'cms/admin-tools/select-cms-user';
 
     /**
      * @var string

@@ -90,11 +90,14 @@ abstract class AdminController extends Controller
                         'allow'         => true,
                         'matchCallback' => function($rule, $action)
                         {
-                            if ($permission = \Yii::$app->authManager->getPermission($this->permissionName))
+                            if ($this->permissionName)
                             {
-                                if (!\Yii::$app->user->can($permission->name))
+                                if ($permission = \Yii::$app->authManager->getPermission($this->permissionName))
                                 {
-                                    return false;
+                                    if (!\Yii::$app->user->can($permission->name))
+                                    {
+                                        return false;
+                                    }
                                 }
                             }
 
