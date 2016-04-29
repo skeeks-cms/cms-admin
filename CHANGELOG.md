@@ -1,13 +1,10 @@
 CHANGELOG
 ==============
 
-1.0.0-rc2
------------------
-  * Fixed a critical bug for downloading files by unauthorized users
-
 1.0.0-rc1
 -----------------
   * Fixed installation language
+  * Fixed a critical bug for downloading files by unauthorized users
 
 1.0.0-beta
 -----------------
