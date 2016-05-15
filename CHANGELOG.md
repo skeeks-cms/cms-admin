@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.0.0-rc2
+-----------------
+  * Added jquery mask plugin
+
 1.0.0-rc1
 -----------------
   * Fixed installation language
