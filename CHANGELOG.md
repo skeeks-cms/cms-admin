@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.0.0-rc3
+-----------------
+  * The beginning of the filters
+
 1.0.0-rc2
 -----------------
   * Added jquery mask plugin
