@@ -8,7 +8,7 @@
  * @date 11.11.2014
  * @since 1.0.0
  */
-namespace skeeks\cms\modules\admin\widgets;
+namespace skeeks\cms\modules\admin\widgets\filters;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\modules\admin\assets\AdminFormAsset;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
@@ -31,6 +31,8 @@ use yii\helpers\Url;
 class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
 {
     use AdminActiveFormTrait;
+
+    public $fieldClass = 'skeeks\cms\modules\admin\widgets\filters\FilterActiveField';
 
     public $method = 'get';
     public $usePjax = false;
@@ -90,9 +92,32 @@ HTML;
 
     public function run()
     {
+        echo <<<HTML
+
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <hr style="margin-top: 5px; margin-bottom: 15px;"/>
+                        <button type="submit" class="btn btn-default pull-left">
+                            <i class="glyphicon glyphicon-search"></i> Найти
+                        </button>
+
+
+                        <a class="btn btn-default btn-sm pull-right" href="#" style="margin-left: 10px;">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+
+                        <a class="btn btn-default btn-sm pull-right" href="#">
+                            <i class="glyphicon glyphicon-cog"></i>
+                        </a>
+
+                    </div>
+                </div>
+HTML;
         parent::run();
 
         echo <<<HTML
+
             </div>
             </div>
             </div>
@@ -102,64 +127,15 @@ HTML;
 HTML;
 ;
 
-        $this->view->registerCss(<<<CSS
-.panel-body .sx-admin-filters-form-wrapper .tab-content
-{
-    box-shadow: inset 0 1px 0 #fff/*, inset 0 0 2px -1px rgba(232,19,64, 1)*/;
-    background: #EFF3F4;
-    border-radius: 0px 4px 4px 4px;
-    border-bottom: 1px solid #adbdca;
-    border-right: 1px solid #adbdca;
-    border-top: 1px solid #adbdca;
-    border-left: 1px solid #adbdca;
-    padding: 5px;
-    border-color: #d6dfe1 #ced7d8 #969d9e #bec7c8;
-    margin-bottom: 10px;
-}
+        AdminFiltersFormAsset::register($this->view);
 
-.sx-admin-filters-form
-{
-    padding-top: 10px;
-}
-.sx-admin-filters-form .form-group:hover
-{
-    background: rgba(93, 195, 231, 0.15);
-}
-.sx-admin-filters-form-wrapper
-{
-    margin-bottom: 10px;
-}
-.sx-admin-filters-form-wrapper .form-horizontal .form-group
-{
-    margin-bottom: 0px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-}
-.sx-admin-filters-form-wrapper .nav-tabs
-{
-    border: 0px;
-}
+        $jsOptions = Json::encode([
+            'id' => $this->id
+        ]);
 
-.sx-admin-filters-form-wrapper .nav-tabs>li.active>a
-{
-    background-color: #EFF3F4;
-    border-right: 1px solid #adbdca;
-    border-left: 1px solid #adbdca;
-    border-top: 1px solid #adbdca;
-    font-weight: bold;
-}
-.sx-admin-filters-form-wrapper .nav-tabs>li>a
-{
-    border-right: 1px solid silver;
-    border-left: 1px solid silver;
-    border-top: 1px solid silver;
-}
-.sx-admin-filters-form-wrapper .nav-tabs>li
-{
-    margin-bottom: -1px;
-    margin-right: 3px;
-}
-CSS
+        $this->view->registerJs(<<<JS
+        new sx.classes.FiltersForm({$jsOptions})
+JS
 );
     }
 
@@ -185,18 +161,17 @@ HTML;
     }
 
 
+    /**
+     * @param Model $model
+     * @param string $attribute
+     * @param array $options
+     * @return FilterActiveField
+     */
     public function field($model, $attribute, $options = [])
     {
-        if (!isset($options['template']))
-        {
-            $options['template'] = "<div class='col-sm-2'>{label}</div><div class='col-sm-9'>{input}{hint}\n{error}</div><div class='col-sm-1 pull-right'>
-            <a class=\"btn btn-default btn-sm pull-right\" href=\"#\">
-                <i class=\"glyphicon glyphicon-minus\"></i>
-            </a>
-</div>";
-        }
+        $field = parent::field($model, $attribute, $options);
 
-        return parent::field($model, $attribute, $options);
+        return $field;
     }
 
 }
