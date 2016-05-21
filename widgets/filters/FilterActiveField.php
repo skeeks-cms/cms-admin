@@ -17,7 +17,7 @@ class FilterActiveField extends ActiveField
     public $options = ['class' => 'form-group sx-default-hidden'];
 
     public $template = "<div class='col-sm-2'>{label}</div><div class='col-sm-9'>{input}{hint}\n{error}</div><div class='col-sm-1 pull-right'>
-            <a class=\"btn btn-default btn-sm pull-right\" href=\"#\">
+            <a class=\"btn btn-default btn-sm pull-right sx-btn-hide-field\" href=\"#\">
                 <i class=\"glyphicon glyphicon-minus\"></i>
             </a>
 </div>";

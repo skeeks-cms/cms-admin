@@ -61,6 +61,27 @@
     margin-right: 3px;
 }
 
+.sx-admin-filters-form-wrapper .dropdown-menu:after {
+    position: absolute;
+    top: -7px;
+    right: 12px;
+    display: inline-block;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #f8f9fa;
+    border-left: 8px solid transparent;
+    content: ''
+}
+.sx-admin-filters-form-wrapper .dropdown-menu:before {
+    position: absolute;
+    top: -9.5px;
+    right: 12px;
+    display: inline-block;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #d1d4d7;
+    border-left: 8px solid transparent;
+    content: '';
+}
+
 .sx-default-hidden
 {
     display: none;

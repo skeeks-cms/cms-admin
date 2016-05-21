@@ -73,7 +73,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
                 <div class="col-md-8">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#{$this->id}-tab0" data-toggle="tab">Фильтры</a>
+                            <a href="#{$this->id}-tab0" data-toggle="tab">Фильтр</a>
                         </li>
 
                         <li>
@@ -91,6 +91,8 @@ HTML;
     public function run()
     {
 
+        //TODO::
+        $closeUrl = \Yii::$app->controller->indexUrl;
         echo <<<HTML
 
 
@@ -101,6 +103,10 @@ HTML;
                         <button type="submit" class="btn btn-default pull-left">
                             <i class="glyphicon glyphicon-search"></i> Найти
                         </button>
+
+                        <a href="{$closeUrl}" class="btn btn-default pull-left" style="margin-left: 10px;">
+                            <i class="glyphicon glyphicon-remove"></i> Отмена
+                        </a>
 
 
 
@@ -141,7 +147,7 @@ HTML;
         ]);
 
         $this->view->registerJs(<<<JS
-        new sx.classes.filters.Form({$jsOptions})
+        new sx.classes.filters.Form({$jsOptions});
 JS
 );
     }
