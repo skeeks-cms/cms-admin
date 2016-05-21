@@ -16,9 +16,15 @@
 {
     padding-top: 10px;
 }
+
 .sx-admin-filters-form .form-group:hover
 {
     background: rgba(93, 195, 231, 0.15);
+}
+
+.sx-admin-filters-form .form-group-footer:hover
+{
+    background: none;
 }
 .sx-admin-filters-form-wrapper
 {

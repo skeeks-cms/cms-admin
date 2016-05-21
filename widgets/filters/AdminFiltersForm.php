@@ -30,21 +30,17 @@ use yii\helpers\Url;
  */
 class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
 {
-    use AdminActiveFormTrait;
-
     public $fieldClass = 'skeeks\cms\modules\admin\widgets\filters\FilterActiveField';
 
+    public $namespace;
+
     public $method = 'get';
-    public $usePjax = false;
-    public $enableAjaxValidation = false;
+
     public $enableClientValidation = false;
+
     public $options = [
         'data-pjax' => true
     ];
-
-    public $useAjaxSubmit = false;
-    public $afterValidateCallback = "";
-
 
     /**
      * Initializes the widget.
@@ -52,6 +48,11 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
      */
     public function init()
     {
+        if (!$this->namespace)
+        {
+            $this->namespace = \Yii::$app->controller->uniqueId;
+        }
+
         if ($classes = ArrayHelper::getValue($this->options, 'class'))
         {
             $this->options = ArrayHelper::merge($this->options, [
@@ -67,23 +68,20 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
 
 
         echo <<<HTML
-        <div id="{$this->id}" class="sx-admin-filters-form-wrapper">
-        <div class="row">
-        <div class="col-md-8">
-        <div data-pjax-container="" data-pjax-push-state data-pjax-timeout="1000">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#w1-tab0" data-toggle="tab">Фильтры</a>
-                </li>
-                <li>
-                    <a href="#w1-tab1" data-toggle="tab1">Новые товары</a>
-                </li>
-                <li>
-                    <a href="#w1-tab1" data-toggle="tab1"> <i class="glyphicon glyphicon-plus"></i> </a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div id="w1-tab0" class="tab-pane active">
+        <div id="{$this->id}-wrapper" class="sx-admin-filters-form-wrapper">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#{$this->id}-tab0" data-toggle="tab">Фильтры</a>
+                        </li>
+
+                        <li>
+                            <a href="#{$this->id}-tab1" data-toggle="tab1"> <i class="glyphicon glyphicon-plus"></i> </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="{$this->id}-tab0" class="tab-panel active">
 
 HTML;
 
@@ -92,20 +90,30 @@ HTML;
 
     public function run()
     {
+
         echo <<<HTML
 
 
-                <div class="form-group">
+                <div class="form-group form-group-footer">
                     <div class="col-sm-12">
                         <hr style="margin-top: 5px; margin-bottom: 15px;"/>
+
                         <button type="submit" class="btn btn-default pull-left">
                             <i class="glyphicon glyphicon-search"></i> Найти
                         </button>
 
 
-                        <a class="btn btn-default btn-sm pull-right" href="#" style="margin-left: 10px;">
-                            <i class="glyphicon glyphicon-plus"></i>
-                        </a>
+
+                        <div class="dropdown pull-right sx-btn-trigger-fields" style="margin-left: 10px;">
+                            <a class="btn btn-default btn-sm dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    Фильтров нет
+                                </li>
+                           </ul>
+                        </div>
 
                         <a class="btn btn-default btn-sm pull-right" href="#">
                             <i class="glyphicon glyphicon-cog"></i>
@@ -118,8 +126,7 @@ HTML;
 
         echo <<<HTML
 
-            </div>
-            </div>
+                </div>
             </div>
         </div>
     </div>
@@ -130,15 +137,14 @@ HTML;
         AdminFiltersFormAsset::register($this->view);
 
         $jsOptions = Json::encode([
-            'id' => $this->id
+            'id'            => $this->id,
         ]);
 
         $this->view->registerJs(<<<JS
-        new sx.classes.FiltersForm({$jsOptions})
+        new sx.classes.filters.Form({$jsOptions})
 JS
 );
     }
-
 
 
     public function fieldSet($name, $options = [])
@@ -161,6 +167,8 @@ HTML;
     }
 
 
+    public $fields = [];
+
     /**
      * @param Model $model
      * @param string $attribute
@@ -170,7 +178,9 @@ HTML;
     public function field($model, $attribute, $options = [])
     {
         $field = parent::field($model, $attribute, $options);
-
+        if ($model && $attribute) {
+            $this->fields[Html::getInputId($model, $attribute)] = Html::getInputId($model, $attribute);
+        }
         return $field;
     }
 
