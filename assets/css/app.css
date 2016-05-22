@@ -468,3 +468,9 @@ a.sx-border-1px img
 {
     background: rgba(208, 208, 208, 0.5);
 }
+
+
+.modal-content
+{
+    border-top: 3px solid #20a8d8;
+}

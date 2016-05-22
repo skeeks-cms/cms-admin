@@ -15,6 +15,19 @@ return [
                     'adminPrefix' => '~sx'
                 ],
             ]
+        ],
+
+        'i18n' => [
+            'translations' =>
+            [
+                'skeeks/admin' => [
+                    'class'             => 'yii\i18n\PhpMessageSource',
+                    'basePath'          => '@skeeks/cms/modules/admin/messages',
+                    'fileMap' => [
+                        'skeeks/admin' => 'main.php',
+                    ],
+                ]
+            ]
         ]
     ],
 

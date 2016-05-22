@@ -9,20 +9,24 @@
  * @since 1.0.0
  */
 namespace skeeks\cms\modules\admin\widgets\filters;
+use skeeks\cms\base\widgets\ActiveFormAjaxSubmit;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\modules\admin\assets\AdminFormAsset;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
+use skeeks\cms\modules\admin\models\CmsAdminFilter;
 use skeeks\cms\modules\admin\traits\ActiveFormTrait;
 use skeeks\cms\modules\admin\traits\AdminActiveFormTrait;
 use skeeks\cms\traits\ActiveFormAjaxSubmitTrait;
 use skeeks\widget\chosen\Chosen;
 use yii\base\Model;
+use yii\bootstrap\Modal;
 use yii\bootstrap\Tabs;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use skeeks\cms\modules\admin\widgets\Pjax;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\jui\Dialog;
 
 /**
  * Class ActiveForm
@@ -65,26 +69,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
             ]);
         }
 
-
-
-        echo <<<HTML
-        <div id="{$this->id}-wrapper" class="sx-admin-filters-form-wrapper">
-            <div class="row">
-                <div class="col-md-8">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#{$this->id}-tab0" data-toggle="tab">Фильтр</a>
-                        </li>
-
-                        <li>
-                            <a href="#{$this->id}-tab1" data-toggle="tab1"> <i class="glyphicon glyphicon-plus"></i> </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="{$this->id}-tab0" class="tab-panel active">
-
-HTML;
-
+        echo $this->render('_header');
         parent::init();
     }
 
