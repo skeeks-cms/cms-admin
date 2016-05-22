@@ -21,6 +21,7 @@ use skeeks\widget\chosen\Chosen;
 use yii\base\Model;
 use yii\bootstrap\Modal;
 use yii\bootstrap\Tabs;
+use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use skeeks\cms\modules\admin\widgets\Pjax;
@@ -29,6 +30,8 @@ use yii\helpers\Url;
 use yii\jui\Dialog;
 
 /**
+ * @property CmsAdminFilter[] $savedFilters
+ *
  * Class ActiveForm
  * @package skeeks\cms\modules\admin\widgets
  */
@@ -46,6 +49,13 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         'data-pjax' => true
     ];
 
+    public $filter_id = null;
+
+
+    public $indexUrl = null;
+
+    public $filterParametrName = 'sx-filter';
+
     /**
      * Initializes the widget.
      * This renders the form open tag.
@@ -55,6 +65,19 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         if (!$this->namespace)
         {
             $this->namespace = \Yii::$app->controller->uniqueId;
+        }
+
+        if (!$this->indexUrl)
+        {
+            $this->indexUrl = \Yii::$app->controller->indexUrl;
+        }
+
+        if (!$this->filter_id)
+        {
+            if ($activeFilter = \Yii::$app->request->get($this->filterParametrName))
+            {
+                $this->filter_id = $activeFilter;
+            }
         }
 
         if ($classes = ArrayHelper::getValue($this->options, 'class'))
@@ -73,11 +96,38 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         parent::init();
     }
 
+    /**
+     * @return CmsAdminFilter[]
+     */
+    public function getSavedFilters()
+    {
+        $query = CmsAdminFilter::find()
+            ->where(['namespace' => $this->namespace])
+            ->andWhere([
+                'or',
+                ['cms_user_id' => null],
+                ['cms_user_id' => \Yii::$app->user->id]
+            ])
+        ;
+
+        return $query->all();
+    }
+
+    /**
+     * @param CmsAdminFilter $filter
+     * @return string
+     */
+    public function getFilterUrl(CmsAdminFilter $filter)
+    {
+        $query[$this->filterParametrName] = $filter->id;
+        return $this->indexUrl . "?" . http_build_query($query);
+    }
+
     public function run()
     {
 
-        //TODO::
-        $closeUrl = \Yii::$app->controller->indexUrl;
+        $closeUrl = $this->indexUrl;
+
         echo <<<HTML
 
 

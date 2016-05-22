@@ -2,6 +2,8 @@
 
 namespace skeeks\cms\modules\admin\models;
 
+use skeeks\cms\models\behaviors\Implode;
+use skeeks\cms\models\behaviors\Serialize;
 use skeeks\cms\models\CmsUser;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -34,6 +36,29 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
         return '{{%cms_admin_filter}}';
     }
 
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return array_merge(parent::behaviors(), [
+
+            Serialize::className() =>
+                [
+                    'class' => Serialize::className(),
+                    'fields' => ['values']
+                ],
+
+            Implode::className() =>
+                [
+                    'class' => Implode::className(),
+                    'fields' => ['visibles']
+                ],
+
+        ]);
+
+    }
+
 
     /**
      * @inheritdoc
@@ -50,8 +75,8 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => CmsUser::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => CmsUser::className(), 'targetAttribute' => ['updated_by' => 'id']],
 
-            [['cms_user_id'], 'default', null],
-            [['name'], 'default', 'filter'],
+            [['cms_user_id'], 'default', 'value' => null],
+            [['name'], 'default', 'value' => 'filter'],
         ]);
     }
 
