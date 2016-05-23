@@ -14,19 +14,22 @@ $widget = $this->context;
 $adminFilter = new \skeeks\cms\modules\admin\widgets\filters\EditFilterForm();
 $adminFilter->loadDefaultValues();
 $adminFilter->namespace = $widget->namespace;
-
-/*$adminFilter->name = 'test';
-$adminFilter->namespace = $widget->namespace;
-
-$adminFilter->save();*/
-
+$createFormId = $widget->id . '-create-filter';
 ?>
+
+
+
+
 <? $createModal = \yii\bootstrap\Modal::begin([
-    'header'    => '<b>Сохранить фильтр</b>',
-    'footer'    => '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>',
+    'header'    => '<b>' . \Yii::t('skeeks/admin', 'Save filter') . '</b>',
+    'footer'    => '
+        <button class="btn btn-primary" onclick="$(\'#' . $createFormId . '\').submit(); return false;">' . \Yii::t('app', 'Create') . '</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">' . \Yii::t('skeeks/admin', 'Close') . '</button>
+    ',
 ]);?>
 
     <? $form = \skeeks\cms\base\widgets\ActiveFormAjaxSubmit::begin([
+            'id'                => $createFormId,
             'action'            => \yii\helpers\Url::to(['/admin/admin-filter/create']),
             'validationUrl'     => \yii\helpers\Url::to(['/admin/admin-filter/validate']),
             'afterValidateCallback'     => new \yii\web\JsExpression(<<<JS
@@ -38,7 +41,7 @@ $adminFilter->save();*/
                 _.delay(function()
                 {
                     window.location.reload();
-                }, 500);
+                }, 1000);
             });
         }
 JS
@@ -47,22 +50,21 @@ JS
         <?= $form->field($adminFilter, 'name'); ?>
         <?= $form->field($adminFilter, 'is_public')->checkbox(\Yii::$app->formatter->booleanFormat); ?>
         <?= $form->field($adminFilter, 'namespace')->hiddenInput()->label(false); ?>
-        <button class="btn btn-primary"><?= \Yii::t('app', 'Create'); ?></button>
+        <button style="display: none;"></button>
     <? \skeeks\cms\base\widgets\ActiveFormAjaxSubmit::end(); ?>
 
 <? \yii\bootstrap\Modal::end();?>
+
+
+
 
 <div id="<?= $widget->id; ?>-wrapper" class="sx-admin-filters-form-wrapper">
     <div class="row">
         <div class="col-md-8">
             <ul class="nav nav-tabs">
-                <li class="<?= !$widget->filter_id ? "active" : "" ?>">
-                    <a href="#<?= $widget->id; ?>-default" data-toggle="tab">Фильтр</a>
-                </li>
-
                 <? foreach($widget->savedFilters as $filter) : ?>
-                    <li class="<?= $widget->filter_id == $filter->id ? "active" : "" ?>">
-                        <a href="<?= $widget->getFilterUrl($filter); ?>"><?= $filter->name; ?></a>
+                    <li class="<?= $widget->filter->id == $filter->id ? "active" : "" ?>">
+                        <a href="<?= $widget->getFilterUrl($filter); ?>"><?= $filter->displayName; ?></a>
                     </li>
                 <? endforeach; ?>
 

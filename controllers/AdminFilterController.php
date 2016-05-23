@@ -15,6 +15,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 /**
+ * @property CmsAdminFilter $model
+ *
  * Class AuthController
  * @package skeeks\cms\modules\admin\controllers
  */
@@ -32,6 +34,7 @@ class AdminFilterController extends AdminController
                 'actions' => [
                    'create'     => ['post'],
                    'validate'   => ['post'],
+                   'save-visibles'   => ['post'],
                 ]
             ]
         ]);
@@ -47,11 +50,10 @@ class AdminFilterController extends AdminController
             if ($model->load(\Yii::$app->request->post()) && $model->save())
             {
                 $rr->success = true;
-                $rr->message = \Yii::t('app', 'Album successfully created');
+                $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully created');
             } else
             {
                 $error = 'An error occurred in the time of saving' . Json::encode($model->getFirstErrors());
-                \Yii::error($error, 'album');
                 $rr->success = false;
                 $rr->message = \Yii::t('app', $error);
             }
@@ -61,6 +63,8 @@ class AdminFilterController extends AdminController
 
         return '1';
     }
+
+
 
     public function actionValidate()
     {
@@ -75,4 +79,62 @@ class AdminFilterController extends AdminController
         return '1';
     }
 
+
+    public function actionSaveVisibles()
+    {
+        $rr = new RequestResponse();
+
+        if ($rr->isRequestAjaxPost())
+        {
+            try
+            {
+                $model = $this->model;
+                $model->visibles = \Yii::$app->request->post('visibles');
+
+                if ($model->save())
+                {
+                    $rr->success = true;
+                    $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully created');
+                } else
+                {
+                    $error = 'An error occurred in the time of saving' . Json::encode($model->getFirstErrors());
+                    $rr->success = false;
+                    $rr->message = \Yii::t('skeeks/admin', $error);
+                }
+
+            } catch (\Exception $e)
+            {
+                $rr->success = false;
+                $rr->message = $e->getMessage();
+            }
+
+            return $rr;
+        }
+
+        return '1';
+    }
+
+
+    /**
+     * @var CmsAdminFilter
+     */
+    protected $_model = null;
+
+    /**
+     * @return CmsAdminFilter
+     */
+    public function getModel()
+    {
+        if ($this->_model !== null)
+        {
+            return $this->_model;
+        }
+
+        if ($pk = \Yii::$app->request->get('pk'))
+        {
+            $this->_model = CmsAdminFilter::findOne($pk);
+        }
+
+        return $this->_model;
+    }
 }

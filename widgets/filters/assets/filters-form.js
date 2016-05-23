@@ -58,10 +58,24 @@
                 this.JTriggerBtn
             ).appendTo(self.Form.JBtnTriggerFiedlsMenu);
 
-            if (!this.JField.hasClass('sx-default-hidden'))
+            if (this.Form.get('visibles', []).length)
             {
-                this.visible = true;
+                if (_.indexOf( this.Form.get('visibles', []), this.id) == -1 )
+                {
+                    this.JField.addClass('sx-default-hidden');
+                } else
+                {
+                    this.JField.removeClass('sx-default-hidden');
+                    this.visible = true;
+                }
+            } else
+            {
+                if (!this.JField.hasClass('sx-default-hidden'))
+                {
+                    this.visible = true;
+                }
             }
+
 
             this.update();
         },
@@ -93,7 +107,16 @@
         hide: function()
         {
             this.visible   = false;
+
+            if (this.Form.getVisibleFieldIds().length == 0)
+            {
+                this.visible   = true;
+                return this;
+            }
+
             this.update();
+
+            this.Form.saveVisibleFields();
             return this;
         },
 
@@ -101,6 +124,8 @@
         {
             this.visible   = true;
             this.update();
+
+            this.Form.saveVisibleFields();
             return this;
         },
 
@@ -120,7 +145,7 @@
 
     sx.classes.filters.Form = sx.classes.Component.extend({
 
-        _initvisibleFields: function()
+        _initFields: function()
         {
             var self = this;
 
@@ -171,9 +196,7 @@
                     Field.hide();
                 });
             });
-
         },
-
 
         /**
          * @returns {*|HTMLElement}
@@ -185,7 +208,39 @@
 
         _onDomReady: function()
         {
-            this._initvisibleFields();
+            this._initFields();
+        },
+
+        /**
+         * @returns {Array}
+         */
+        getVisibleFieldIds: function()
+        {
+            var self = this;
+
+            var visibles = [];
+            _.each(self.Fields, function(Field)
+            {
+                if (Field.visible === true)
+                {
+                    visibles.push( Field.id );
+                }
+            });
+
+            return visibles;
+        },
+
+
+        saveVisibleFields: function()
+        {
+            var self = this;
+            self.getVisibleFieldIds();
+
+            var ajaxQuery = sx.ajax.preparePostQuery(this.get('backendSaveVisibles'), {
+                'visibles' : self.getVisibleFieldIds()
+            });
+
+            ajaxQuery.execute();
         }
     });
 })(sx, sx.$, sx._);

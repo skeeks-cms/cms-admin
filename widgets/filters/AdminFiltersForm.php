@@ -18,6 +18,7 @@ use skeeks\cms\modules\admin\traits\ActiveFormTrait;
 use skeeks\cms\modules\admin\traits\AdminActiveFormTrait;
 use skeeks\cms\traits\ActiveFormAjaxSubmitTrait;
 use skeeks\widget\chosen\Chosen;
+use yii\base\Exception;
 use yii\base\Model;
 use yii\bootstrap\Modal;
 use yii\bootstrap\Tabs;
@@ -31,6 +32,7 @@ use yii\jui\Dialog;
 
 /**
  * @property CmsAdminFilter[] $savedFilters
+ * @property CmsAdminFilter $filter
  *
  * Class ActiveForm
  * @package skeeks\cms\modules\admin\widgets
@@ -49,12 +51,11 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         'data-pjax' => true
     ];
 
-    public $filter_id = null;
-
-
     public $indexUrl = null;
 
     public $filterParametrName = 'sx-filter';
+
+
 
     /**
      * Initializes the widget.
@@ -72,13 +73,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
             $this->indexUrl = \Yii::$app->controller->indexUrl;
         }
 
-        if (!$this->filter_id)
-        {
-            if ($activeFilter = \Yii::$app->request->get($this->filterParametrName))
-            {
-                $this->filter_id = $activeFilter;
-            }
-        }
+        $this->filter;
 
         if ($classes = ArrayHelper::getValue($this->options, 'class'))
         {
@@ -93,7 +88,9 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         }
 
         echo $this->render('_header');
+
         parent::init();
+
     }
 
     /**
@@ -108,9 +105,62 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
                 ['cms_user_id' => null],
                 ['cms_user_id' => \Yii::$app->user->id]
             ])
+            ->orderBy(['is_default' => SORT_DESC])
         ;
 
         return $query->all();
+    }
+
+
+    /**
+     * @var CmsAdminFilter
+     */
+    protected $_filter = null;
+
+    public function getFilter()
+    {
+        if ($this->_filter === null || !$this->_filter instanceof CmsAdminFilter)
+        {
+            //Find in get params
+            if ($activeFilterId = (int) \Yii::$app->request->get($this->filterParametrName))
+            {
+                if ($filter = CmsAdminFilter::findOne($activeFilterId))
+                {
+                    $this->_filter = $filter;
+                    return $this->_filter;
+                }
+            }
+
+            //Defauilt filter
+            $filter = CmsAdminFilter::find()
+                ->where(['namespace' => $this->namespace])
+                ->andWhere(['cms_user_id' => \Yii::$app->user->id])
+                ->andWhere(['is_default' => 1])
+                ->one()
+            ;
+
+            if (!$filter)
+            {
+                $filter = new CmsAdminFilter([
+                    'namespace' => $this->namespace,
+                    'cms_user_id' => \Yii::$app->user->id,
+                    'is_default' => 1
+                ]);
+                $filter->loadDefaultValues();
+
+                if ($filter->save())
+                {
+
+                } else
+                {
+                    throw new Exception('Filter not saved');
+                }
+            }
+
+            $this->_filter = $filter;
+        }
+
+        return $this->_filter;
     }
 
     /**
@@ -127,6 +177,8 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
     {
 
         $closeUrl = $this->indexUrl;
+
+        echo Html::tag('div', Html::hiddenInput('filterId', $this->filter->id), ['style' => 'display: none;']);
 
         echo <<<HTML
 
@@ -178,7 +230,9 @@ HTML;
         AdminFiltersFormAsset::register($this->view);
 
         $jsOptions = Json::encode([
-            'id'            => $this->id,
+            'id'                                => $this->id,
+            'backendSaveVisibles'               => Url::to(['/admin/admin-filter/save-visibles', 'pk' => $this->filter->id]),
+            'visibles'                          => $this->filter->visibles,
         ]);
 
         $this->view->registerJs(<<<JS
@@ -219,6 +273,7 @@ HTML;
     public function field($model, $attribute, $options = [])
     {
         $field = parent::field($model, $attribute, $options);
+
         if ($model && $attribute) {
             $this->fields[Html::getInputId($model, $attribute)] = Html::getInputId($model, $attribute);
         }

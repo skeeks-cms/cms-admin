@@ -17,6 +17,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $cms_user_id
+ * @property integer $is_default
  * @property string $name
  * @property string $namespace
  * @property string $values
@@ -25,6 +26,8 @@ use yii\helpers\ArrayHelper;
  * @property CmsUser $cmsUser
  * @property CmsUser $createdBy
  * @property CmsUser $updatedBy
+ *
+ * @property string $displayName
  */
 class CmsAdminFilter extends \skeeks\cms\models\Core
 {
@@ -66,8 +69,8 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['created_by', 'updated_by', 'created_at', 'updated_at', 'cms_user_id'], 'integer'],
-            [['name', 'namespace'], 'required'],
+            [['created_by', 'updated_by', 'created_at', 'updated_at', 'cms_user_id', 'is_default'], 'integer'],
+            [['namespace'], 'required'],
             [['values', 'visibles'], 'safe'],
             [['name'], 'string', 'max' => 64],
             [['namespace'], 'string', 'max' => 255],
@@ -76,7 +79,8 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => CmsUser::className(), 'targetAttribute' => ['updated_by' => 'id']],
 
             [['cms_user_id'], 'default', 'value' => null],
-            [['name'], 'default', 'value' => 'filter'],
+            [['name'], 'default', 'value' => null],
+            [['is_default'], 'default', 'value' => null],
         ]);
     }
 
@@ -96,7 +100,21 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
             'namespace' => Yii::t('skeeks/admin', 'Namespace'),
             'values' => Yii::t('skeeks/admin', 'Values filters'),
             'visibles' => Yii::t('skeeks/admin', 'Visible fields'),
+            'is_default' => Yii::t('skeeks/admin', 'Is Default'),
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        if (!$this->name)
+        {
+            return \Yii::t('skeeks/admin', 'Filter');
+        }
+
+        return $this->name;
     }
 
     /**

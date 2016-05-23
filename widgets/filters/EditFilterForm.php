@@ -44,6 +44,7 @@ class EditFilterForm extends CmsAdminFilter
     {
         return ArrayHelper::merge(parent::rules(), [
             [['is_public'], 'integer'],
+            [['name'], 'required'],
         ]);
     }
 
