@@ -156,6 +156,8 @@
             this.JBtnDeleteFilter       = $('.sx-btn-filter-delete', this.getWrapper());
             this.JBtnSaveValuesFilter       = $('.sx-btn-filter-save-values', this.getWrapper());
             this.JBtnCloseFilter       = $('.sx-btn-filter-close', this.getWrapper());
+            this.JBtnSaveAs       = $('.sx-btn-filter-save-as', this.getWrapper());
+
             this.JBtnTab       = $('.sx-tab', this.getWrapper());
             this.JForm       = $('form', this.getWrapper());
 
@@ -225,11 +227,18 @@
                 sx.block(self.JForm);
             });
 
+            this.JBtnSaveAs.on('click', function()
+            {
+
+                //return false;
+            });
+
 
             $('input, select, radio, checkbox', this.getWrapper()).on('change', function()
             {
                 self.JBtnCloseFilter.show();
             });
+
         },
 
         /**
@@ -286,7 +295,10 @@
 
             var ajaxQuery = sx.ajax.preparePostQuery(this.get('backendDelete'));
 
+
             var Handler = new sx.classes.AjaxHandlerStandartRespose(ajaxQuery);
+            new sx.classes.AjaxHandlerNoLoader(ajaxQuery);
+
             Handler.bind('success', function()
             {
                 $('.modal').modal('hide');
