@@ -35,6 +35,7 @@ class AdminFilterController extends AdminController
                    'create'     => ['post'],
                    'validate'   => ['post'],
                    'save-visibles'   => ['post'],
+                   'save'   => ['post'],
                 ]
             ]
         ]);
@@ -114,6 +115,39 @@ class AdminFilterController extends AdminController
         return '1';
     }
 
+    public function actionSave()
+    {
+        $rr = new RequestResponse();
+
+        if ($rr->isRequestAjaxPost())
+        {
+            try
+            {
+                $model = $this->model;
+
+                if ($model->load(\Yii::$app->request->post()) && $model->save())
+                {
+                    $rr->success = true;
+                    $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully saved');
+                } else
+                {
+                    $error = 'An error occurred in the time of saving' . serialize($model->getFirstErrors());
+                    $rr->success = false;
+                    $rr->message = \Yii::t('skeeks/admin', $error);
+                }
+
+            } catch (\Exception $e)
+            {
+                $rr->success = false;
+                $rr->message = $e->getMessage();
+            }
+
+            return $rr;
+        }
+
+        return '1';
+    }
+
 
     /**
      * @var CmsAdminFilter
@@ -131,6 +165,11 @@ class AdminFilterController extends AdminController
         }
 
         if ($pk = \Yii::$app->request->get('pk'))
+        {
+            $this->_model = CmsAdminFilter::findOne($pk);
+        }
+
+        if ($pk = \Yii::$app->request->post('pk'))
         {
             $this->_model = CmsAdminFilter::findOne($pk);
         }

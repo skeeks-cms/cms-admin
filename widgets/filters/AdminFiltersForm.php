@@ -56,7 +56,6 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
     public $filterParametrName = 'sx-filter';
 
 
-
     /**
      * Initializes the widget.
      * This renders the form open tag.
@@ -180,41 +179,8 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
 
         echo Html::tag('div', Html::hiddenInput('filterId', $this->filter->id), ['style' => 'display: none;']);
 
-        echo <<<HTML
+        echo $this->render('_footer-group');
 
-
-                <div class="form-group form-group-footer">
-                    <div class="col-sm-12">
-                        <hr style="margin-top: 5px; margin-bottom: 15px;"/>
-
-                        <button type="submit" class="btn btn-default pull-left">
-                            <i class="glyphicon glyphicon-search"></i> Найти
-                        </button>
-
-                        <a href="{$closeUrl}" class="btn btn-default pull-left" style="margin-left: 10px;">
-                            <i class="glyphicon glyphicon-remove"></i> Отмена
-                        </a>
-
-
-
-                        <div class="dropdown pull-right sx-btn-trigger-fields" style="margin-left: 10px;">
-                            <a class="btn btn-default btn-sm dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="glyphicon glyphicon-plus"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    Фильтров нет
-                                </li>
-                           </ul>
-                        </div>
-
-                        <a class="btn btn-default btn-sm pull-right" href="#">
-                            <i class="glyphicon glyphicon-cog"></i>
-                        </a>
-
-                    </div>
-                </div>
-HTML;
         parent::run();
 
         echo <<<HTML
@@ -226,6 +192,8 @@ HTML;
 </div>
 HTML;
 ;
+
+        echo $this->render('_edit-filter-form');
 
         AdminFiltersFormAsset::register($this->view);
 
@@ -241,6 +209,11 @@ JS
 );
     }
 
+
+    public function getEditFilterFormModalId()
+    {
+        return $this->id . '-modal-update-filter';
+    }
 
     public function fieldSet($name, $options = [])
     {
