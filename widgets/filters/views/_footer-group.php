@@ -22,7 +22,7 @@ $editModalId = $widget->id . '-modal-update-filter';
             <i class="glyphicon glyphicon-search"></i> Найти
         </button>
 
-        <a href="<?= $widget->indexUrl; ?>" class="btn btn-default pull-left" style="margin-left: 10px;">
+        <a href="<?= $widget->getFilterUrl($widget->filter); ?>" class="btn btn-default pull-left sx-btn-filter-close" style="margin-left: 10px;">
             <i class="glyphicon glyphicon-remove"></i> Отмена
         </a>
 
@@ -48,14 +48,14 @@ $editModalId = $widget->id . '-modal-update-filter';
                     <a href="#<?= $widget->getEditFilterFormModalId(); ?>" data-toggle="modal" data-target="#<?= $widget->getEditFilterFormModalId(); ?>"><i class="glyphicon glyphicon-pencil"></i> <?= \Yii::t('skeeks/admin', 'Edit'); ?></a>
                 </li>
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-ok-circle"></i> <?= \Yii::t('skeeks/admin', 'Save'); ?></a>
+                    <a href="#" class="sx-btn-filter-save-values"><i class="glyphicon glyphicon-ok-circle"></i> <?= \Yii::t('skeeks/admin', 'Save'); ?></a>
                 </li>
                 <li>
                     <a href="#"><i class="glyphicon glyphicon-ok-sign"></i> <?= \Yii::t('skeeks/admin', 'Save as'); ?></a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-remove"></i> <?= \Yii::t('skeeks/admin', 'Delete'); ?></a>
+                    <a href="#" class="sx-btn-filter-delete"><i class="glyphicon glyphicon-remove"></i> <?= \Yii::t('skeeks/admin', 'Delete'); ?></a>
                 </li>
            </ul>
         </div>

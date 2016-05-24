@@ -11,7 +11,7 @@
 /* @var $filter \skeeks\cms\modules\admin\models\CmsAdminFilter */
 $widget = $this->context;
 
-$adminFilter = new \skeeks\cms\modules\admin\widgets\filters\EditFilterForm();
+$adminFilter = new \skeeks\cms\modules\admin\models\CmsAdminFilter();
 $adminFilter->loadDefaultValues();
 $adminFilter->namespace = $widget->namespace;
 $createFormId = $widget->id . '-create-filter';
@@ -48,7 +48,7 @@ JS
             )
         ]); ?>
         <?= $form->field($adminFilter, 'name'); ?>
-        <?= $form->field($adminFilter, 'is_public')->checkbox(\Yii::$app->formatter->booleanFormat); ?>
+        <?= $form->field($adminFilter, 'isPublic')->checkbox(\Yii::$app->formatter->booleanFormat); ?>
         <?= $form->field($adminFilter, 'namespace')->hiddenInput()->label(false); ?>
         <button style="display: none;"></button>
     <? \skeeks\cms\base\widgets\ActiveFormAjaxSubmit::end(); ?>
@@ -63,7 +63,7 @@ JS
         <div class="col-md-8">
             <ul class="nav nav-tabs">
                 <? foreach($widget->savedFilters as $filter) : ?>
-                    <li class="<?= $widget->filter->id == $filter->id ? "active" : "" ?>">
+                    <li class="sx-tab <?= $widget->filter->id == $filter->id ? "active" : "" ?>">
                         <a href="<?= $widget->getFilterUrl($filter); ?>"><?= $filter->displayName; ?></a>
                     </li>
                 <? endforeach; ?>

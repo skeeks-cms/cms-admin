@@ -153,6 +153,11 @@
 
             this.JBtnTriggerFiedls      = $('.sx-btn-trigger-fields', this.getWrapper());
             this.JBtnTriggerFiedlsMenu  = $('.dropdown-menu', this.JBtnTriggerFiedls);
+            this.JBtnDeleteFilter       = $('.sx-btn-filter-delete', this.getWrapper());
+            this.JBtnSaveValuesFilter       = $('.sx-btn-filter-save-values', this.getWrapper());
+            this.JBtnCloseFilter       = $('.sx-btn-filter-close', this.getWrapper());
+            this.JBtnTab       = $('.sx-tab', this.getWrapper());
+            this.JForm       = $('form', this.getWrapper());
 
             this.JBtnTriggerFiedlsMenu.empty();
 
@@ -189,12 +194,41 @@
                     Field.show();
                 });
             });
+
             this.JBtnHideAll.on('click', function()
             {
                 _.each(self.Fields, function(Field)
                 {
                     Field.hide();
                 });
+            });
+
+            this.JBtnDeleteFilter.on('click', function()
+            {
+                self.actionDelete();
+                return false;
+            });
+
+            this.JBtnSaveValuesFilter.on('click', function()
+            {
+                self.actionSaveValues();
+                return false;
+            });
+
+            this.JBtnTab.on('click', function()
+            {
+                sx.block(self.JForm);
+            });
+
+            this.JBtnCloseFilter.on('click', function()
+            {
+                sx.block(self.JForm);
+            });
+
+
+            $('input, select, radio, checkbox', this.getWrapper()).on('change', function()
+            {
+                self.JBtnCloseFilter.show();
             });
         },
 
@@ -238,6 +272,54 @@
 
             var ajaxQuery = sx.ajax.preparePostQuery(this.get('backendSaveVisibles'), {
                 'visibles' : self.getVisibleFieldIds()
+            });
+
+            new sx.classes.AjaxHandlerNoLoader(ajaxQuery);
+            ajaxQuery.execute();
+        },
+
+        actionDelete: function()
+        {
+            var self = this;
+            self.getVisibleFieldIds();
+            sx.block(self.JForm);
+
+            var ajaxQuery = sx.ajax.preparePostQuery(this.get('backendDelete'));
+
+            var Handler = new sx.classes.AjaxHandlerStandartRespose(ajaxQuery);
+            Handler.bind('success', function()
+            {
+                $('.modal').modal('hide');
+
+                _.delay(function()
+                {
+                    window.location.href = self.get('indexUrl');
+                }, 1000);
+            });
+
+            ajaxQuery.execute();
+        },
+
+        actionSaveValues: function()
+        {
+            var self = this;
+            self.getVisibleFieldIds();
+
+            sx.block(self.JForm);
+
+            var ajaxQuery = sx.ajax.preparePostQuery(this.get('backendSaveValues'), {
+                'values' : self.JForm.serialize()
+            });
+
+            var Handler = new sx.classes.AjaxHandlerStandartRespose(ajaxQuery);
+            new sx.classes.AjaxHandlerNoLoader(ajaxQuery);
+
+            Handler.bind('success', function()
+            {
+                _.delay(function()
+                {
+                    window.location.reload();
+                }, 1000);
             });
 
             ajaxQuery.execute();

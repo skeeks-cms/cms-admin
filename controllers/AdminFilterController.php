@@ -36,6 +36,7 @@ class AdminFilterController extends AdminController
                    'validate'   => ['post'],
                    'save-visibles'   => ['post'],
                    'save'   => ['post'],
+                   'delete'   => ['post'],
                 ]
             ]
         ]);
@@ -47,7 +48,7 @@ class AdminFilterController extends AdminController
 
         if ($rr->isRequestAjaxPost())
         {
-            $model = new EditFilterForm();
+            $model = new CmsAdminFilter();
             if ($model->load(\Yii::$app->request->post()) && $model->save())
             {
                 $rr->success = true;
@@ -115,6 +116,45 @@ class AdminFilterController extends AdminController
         return '1';
     }
 
+
+    public function actionSaveValues()
+    {
+        $rr = new RequestResponse();
+
+        if ($rr->isRequestAjaxPost())
+        {
+            try
+            {
+                $model = $this->model;
+                $values = [];
+                parse_str(\Yii::$app->request->post('values'), $values);
+                ArrayHelper::remove($values, 'sx-filter');
+                ArrayHelper::remove($values, '_pjax');
+                $model->values = $values;
+
+                if ($model->save())
+                {
+                    $rr->success = true;
+                    $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully saved');
+                } else
+                {
+                    $error = 'An error occurred in the time of saving' . Json::encode($model->getFirstErrors());
+                    $rr->success = false;
+                    $rr->message = \Yii::t('skeeks/admin', $error);
+                }
+
+            } catch (\Exception $e)
+            {
+                $rr->success = false;
+                $rr->message = $e->getMessage();
+            }
+
+            return $rr;
+        }
+
+        return '1';
+    }
+
     public function actionSave()
     {
         $rr = new RequestResponse();
@@ -129,6 +169,40 @@ class AdminFilterController extends AdminController
                 {
                     $rr->success = true;
                     $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully saved');
+                } else
+                {
+                    $error = 'An error occurred in the time of saving' . serialize($model->getFirstErrors());
+                    $rr->success = false;
+                    $rr->message = \Yii::t('skeeks/admin', $error);
+                }
+
+            } catch (\Exception $e)
+            {
+                $rr->success = false;
+                $rr->message = $e->getMessage();
+            }
+
+            return $rr;
+        }
+
+        return '1';
+    }
+
+
+    public function actionDelete()
+    {
+        $rr = new RequestResponse();
+
+        if ($rr->isRequestAjaxPost())
+        {
+            try
+            {
+                $model = $this->model;
+
+                if ($model && $model->delete())
+                {
+                    $rr->success = true;
+                    $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully deleted');
                 } else
                 {
                     $error = 'An error occurred in the time of saving' . serialize($model->getFirstErrors());

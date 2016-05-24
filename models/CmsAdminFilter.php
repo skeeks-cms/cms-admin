@@ -23,6 +23,8 @@ use yii\helpers\ArrayHelper;
  * @property string $values
  * @property string $visibles
  *
+ * @property integer $isPublic
+ *
  * @property CmsUser $cmsUser
  * @property CmsUser $createdBy
  * @property CmsUser $updatedBy
@@ -31,6 +33,7 @@ use yii\helpers\ArrayHelper;
  */
 class CmsAdminFilter extends \skeeks\cms\models\Core
 {
+
     /**
      * @inheritdoc
      */
@@ -38,6 +41,26 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
     {
         return '{{%cms_admin_filter}}';
     }
+
+    public function init()
+    {
+        parent::init();
+
+        $this->on(static::EVENT_BEFORE_INSERT, [$this, '_brefreSavePublic']);
+        $this->on(static::EVENT_BEFORE_UPDATE, [$this, '_brefreSavePublic']);
+    }
+
+    public function _brefreSavePublic($e)
+    {
+        if ($this->isPublic == 1)
+        {
+            $this->cms_user_id = null;
+        } else if ($this->isPublic !== null)
+        {
+            $this->cms_user_id = \Yii::$app->user->id;
+        }
+    }
+
 
     /**
      * @return array
@@ -59,8 +82,11 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
                 ],
 
         ]);
-
     }
+
+
+
+
 
 
     /**
@@ -81,6 +107,8 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
             [['cms_user_id'], 'default', 'value' => null],
             [['name'], 'default', 'value' => null],
             [['is_default'], 'default', 'value' => null],
+
+            [['isPublic'], 'safe'],
         ]);
     }
 
@@ -101,7 +129,21 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
             'values' => Yii::t('skeeks/admin', 'Values filters'),
             'visibles' => Yii::t('skeeks/admin', 'Visible fields'),
             'is_default' => Yii::t('skeeks/admin', 'Is Default'),
+            'isPublic' => \Yii::t('skeeks/admin', 'Available for all'),
         ]);
+    }
+
+
+    protected $_isPublic = null;
+
+    public function getIsPublic()
+    {
+        return $this->_isPublic;
+    }
+
+    public function setIsPublic($value)
+    {
+        $this->_isPublic = $value;
     }
 
     /**

@@ -12,7 +12,7 @@ $widget = $this->context;
 ?>
 
 <?
-$modelEdit = new \skeeks\cms\modules\admin\widgets\filters\EditFilterForm($widget->filter->toArray());
+$modelEdit = new \skeeks\cms\modules\admin\models\CmsAdminFilter($widget->filter->toArray());
 
 $updateFormId = $widget->id . '-update-filter';
 $updateModal = \yii\bootstrap\Modal::begin([
@@ -45,7 +45,7 @@ JS
         ]); ?>
         <?= \yii\helpers\Html::hiddenInput('pk', $modelEdit->id); ?>
         <?= $form->field($modelEdit, 'name'); ?>
-        <?= $form->field($modelEdit, 'is_public')->checkbox(\Yii::$app->formatter->booleanFormat); ?>
+        <?= $form->field($modelEdit, 'isPublic')->checkbox(\Yii::$app->formatter->booleanFormat); ?>
         <button style="display: none;"></button>
     <? \skeeks\cms\base\widgets\ActiveFormAjaxSubmit::end(); ?>
 

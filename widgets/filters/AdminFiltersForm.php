@@ -54,6 +54,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
     public $indexUrl = null;
 
     public $filterParametrName = 'sx-filter';
+    public $filterApplyedParametrName = 'sx-applyed';
 
 
     /**
@@ -73,6 +74,17 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         }
 
         $this->filter;
+
+        /*$getValues  = \Yii::$app->request->get();
+        $values     = $this->filter->values;
+
+        if ($values)
+        {
+            $values = ArrayHelper::merge($values, $getValues);
+        }
+
+        print_r($values);
+        \Yii::$app->request->setQueryParams($values);*/
 
         if ($classes = ArrayHelper::getValue($this->options, 'class'))
         {
@@ -127,6 +139,10 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
                 {
                     $this->_filter = $filter;
                     return $this->_filter;
+                } else
+                {
+                    \Yii::$app->response->redirect($this->indexUrl);
+                    \Yii::$app->end();
                 }
             }
 
@@ -168,7 +184,13 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
      */
     public function getFilterUrl(CmsAdminFilter $filter)
     {
+        if ($filter->values)
+        {
+            $query = $filter->values;
+        }
+
         $query[$this->filterParametrName] = $filter->id;
+
         return $this->indexUrl . "?" . http_build_query($query);
     }
 
@@ -177,7 +199,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
 
         $closeUrl = $this->indexUrl;
 
-        echo Html::tag('div', Html::hiddenInput('filterId', $this->filter->id), ['style' => 'display: none;']);
+        Html::hiddenInput($this->filterApplyedParametrName, '1');
 
         echo $this->render('_footer-group');
 
@@ -200,7 +222,10 @@ HTML;
         $jsOptions = Json::encode([
             'id'                                => $this->id,
             'backendSaveVisibles'               => Url::to(['/admin/admin-filter/save-visibles', 'pk' => $this->filter->id]),
+            'backendSaveValues'                 => Url::to(['/admin/admin-filter/save-values', 'pk' => $this->filter->id]),
+            'backendDelete'                     => Url::to(['/admin/admin-filter/delete', 'pk' => $this->filter->id]),
             'visibles'                          => $this->filter->visibles,
+            'indexUrl'                          => $this->indexUrl,
         ]);
 
         $this->view->registerJs(<<<JS

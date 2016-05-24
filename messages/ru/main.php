@@ -6,4 +6,8 @@ return [
     'Save filter' => 'Сохранить фильтр',
     'Close' => 'Закрыть',
     'Filter was successfully created' => 'Фильтр успешно создан',
+    'Edit' => 'Редактировать',
+    'Save' => 'Сохранить',
+    'Save as' => 'Сохранить как',
+    'Delete' => 'Удалить',
 ];
