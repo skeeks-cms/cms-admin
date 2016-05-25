@@ -239,6 +239,8 @@ HTML;
             'backendDelete'                     => Url::to(['/admin/admin-filter/delete', 'pk' => $this->filter->id]),
             'visibles'                          => $this->filter->visibles,
             'indexUrl'                          => $this->indexUrl,
+            'showAllTitle'                      => \Yii::t('skeeks/admin', 'Show all conditions'),
+            'hideAllTitle'                      => \Yii::t('skeeks/admin', 'Hide all conditions'),
         ]);
 
         $this->view->registerJs(<<<JS

@@ -111,7 +111,7 @@ class AdminFilterController extends AdminController
                 if ($model->save())
                 {
                     $rr->success = true;
-                    $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully created');
+                    $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully saved');
                 } else
                 {
                     $error = 'An error occurred in the time of saving' . Json::encode($model->getFirstErrors());

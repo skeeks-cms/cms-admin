@@ -82,6 +82,8 @@ class AdminModelEditorCreateAction extends AdminModelEditorAction
             }
         }
 
+        $model->loadDefaultValues();
+
         $rr = new RequestResponse();
 
         if (\Yii::$app->request->isAjax && !\Yii::$app->request->isPjax)

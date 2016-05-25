@@ -181,11 +181,11 @@
 
             this.JBtnShowAll = $('<a>', {
                 'href' : '#',
-            }).append("Показать все условия");
+            }).append(this.get('showAllTitle'));
 
             this.JBtnHideAll = $('<a>', {
                 'href' : '#',
-            }).append("Скрыть все условия");
+            }).append(this.get('hideAllTitle'));
 
             $('<li>').append(
                 this.JBtnShowAll

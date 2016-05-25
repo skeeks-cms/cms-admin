@@ -19,11 +19,11 @@ $editModalId = $widget->id . '-modal-update-filter';
         <hr style="margin-top: 5px; margin-bottom: 15px;"/>
 
         <button type="submit" class="btn btn-default pull-left">
-            <i class="glyphicon glyphicon-search"></i> Найти
+            <i class="glyphicon glyphicon-search"></i> <?= \Yii::t('skeeks/admin', 'To find'); ?>
         </button>
 
         <a href="<?= $widget->getFilterUrl($widget->filter); ?>" class="btn btn-default pull-left sx-btn-filter-close" style="margin-left: 10px;">
-            <i class="glyphicon glyphicon-remove"></i> Отмена
+            <i class="glyphicon glyphicon-remove"></i> <?= \Yii::t('skeeks/admin', 'Close'); ?>
         </a>
 
 
@@ -34,7 +34,7 @@ $editModalId = $widget->id . '-modal-update-filter';
             </a>
             <ul class="dropdown-menu">
                 <li>
-                    Фильтров нет
+                    <?= \Yii::t('skeeks/admin', 'No filters'); ?>
                 </li>
            </ul>
         </div>
