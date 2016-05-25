@@ -89,7 +89,7 @@ class AdminFilterController extends AdminController
 
         if ($rr->isRequestAjaxPost())
         {
-            $model = new EditFilterForm();
+            $model = new CmsAdminFilter();
             return $rr->ajaxValidateForm($model);
         }
 

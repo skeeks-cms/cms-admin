@@ -73,7 +73,7 @@ JS
                 <? endforeach; ?>
 
                 <li>
-                    <a href="#<?= $createModal->id; ?>" class="sx-btn-create">
+                    <a href="#<?= $createModal->id; ?>" class="sx-btn-filter-create">
                         <i class="glyphicon glyphicon-plus"></i>
                     </a>
                 </li>

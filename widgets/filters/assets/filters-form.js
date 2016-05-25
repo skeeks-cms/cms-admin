@@ -92,6 +92,8 @@
 
                 this.JTriggerBtn.empty().append(' + ' + this.name);
                 this.JTriggerBtn.addClass('sx-hidden');
+
+                 $('input, checkbox, radio, select', self.JField).attr('disabled', false);
             } else
             {
                 this.JField.slideUp('fast', function(){
@@ -101,6 +103,8 @@
 
                 this.JTriggerBtn.empty().append(this.name);
                 this.JTriggerBtn.addClass('sx-visible');
+
+                $('input, checkbox, radio, select', self.JField).attr('disabled', 'disabled');
             }
         },
 
@@ -157,7 +161,7 @@
             this.JBtnSaveValuesFilter       = $('.sx-btn-filter-save-values', this.getWrapper());
             this.JBtnCloseFilter       = $('.sx-btn-filter-close', this.getWrapper());
             this.JBtnSaveAs       = $('.sx-btn-filter-save-as', this.getWrapper());
-            this.JBtnCreate       = $('.sx-btn-create', this.getWrapper());
+            this.JBtnCreate       = $('.sx-btn-filter-create', this.getWrapper());
             this.JCreateModal       = $('#' + this.get('createModalId'));
 
             this.JBtnTab       = $('.sx-tab', this.getWrapper());

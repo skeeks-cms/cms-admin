@@ -10,6 +10,7 @@
  */
 namespace skeeks\cms\modules\admin\widgets\filters;
 use skeeks\cms\base\widgets\ActiveFormAjaxSubmit;
+use skeeks\cms\helpers\StringHelper;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\modules\admin\assets\AdminFormAsset;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
@@ -184,14 +185,25 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
      */
     public function getFilterUrl(CmsAdminFilter $filter)
     {
+        $query = [];
+        $url = $this->indexUrl;
+
+        if ($pos = strpos($this->indexUrl, "?"))
+        {
+            $url = StringHelper::substr($this->indexUrl, 0, $pos);
+            $stringQuery = StringHelper::substr($this->indexUrl, $pos + 1, StringHelper::strlen($this->indexUrl));
+            parse_str($stringQuery, $query);
+        }
+
         if ($filter->values)
         {
-            $query = $filter->values;
+            $query = ArrayHelper::merge($query, $filter->values);
         }
 
         $query[$this->filterParametrName] = $filter->id;
 
-        return $this->indexUrl . "?" . http_build_query($query);
+
+        return $url . "?" . http_build_query($query);
     }
 
     public function run()
@@ -199,7 +211,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
 
         $closeUrl = $this->indexUrl;
 
-        Html::hiddenInput($this->filterApplyedParametrName, '1');
+        echo Html::hiddenInput($this->filterParametrName, $this->filter->id);
 
         echo $this->render('_footer-group');
 
