@@ -157,6 +157,8 @@
             this.JBtnSaveValuesFilter       = $('.sx-btn-filter-save-values', this.getWrapper());
             this.JBtnCloseFilter       = $('.sx-btn-filter-close', this.getWrapper());
             this.JBtnSaveAs       = $('.sx-btn-filter-save-as', this.getWrapper());
+            this.JBtnCreate       = $('.sx-btn-create', this.getWrapper());
+            this.JCreateModal       = $('#' + this.get('createModalId'));
 
             this.JBtnTab       = $('.sx-tab', this.getWrapper());
             this.JForm       = $('form', this.getWrapper());
@@ -229,8 +231,12 @@
 
             this.JBtnSaveAs.on('click', function()
             {
+                self.actionSaveAs();
+            });
 
-                //return false;
+            this.JBtnCreate.on('click', function()
+            {
+                self.actionCreate();
             });
 
 
@@ -335,6 +341,33 @@
             });
 
             ajaxQuery.execute();
+        },
+
+        actionSaveAs: function()
+        {
+            var self = this;
+            self.JCreateModal.modal('show');
+
+            var JCreateForm = $('form', self.JCreateModal);
+            var JVisiblesInput = $('input[name=visibles]', JCreateForm);
+            var JValuesInput = $('input[name=values]', JCreateForm);
+
+
+            JValuesInput.val(self.JForm.serialize());
+            JVisiblesInput.val(self.getVisibleFieldIds().join(','));
+        },
+
+        actionCreate: function()
+        {
+            var self = this;
+            self.JCreateModal.modal('show');
+
+            var JCreateForm = $('form', self.JCreateModal);
+            var JVisiblesInput = $('input[name=visibles]', JCreateForm);
+            var JValuesInput = $('input[name=values]', JCreateForm);
+
+            JValuesInput.val('');
+            JVisiblesInput.val('');
         }
     });
 })(sx, sx.$, sx._);

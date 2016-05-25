@@ -221,6 +221,7 @@ HTML;
 
         $jsOptions = Json::encode([
             'id'                                => $this->id,
+            'createModalId'                     => $this->getCreateModalId(),
             'backendSaveVisibles'               => Url::to(['/admin/admin-filter/save-visibles', 'pk' => $this->filter->id]),
             'backendSaveValues'                 => Url::to(['/admin/admin-filter/save-values', 'pk' => $this->filter->id]),
             'backendDelete'                     => Url::to(['/admin/admin-filter/delete', 'pk' => $this->filter->id]),
@@ -238,6 +239,11 @@ JS
     public function getEditFilterFormModalId()
     {
         return $this->id . '-modal-update-filter';
+    }
+
+    public function getCreateModalId()
+    {
+        return $this->id . '-modal-create-filter';
     }
 
     public function fieldSet($name, $options = [])

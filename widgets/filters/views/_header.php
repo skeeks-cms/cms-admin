@@ -21,6 +21,7 @@ $createFormId = $widget->id . '-create-filter';
 
 
 <? $createModal = \yii\bootstrap\Modal::begin([
+    'id'        => $widget->getCreateModalId(),
     'header'    => '<b>' . \Yii::t('skeeks/admin', 'Save filter') . '</b>',
     'footer'    => '
         <button class="btn btn-primary" onclick="$(\'#' . $createFormId . '\').submit(); return false;">' . \Yii::t('app', 'Create') . '</button>
@@ -50,6 +51,9 @@ JS
         <?= $form->field($adminFilter, 'name'); ?>
         <?= $form->field($adminFilter, 'isPublic')->checkbox(\Yii::$app->formatter->booleanFormat); ?>
         <?= $form->field($adminFilter, 'namespace')->hiddenInput()->label(false); ?>
+
+        <?= \yii\bootstrap\Html::hiddenInput('visibles'); ?>
+        <?= \yii\bootstrap\Html::hiddenInput('values'); ?>
         <button style="display: none;"></button>
     <? \skeeks\cms\base\widgets\ActiveFormAjaxSubmit::end(); ?>
 
@@ -69,7 +73,7 @@ JS
                 <? endforeach; ?>
 
                 <li>
-                    <a href="#<?= $createModal->id; ?>" data-toggle="modal" data-target="#<?= $createModal->id; ?>">
+                    <a href="#<?= $createModal->id; ?>" class="sx-btn-create">
                         <i class="glyphicon glyphicon-plus"></i>
                     </a>
                 </li>

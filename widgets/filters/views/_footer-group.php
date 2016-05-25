@@ -46,7 +46,7 @@ $editModalId = $widget->id . '-modal-update-filter';
             <ul class="dropdown-menu">
                 <? if ($widget->filter->is_default) : ?>
                     <li>
-                        <a href="#"><i class="glyphicon glyphicon-ok-sign sx-btn-filter-save-as"></i> <?= \Yii::t('skeeks/admin', 'Save as'); ?></a>
+                        <a href="#" class="sx-btn-filter-save-as"><i class="glyphicon glyphicon-ok-sign"></i> <?= \Yii::t('skeeks/admin', 'Save as'); ?></a>
                     </li>
                     <li>
                         <a href="#" class="sx-btn-filter-delete"><i class="glyphicon glyphicon-remove"></i> <?= \Yii::t('skeeks/admin', 'Reset'); ?></a>
@@ -59,7 +59,7 @@ $editModalId = $widget->id . '-modal-update-filter';
                         <a href="#" class="sx-btn-filter-save-values"><i class="glyphicon glyphicon-ok-circle"></i> <?= \Yii::t('skeeks/admin', 'Save'); ?></a>
                     </li>
                     <li>
-                        <a href="#"><i class="glyphicon glyphicon-ok-sign sx-btn-filter-save-as"></i> <?= \Yii::t('skeeks/admin', 'Save as'); ?></a>
+                        <a href="#" class="sx-btn-filter-save-as"><i class="glyphicon glyphicon-ok-sign"></i> <?= \Yii::t('skeeks/admin', 'Save as'); ?></a>
                     </li>
                     <li class="divider"></li>
                     <li>

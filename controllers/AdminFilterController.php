@@ -51,6 +51,21 @@ class AdminFilterController extends AdminController
             $model = new CmsAdminFilter();
             if ($model->load(\Yii::$app->request->post()) && $model->save())
             {
+                if (\Yii::$app->request->post('visibles'))
+                {
+                    $model->visibles = explode(',', \Yii::$app->request->post('visibles'));
+                }
+
+                if ($values = \Yii::$app->request->post('values'))
+                {
+                    parse_str(\Yii::$app->request->post('values'), $values);
+                    ArrayHelper::remove($values, 'sx-filter');
+                    ArrayHelper::remove($values, '_pjax');
+                    $model->values = $values;
+                }
+
+                $model->save();
+
                 $rr->success = true;
                 $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully created');
             } else
