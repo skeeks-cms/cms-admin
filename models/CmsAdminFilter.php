@@ -42,25 +42,6 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
         return '{{%cms_admin_filter}}';
     }
 
-    public function init()
-    {
-        parent::init();
-
-        $this->on(static::EVENT_BEFORE_INSERT, [$this, '_brefreSavePublic']);
-        $this->on(static::EVENT_BEFORE_UPDATE, [$this, '_brefreSavePublic']);
-    }
-
-    public function _brefreSavePublic($e)
-    {
-        if ($this->isPublic == 1)
-        {
-            $this->cms_user_id = null;
-        } else if ($this->isPublic !== null)
-        {
-            $this->cms_user_id = \Yii::$app->user->id;
-        }
-    }
-
 
     /**
      * @return array
@@ -138,12 +119,18 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
 
     public function getIsPublic()
     {
-        return $this->_isPublic;
+        return (int) ($this->cms_user_id ? 0 : 1);
     }
 
     public function setIsPublic($value)
     {
-        $this->_isPublic = $value;
+        if ($value)
+        {
+            $this->cms_user_id  = null;
+        } else
+        {
+            $this->cms_user_id  = \Yii::$app->user->id;
+        }
     }
 
     /**
