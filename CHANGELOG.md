@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.0.0-rc4.pre
+-----------------
+  * Revision filters
+
 1.0.0-rc3
 -----------------
   * Revision filters

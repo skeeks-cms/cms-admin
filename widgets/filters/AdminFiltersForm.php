@@ -292,18 +292,10 @@ HTML;
     /**
      * @param $model
      */
-    public function relatedFields($model, $searchRelatedPropertiesModel)
+    public function relatedFields($searchRelatedPropertiesModel)
     {
-        if ($model->relatedPropertiesModel)
-        {
-            echo $this->render('_related-fields', [
-                'model'                             => $model,
-                'searchRelatedPropertiesModel'     => $searchRelatedPropertiesModel,
-            ]);
-        } else
-        {
-            echo '';
-        }
-
+        echo $this->render('_related-fields', [
+            'searchRelatedPropertiesModel'     => $searchRelatedPropertiesModel,
+        ]);
     }
 }

@@ -15,10 +15,12 @@ $form = $widget;
 
 ?>
 
-<? foreach ($model->relatedPropertiesModel->toArray($model->relatedPropertiesModel->attributes()) as $name => $value) : ?>
+<? foreach ($searchRelatedPropertiesModel->properties as $property) : ?>
+<?/* foreach ($model->relatedPropertiesModel->toArray($model->relatedPropertiesModel->attributes()) as $name => $value) : */?>
 
     <?
-        $property = $model->relatedPropertiesModel->getRelatedProperty($name);
+        //$property = $model->relatedPropertiesModel->getRelatedProperty($name);
+        $name = $property->code;
         $filter = '';
     ?>
 
