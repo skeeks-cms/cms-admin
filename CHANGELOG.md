@@ -3,6 +3,7 @@ CHANGELOG
 
 1.0.0-rc3
 -----------------
+  * Revision filters
   * Loading forms with default values
   * The beginning of the filters
 

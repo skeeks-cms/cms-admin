@@ -288,4 +288,22 @@ HTML;
         return $field;
     }
 
+
+    /**
+     * @param $model
+     */
+    public function relatedFields($model, $searchRelatedPropertiesModel)
+    {
+        if ($model->relatedPropertiesModel)
+        {
+            echo $this->render('_related-fields', [
+                'model'                             => $model,
+                'searchRelatedPropertiesModel'     => $searchRelatedPropertiesModel,
+            ]);
+        } else
+        {
+            echo '';
+        }
+
+    }
 }
