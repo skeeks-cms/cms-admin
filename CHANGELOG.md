@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.0.0
+-----------------
+  * Stable version
+ 
 1.0.0-rc4
 -----------------
   * Revision filters
