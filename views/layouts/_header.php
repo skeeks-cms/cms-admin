@@ -92,7 +92,7 @@ JS
             <ul class="dropdown-menu ">
             <? foreach ($langs as $lang) : ?>
                 <li><a href="#" onclick="sx.ChangeLang.setLang('<?= $lang->code; ?>'); return false;">[<?= $lang->code; ?>] <?= $lang->name; ?>
-                    <? if($lang->image->src) : ?>
+                    <? if($lang->image) : ?>
                         <img class="pull-right" height="20" style="margin-top: 10px;" src="<?= $lang->image->src; ?>" />
                     <? endif; ?>
                     </a>
