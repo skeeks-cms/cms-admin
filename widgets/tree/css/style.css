@@ -67,6 +67,7 @@
         list-style-type: none;
         padding-left: 15px;
         margin: 2px 0px;
+        overflow: hidden;
     }
 
         .sx-tree ul li .sx-tree-type
@@ -153,7 +154,7 @@
         }
 
 /**
-* Запись неактивна
+* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 **/
         .sx-tree ul li.sx-tree-node .sx-label-node.status-N  > a
         {
