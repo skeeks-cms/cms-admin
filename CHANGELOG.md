@@ -1,6 +1,7 @@
 CHANGELOG
 ==============
 
+
 1.0.0.2.pre
 -----------------
   * Fixed css styles
