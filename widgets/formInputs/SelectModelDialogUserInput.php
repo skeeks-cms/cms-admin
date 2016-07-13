@@ -42,9 +42,10 @@ class SelectModelDialogUserInput extends SelectModelDialogInput
      */
     public function getModelData()
     {
-        if ($id = $this->model->{$this->attribute})
+        if ($this->model && $id = $this->model->{$this->attribute})
         {
-            return CmsUser::findOne($id);
+            $userClass = \Yii::$app->user->identityClass;
+            return $userClass::findOne($id);
         }
     }
 }
