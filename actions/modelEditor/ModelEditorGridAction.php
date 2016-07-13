@@ -115,6 +115,7 @@ class ModelEditorGridAction extends AdminModelEditorAction
      */
     protected function render($viewName)
     {
+        //TODO:: Bad decision. Rewrite.
         try
         {
             //Если шаблона нет в стандартном пути, или в нем ошибки берем базовый

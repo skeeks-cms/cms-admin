@@ -4,6 +4,7 @@ CHANGELOG
 
 1.0.0.2.pre
 -----------------
+  * Todo:: Bad decision. Rewrite.
   * Fixed css styles
   * Fixed notices
 
