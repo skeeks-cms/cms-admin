@@ -99,6 +99,8 @@ class AdminMultiModelEditAction extends AdminModelEditorAction
      */
     public function eachExecute($model)
     {
+        $action = null;
+
         if ($this->eachCallback && is_callable($this->eachCallback))
         {
             $callback = $this->eachCallback;
