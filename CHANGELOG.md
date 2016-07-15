@@ -1,8 +1,7 @@
 CHANGELOG
 ==============
 
-
-1.0.0.2.pre
+1.0.0.2
 -----------------
   * Todo:: Bad decision. Rewrite.
   * Fixed css styles
