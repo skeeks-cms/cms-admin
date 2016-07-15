@@ -57,11 +57,26 @@ class GridViewSettings extends Component
 
     public function init()
     {
-        $this->pageSize                 = \Yii::$app->admin->pageSize;
-        $this->pageSizeLimitMin         = \Yii::$app->admin->pageSizeLimitMin;
-        $this->pageSizeLimitMax         = \Yii::$app->admin->pageSizeLimitMax;
-        $this->pageParamName            = \Yii::$app->admin->pageParamName;
-        $this->enabledPjaxPagination    = \Yii::$app->admin->enabledPjaxPagination;
+        if (!$this->pageSize)
+        {
+            $this->pageSize = \Yii::$app->admin->pageSize;
+        }
+        if (!$this->pageSizeLimitMin)
+        {
+            $this->pageSizeLimitMin = \Yii::$app->admin->pageSizeLimitMin;
+        }
+        if (!$this->pageSizeLimitMax)
+        {
+            $this->pageSizeLimitMax = \Yii::$app->admin->pageSizeLimitMax;
+        }
+        if (!$this->pageParamName)
+        {
+            $this->pageParamName = \Yii::$app->admin->pageParamName;
+        }
+        if (!$this->enabledPjaxPagination)
+        {
+            $this->enabledPjaxPagination = \Yii::$app->admin->enabledPjaxPagination;
+        }
 
         parent::init();
     }

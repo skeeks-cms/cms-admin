@@ -172,6 +172,17 @@ class RelatedModelsGrid extends Widget
             ],
         ], (array) $this->gridViewOptions);
 
+
+        //TODO:: Bad hardcode
+        if (ArrayHelper::getValue($gridOptions, 'sortable') === true)
+        {
+            $gridOptions['settingsData'] = [
+                'pageSize' => 100,
+                'orderBy' => 'priority',
+                'order' => SORT_ASC,
+            ];
+        }
+
         return $this->render('related-models-grid',[
             'widget'        => $this,
             'createUrl'     => $createUrl,

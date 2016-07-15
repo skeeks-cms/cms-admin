@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.0.0.3
+-----------------
+  * Fixed css styles
+
 1.0.0.2
 -----------------
   * Todo:: Bad decision. Rewrite.
