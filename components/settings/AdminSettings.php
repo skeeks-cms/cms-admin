@@ -21,6 +21,7 @@ use skeeks\cms\modules\admin\dashboards\ContentElementListDashboard;
 use skeeks\cms\modules\admin\dashboards\DiscSpaceDashboard;
 use skeeks\yii2\ckeditor\CKEditorPresets;
 use yii\base\BootstrapInterface;
+use yii\base\Theme;
 use yii\helpers\ArrayHelper;
 use yii\web\Application;
 use yii\web\View;
@@ -78,6 +79,8 @@ class AdminSettings extends Component
 
 
     public $blockedTime                 = 900; //15 минут
+
+    public $noImage = '';
 
 
     /**
@@ -148,7 +151,29 @@ class AdminSettings extends Component
 
         if ($this->requestIsAdmin)
         {
+            //TODO: add di check
+            if (\Yii::$app->get('cmsMarketplace'))
+            {
+                \Yii::$app->cmsMarketplace->info;
+            }
+
             \Yii::$app->language = $this->languageCode;
+
+            //TODO: Добавить возможность настройки
+            \Yii::$app->view->theme = new Theme([
+                'pathMap' =>
+                [
+                    '@app/views' =>
+                    [
+                        '@skeeks/cms/modules/admin/views',
+                    ]
+                ]
+            ]);
+
+            if (!$this->noImage)
+            {
+                $this->noImage = AdminAsset::getAssetUrl("images/no-photo.gif");
+            }
         }
     }
 

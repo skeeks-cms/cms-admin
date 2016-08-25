@@ -64,7 +64,7 @@ abstract class AdminController extends Controller
     {
         return
         [
-            //Проверка доступа к админ панели
+            //Проверка основной привелигии доступа к админ панели
             'adminAccess' =>
             [
                 'class'         => AdminAccessControl::className(),
@@ -80,7 +80,7 @@ abstract class AdminController extends Controller
                 ]
             ],
 
-            //Стандартная проверка доступности действия. Если действие заведено, в привилегиях, то проверяется наличие у пользователя
+            //Стандартная проверка доступности контроллера целиком
             'adminActionsAccess' =>
             [
                 'class'         => AdminAccessControl::className(),
@@ -107,6 +107,7 @@ abstract class AdminController extends Controller
                 ],
             ],
 
+            //Обновление активности пользователя взаимдействие с админкой
             'adminLastActivityAccess' =>
             [
                 'class'         => AdminLastActivityAccessControl::className(),
@@ -137,52 +138,14 @@ abstract class AdminController extends Controller
 
     public function init()
     {
+        \Yii::$app->admin;
+
         parent::init();
-        static::onceInit();
 
         if (!$this->name)
         {
             $this->name = \Yii::t('app','The name of the controller'); //Inflector::humanize($this->id);
         }
-    }
-
-    /**
-     * @var bool
-     */
-    static private $_onceInit = false;
-
-    /**
-     * A one-time initialization of one scenario
-     * @return bool
-     */
-    static public function onceInit()
-    {
-        if (self::$_onceInit === true)
-        {
-            return false;
-        }
-
-        //TODO: add di check
-        if (\Yii::$app->get('cmsMarketplace'))
-        {
-            \Yii::$app->cmsMarketplace->info;
-        }
-
-        if (isset(\Yii::$app->admin) && \Yii::$app->admin->requestIsAdmin)
-        {
-            //TODO: Добавить возможность настройки
-            \Yii::$app->view->theme = new Theme([
-                'pathMap' =>
-                [
-                    '@app/views' =>
-                    [
-                        '@skeeks/cms/modules/admin/views',
-                    ]
-                ]
-            ]);
-        }
-
-        self::$_onceInit = true;
     }
 
     /**

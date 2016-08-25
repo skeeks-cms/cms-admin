@@ -31,21 +31,6 @@ class Module extends \yii\base\Module
 
     public $controllerNamespace = 'skeeks\cms\modules\admin\controllers';
 
-    public $noImage = '';
-
-    public function init()
-    {
-        parent::init();
-
-        if (\Yii::$app->admin->requestIsAdmin)
-        {
-            if (!$this->noImage)
-            {
-                $this->noImage = AdminAsset::getAssetUrl("images/no-photo.gif");
-            }
-        }
-    }
-
     /**
      * @param array $data
      * @return string
@@ -54,5 +39,14 @@ class Module extends \yii\base\Module
     {
         $data[UrlRule::ADMIN_PARAM_NAME] = UrlRule::ADMIN_PARAM_VALUE;
         return \Yii::$app->urlManager->createUrl($data);
+    }
+
+    /**
+     * TODO: is depricated
+     * @return string
+     */
+    public function getNoImage()
+    {
+        return \Yii::$app->admin->noImage;
     }
 }
