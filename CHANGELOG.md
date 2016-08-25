@@ -1,6 +1,11 @@
 CHANGELOG
 ==============
 
+1.0.1
+-----------------
+  * Finalization sections tree widget
+  * Increase font
+
 1.0.0.3
 -----------------
   * Fixed css styles

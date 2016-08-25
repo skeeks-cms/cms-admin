@@ -96,3 +96,9 @@ body.empty .sx-panel
     box-shadow: none;
     margin-bottom: 15px;
 }
+
+
+.panel .panel-heading h2
+{
+    font-size: 15px;
+}

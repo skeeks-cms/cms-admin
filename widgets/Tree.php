@@ -11,6 +11,7 @@
 namespace skeeks\cms\modules\admin\widgets;
 
 use skeeks\cms\helpers\UrlHelper;
+use skeeks\cms\models\CmsSite;
 use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\controllers\AdminController;
 use skeeks\cms\modules\admin\controllers\helpers\Action;
@@ -340,9 +341,10 @@ JS
             $additionalName = '';
             if ($model->level == 0)
             {
-                if ($model->site)
+                $site = CmsSite::findOne(['code' => $model->site_code]);
+                if ($site)
                 {
-                    $additionalName = $model->site->name;
+                    $additionalName = $site->name;
                 }
             } else
             {
