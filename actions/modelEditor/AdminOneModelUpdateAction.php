@@ -40,7 +40,12 @@ class AdminOneModelUpdateAction extends AdminOneModelEditAction
         }
 
         $model          = $this->controller->model;
-        $scenarios      = $model->scenarios();
+
+        $scenarios = [];
+        if (method_exists($model, 'scenarios'))
+        {
+            $scenarios      = $model->scenarios();
+        }
 
         if ($scenarios && $this->modelScenario)
         {
