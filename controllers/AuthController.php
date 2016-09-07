@@ -249,7 +249,7 @@ class AuthController extends AdminController
                 {
                     if (!$goUrl)
                     {
-                        $goUrl = Yii::$app->getUser()->getReturnUrl($defaultUrl);
+                        $goUrl = \Yii::$app->getUser()->getReturnUrl($defaultUrl);
                     }
 
                     $rr->redirect = $goUrl;

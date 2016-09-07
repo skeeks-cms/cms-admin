@@ -1,5 +1,9 @@
 CHANGELOG
 ==============
+1.0.1.2
+-----------------
+  * Fixed https://github.com/skeeks-cms/cms-admin/issues/1
+
 1.0.1.1
 -----------------
   * Fixed small bug
