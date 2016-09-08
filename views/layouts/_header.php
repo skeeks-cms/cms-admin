@@ -69,11 +69,11 @@ JS
 <? if (!\Yii::$app->user->isGuest): ?>
     <ul class="nav navbar-nav navbar-actions navbar-left">
         <li class="visible-md visible-lg visible-sm visible-xs">
-            <a href="<?= \Yii::$app->cms->moduleAdmin->createUrl(["admin/index/index"]); ?>" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('app','To main page of admin area')?>"><i class="glyphicon glyphicon-home"></i></a>
+            <a href="<?= \Yii::$app->cms->moduleAdmin->createUrl(["admin/index/index"]); ?>" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','To main page of admin area')?>"><i class="glyphicon glyphicon-home"></i></a>
         </li>
 
         <li class="visible-md visible-lg visible-sm visible-xs">
-            <a href="<?= \yii\helpers\Url::home(); ?>" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('app','To main page of site')?>"><i class="glyphicon glyphicon-globe"></i></a>
+            <a href="<?= \yii\helpers\Url::home(); ?>" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','To main page of site')?>"><i class="glyphicon glyphicon-globe"></i></a>
         </li>
     </ul>
 <? endif; ?>
@@ -85,7 +85,7 @@ JS
 
 
     <li class="sx-left-border dropdown visible-md visible-lg visible-sm visible-xs dropdown">
-        <a class="request-fullscreen toggle-active dropdown-toggle" style="width: auto;" href="#"  data-toggle="dropdown" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('app','Interface language')?>">
+        <a class="request-fullscreen toggle-active dropdown-toggle" style="width: auto;" href="#"  data-toggle="dropdown" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Interface language')?>">
             [<?= \Yii::$app->admin->cmsLanguage->code; ?>] <?= \Yii::$app->admin->cmsLanguage->name; ?> <span class="caret"></span>
         </a>
         <? if ($langs = \skeeks\cms\models\CmsLang::find()->active()->all()) : ?>
@@ -103,26 +103,26 @@ JS
     </li>
 
     <!--<li class="sx-left-border dropdown visible-md visible-lg visible-sm visible-xs">
-        <a class="request-fullscreen toggle-active" href="#" onclick="new sx.classes.Fullscreen(); return false;" data-sx-widget="tooltip-b" data-original-title="<?/*=\Yii::t('app','Toggle Full Screen')*/?>">
+        <a class="request-fullscreen toggle-active" href="#" onclick="new sx.classes.Fullscreen(); return false;" data-sx-widget="tooltip-b" data-original-title="<?/*=\Yii::t('skeeks/cms','Toggle Full Screen')*/?>">
             <i class="glyphicon glyphicon-fullscreen"></i>
         </a>
     </li>-->
 
     <? if (\Yii::$app->user->can('admin/clear')) : ?>
     <li class="sx-left-border dropdown visible-md visible-lg visible-sm visible-xs">
-        <a href="#" onclick="sx.ClearCache.execute(); return false;" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('app','Clear cache and temporary files')?>"><i class="glyphicon glyphicon-refresh"></i></a>
+        <a href="#" onclick="sx.ClearCache.execute(); return false;" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Clear cache and temporary files')?>"><i class="glyphicon glyphicon-refresh"></i></a>
     </li>
     <? endif; ?>
 
     <? if (\Yii::$app->user->can('cms/admin-settings')) : ?>
     <li class="sx-left-border dropdown visible-md visible-lg visible-sm visible-xs">
-        <a href="<?= UrlHelper::construct('cms/admin-settings')->enableAdmin(); ?>" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('app','Project settings')?>"><i class="glyphicon glyphicon-cog"></i></a>
+        <a href="<?= UrlHelper::construct('cms/admin-settings')->enableAdmin(); ?>" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Project settings')?>"><i class="glyphicon glyphicon-cog"></i></a>
     </li>
     <? endif; ?>
 
 
     <li class="dropdown sx-left-border">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 0px;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('app','Your profile')?>">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 0px;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Your profile')?>">
             <? if (\Yii::$app->user->identity->image) : ?>
                 <img src="<?= \Yii::$app->user->identity->avatarSrc; ?>" width="49" height="49"/>
             <? else : ?>
@@ -134,14 +134,14 @@ JS
             <li class="dropdown-menu-header text-center">
                 <strong><?= \Yii::$app->user->identity->username ?></strong>
             </li>
-            <li><a href="<?= UrlHelper::construct("cms/admin-profile/update")->enableAdmin() ?>"><i class="glyphicon glyphicon-user"></i> <?=\Yii::t('app','Profile')?></a></li>
+            <li><a href="<?= UrlHelper::construct("cms/admin-profile/update")->enableAdmin() ?>"><i class="glyphicon glyphicon-user"></i> <?=\Yii::t('skeeks/cms','Profile')?></a></li>
             <!--<li><a href="#"><i class="fa fa-envelope-o"></i> Сообщения <span class="label label-info">42</span></a></li>-->
             <li class="divider"></li>
             <li>
-                <?= Html::a('<i class="fa fa-shield"></i> '.\Yii::t('app','To block'), UrlHelper::construct("admin/auth/lock")->enableAdmin()->setCurrentRef(), ["data-method" => "post"])?>
+                <?= Html::a('<i class="fa fa-shield"></i> '.\Yii::t('skeeks/cms','To block'), UrlHelper::construct("admin/auth/lock")->enableAdmin()->setCurrentRef(), ["data-method" => "post"])?>
             </li>
             <li>
-                <?= Html::a('<i class="glyphicon glyphicon-off"></i> '.\Yii::t('app','Exit'), UrlHelper::construct("admin/auth/logout")->enableAdmin()->setCurrentRef(), ["data-method" => "post"])?>
+                <?= Html::a('<i class="glyphicon glyphicon-off"></i> '.\Yii::t('skeeks/cms','Exit'), UrlHelper::construct("admin/auth/logout")->enableAdmin()->setCurrentRef(), ["data-method" => "post"])?>
             </li>
         </ul>
     </li>

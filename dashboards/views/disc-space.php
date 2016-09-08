@@ -23,7 +23,7 @@ $usedSpacePercent = 100 - $freeSpacePercent;
     <?
         $baseOptions =
         [
-          'title' => ['text' => \Yii::t('app','At percent ratio')],
+          'title' => ['text' => \Yii::t('skeeks/cms','At percent ratio')],
           'chart' => [
               'type' => 'pie',
 
@@ -48,8 +48,8 @@ $usedSpacePercent = 100 - $freeSpacePercent;
                   'name'=> '%',
                   'data'=>
                       [
-                            [\Yii::t('app','Free'), round($freeSpacePercent, 2)],
-                            [\Yii::t('app','Used'), round($usedSpacePercent, 2)],
+                            [\Yii::t('skeeks/cms','Free'), round($freeSpacePercent, 2)],
+                            [\Yii::t('skeeks/cms','Used'), round($usedSpacePercent, 2)],
                       ]
 
               ],
@@ -58,9 +58,9 @@ $usedSpacePercent = 100 - $freeSpacePercent;
         echo \skeeks\widget\highcharts\Highcharts::widget(['options' => $baseOptions]);
     ?>
     <hr />
-    <p><b><?= \Yii::t('app','Total at server')?>:</b> <?= Yii::$app->formatter->asShortSize($totalSpace); ?></p>
-    <p><b><?= \Yii::t('app','Used')?>:</b> <?= Yii::$app->formatter->asShortSize($usedSpace); ?></p>
-    <p><b><?= \Yii::t('app','Free')?>:</b> <?= Yii::$app->formatter->asShortSize($freeSpace); ?></p>
+    <p><b><?= \Yii::t('skeeks/cms','Total at server')?>:</b> <?= Yii::$app->formatter->asShortSize($totalSpace); ?></p>
+    <p><b><?= \Yii::t('skeeks/cms','Used')?>:</b> <?= Yii::$app->formatter->asShortSize($usedSpace); ?></p>
+    <p><b><?= \Yii::t('skeeks/cms','Free')?>:</b> <?= Yii::$app->formatter->asShortSize($freeSpace); ?></p>
 
 </div>
 

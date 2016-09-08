@@ -34,7 +34,7 @@ class CheckerController extends AdminController
 {
     public function init()
     {
-        $this->name = \Yii::t('app',"Checking system");
+        $this->name = \Yii::t('skeeks/cms',"Checking system");
         parent::init();
     }
 
@@ -45,7 +45,7 @@ class CheckerController extends AdminController
             "index" =>
             [
                 "class"        => AdminAction::className(),
-                "name"         => \Yii::t('app',"Testing"),
+                "name"         => \Yii::t('skeeks/cms',"Testing"),
             ],
         ];
     }
@@ -61,13 +61,13 @@ class CheckerController extends AdminController
                 $className = \Yii::$app->request->post('className');
                 if (!class_exists($className))
                 {
-                    $rr->message = \Yii::t('app','Test is not found');
+                    $rr->message = \Yii::t('skeeks/cms','Test is not found');
                     return (array) $rr;
                 }
 
                 if (!is_subclass_of($className, CheckComponent::className()))
                 {
-                    $rr->message = \Yii::t('app','Incorrect test');
+                    $rr->message = \Yii::t('skeeks/cms','Incorrect test');
                     return (array) $rr;
                 }
 
@@ -88,7 +88,7 @@ class CheckerController extends AdminController
 
                 } catch (\Exception $e)
                 {
-                    $rr->message = \Yii::t('app','Test is not done').': ' . $e->getMessage();
+                    $rr->message = \Yii::t('skeeks/cms','Test is not done').': ' . $e->getMessage();
                 }
             }
         }

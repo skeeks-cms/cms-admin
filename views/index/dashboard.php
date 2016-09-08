@@ -2,7 +2,7 @@
 /* @var $this yii\web\View */
 /* @var $dashboard skeeks\cms\models\CmsDashboard */
 
-$this->title = $dashboard->name . " / " . \Yii::t('app','Dashboard');
+$this->title = $dashboard->name . " / " . \Yii::t('skeeks/cms','Dashboard');
 
 
 $this->registerCss(<<<CSS
@@ -55,7 +55,7 @@ $sortableString = [];
                         'options' => [
                           'class' => 'alert-info',
                       ],
-                      'body' => \yii\helpers\Html::tag("h1", \Yii::t('app','Welcome! You are in the site management system.')),
+                      'body' => \yii\helpers\Html::tag("h1", \Yii::t('skeeks/cms','Welcome! You are in the site management system.')),
                     ]);
                 ?>
 
@@ -91,7 +91,7 @@ $sortableString = [];
 
                                             $cmsWidgetData = \yii\helpers\Json::encode($cmsWidgetData);
 
-                                            $openClose = \Yii::t('app', 'Expand/Collapse');
+                                            $openClose = \Yii::t('skeeks/cms', 'Expand/Collapse');
 
                                         $actions = <<<HTML
 <a href="#sx-permissions-for-controller" onclick='sx.Dashboard.editConfigWidget({$cmsWidgetData}); return false;'>

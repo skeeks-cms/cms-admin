@@ -14,29 +14,29 @@ use skeeks\cms\modules\admin\widgets\form\ActiveFormUseTab as ActiveForm;
 $autoEnvFile = '';
 if (file_exists(APP_ENV_GLOBAL_FILE))
 {
-    $autoEnvFile = \Yii::t('app','Yes').' ';
-    $autoEnvFile .= "<a class='btn btn-xs btn-primary' href='" . \skeeks\cms\helpers\UrlHelper::construct('admin/info/remove-env-global-file')->enableAdmin()->toString() . "'>".\Yii::t('app','Delete')."</a>  ";
+    $autoEnvFile = \Yii::t('skeeks/cms','Yes').' ';
+    $autoEnvFile .= "<a class='btn btn-xs btn-primary' href='" . \skeeks\cms\helpers\UrlHelper::construct('admin/info/remove-env-global-file')->enableAdmin()->toString() . "'>".\Yii::t('skeeks/cms','Delete')."</a>  ";
 } else
 {
-    $autoEnvFile = \Yii::t('app','No').' ';
+    $autoEnvFile = \Yii::t('skeeks/cms','No').' ';
 }
-$autoEnvFile .= "<a class='btn btn-xs btn-primary' href='" . \skeeks\cms\helpers\UrlHelper::construct('admin/info/write-env-global-file', ['env' => 'dev'])->enableAdmin()->toString() . "'>".\Yii::t('app', 'To record')." dev</a>  ";
-$autoEnvFile .= "<a class='btn btn-xs btn-primary' href='" . \skeeks\cms\helpers\UrlHelper::construct('admin/info/write-env-global-file', ['env' => 'prod'])->enableAdmin()->toString() . "'>".\Yii::t('app', 'To record')." prod</a>";
+$autoEnvFile .= "<a class='btn btn-xs btn-primary' href='" . \skeeks\cms\helpers\UrlHelper::construct('admin/info/write-env-global-file', ['env' => 'dev'])->enableAdmin()->toString() . "'>".\Yii::t('skeeks/cms', 'To record')." dev</a>  ";
+$autoEnvFile .= "<a class='btn btn-xs btn-primary' href='" . \skeeks\cms\helpers\UrlHelper::construct('admin/info/write-env-global-file', ['env' => 'prod'])->enableAdmin()->toString() . "'>".\Yii::t('skeeks/cms', 'To record')." prod</a>";
 
 ?>
 <? $form = ActiveForm::begin(); ?>
 
-<?= $form->fieldSet(\Yii::t('app','Project configuration')); ?>
+<?= $form->fieldSet(\Yii::t('skeeks/cms','Project configuration')); ?>
     <?php
     echo $this->render('table', [
         'values' => [
             'SkeekS CMS' => \Yii::$app->cms->descriptor->version,
 
-            \Yii::t('app','{yii} Version', ['yii' => 'Yii']) => $application['yii'],
-            \Yii::t('app','Project name') => $application['name'] . " (<a href='" . \skeeks\cms\helpers\UrlHelper::construct('cms/admin-settings')->enableAdmin()->toString() . "'>".\Yii::t('app','edit')."</a>)",
-            \Yii::t('app','Environment ({yii_env})',['yii_env' => 'YII_ENV']) => $application['env'],
-            \Yii::t('app','Development mode ({yii_debug})',['yii_debug' => 'YII_DEBUG']) => $application['debug'] ? \Yii::t('app','Yes') : \Yii::t('app','No'),
-            \Yii::t('app',"Checks environment variables").' (APP_ENV_GLOBAL_FILE)' => $autoEnvFile . " <a class='btn btn-xs btn-default' title='" . APP_ENV_GLOBAL_FILE . "'>i</a>"
+            \Yii::t('skeeks/cms','{yii} Version', ['yii' => 'Yii']) => $application['yii'],
+            \Yii::t('skeeks/cms','Project name') => $application['name'] . " (<a href='" . \skeeks\cms\helpers\UrlHelper::construct('cms/admin-settings')->enableAdmin()->toString() . "'>".\Yii::t('skeeks/cms','edit')."</a>)",
+            \Yii::t('skeeks/cms','Environment ({yii_env})',['yii_env' => 'YII_ENV']) => $application['env'],
+            \Yii::t('skeeks/cms','Development mode ({yii_debug})',['yii_debug' => 'YII_DEBUG']) => $application['debug'] ? \Yii::t('skeeks/cms','Yes') : \Yii::t('skeeks/cms','No'),
+            \Yii::t('skeeks/cms',"Checks environment variables").' (APP_ENV_GLOBAL_FILE)' => $autoEnvFile . " <a class='btn btn-xs btn-default' title='" . APP_ENV_GLOBAL_FILE . "'>i</a>"
 
             ,
         ],
@@ -45,7 +45,7 @@ $autoEnvFile .= "<a class='btn btn-xs btn-primary' href='" . \skeeks\cms\helpers
 <?= $form->fieldSetEnd(); ?>
 
 
-<?= $form->fieldSet(\Yii::t('app','All extensions and modules {yii}',['yii' => 'Yii'])); ?>
+<?= $form->fieldSet(\Yii::t('skeeks/cms','All extensions and modules {yii}',['yii' => 'Yii'])); ?>
     <?if (!empty($extensions)) {
         echo $this->render('table', [
             'values' => $extensions,
@@ -54,7 +54,7 @@ $autoEnvFile .= "<a class='btn btn-xs btn-primary' href='" . \skeeks\cms\helpers
 <?= $form->fieldSetEnd(); ?>
 
 
-<?= $form->fieldSet(\Yii::t('app','{php} configuration',['php' => "PHP"])); ?>
+<?= $form->fieldSet(\Yii::t('skeeks/cms','{php} configuration',['php' => "PHP"])); ?>
     <?
     echo $this->render('table', [
         'values' => [

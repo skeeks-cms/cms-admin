@@ -29,7 +29,7 @@ class IndexController extends AdminController
 {
     public function init()
     {
-        $this->name = \Yii::t('app', "Desktop");
+        $this->name = \Yii::t('skeeks/cms', "Desktop");
         parent::init();
     }
 

@@ -1,8 +1,9 @@
 CHANGELOG
 ==============
 
-1.0.1.3.pre
+1.0.2.pre
 -----------------
+  * Translation updates
   * Fixed https://github.com/skeeks-cms/cms-admin/issues/3
 
 1.0.1.2

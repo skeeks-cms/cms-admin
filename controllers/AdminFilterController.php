@@ -72,7 +72,7 @@ class AdminFilterController extends AdminController
             {
                 $error = 'An error occurred in the time of saving' . Json::encode($model->getFirstErrors());
                 $rr->success = false;
-                $rr->message = \Yii::t('app', $error);
+                $rr->message = \Yii::t('skeeks/cms', $error);
             }
 
             return $rr;

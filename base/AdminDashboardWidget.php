@@ -51,7 +51,7 @@ class AdminDashboardWidget extends Model implements ViewContextInterface, Config
             ]);
         } else
         {
-            return \Yii::t('app',"Template not found");
+            return \Yii::t('skeeks/cms',"Template not found");
         }
     }
 }

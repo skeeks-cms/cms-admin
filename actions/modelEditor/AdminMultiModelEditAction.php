@@ -70,7 +70,7 @@ class AdminMultiModelEditAction extends AdminModelEditorAction
         if (!$this->models)
         {
             $rr->success = false;
-            $rr->message = \Yii::t('app',"No records found");
+            $rr->message = \Yii::t('skeeks/cms',"No records found");
             return (array) $rr;
         }
 
@@ -88,7 +88,7 @@ class AdminMultiModelEditAction extends AdminModelEditorAction
         }
 
         $rr->success    = true;
-        $rr->message    = \Yii::t('app',"Mission complete");
+        $rr->message    = \Yii::t('skeeks/cms',"Mission complete");
         $rr->data       = $data;
         return (array) $rr;
     }

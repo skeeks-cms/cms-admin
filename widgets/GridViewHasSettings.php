@@ -417,7 +417,7 @@ JS
     {
         $matches = [];
         if (!preg_match('/^([\w\.]+)(:(\w*))?(:(.*))?$/', $column, $matches)) {
-            throw new InvalidConfigException(\Yii::t('app',"Invalid column configuration for '{column}'. The column must be specified in the format of 'attribute', 'attribute:format' or 'attribute:format: label'.",['column' => $column]));
+            throw new InvalidConfigException(\Yii::t('skeeks/cms',"Invalid column configuration for '{column}'. The column must be specified in the format of 'attribute', 'attribute:format' or 'attribute:format: label'.",['column' => $column]));
         }
         return $matches;
     }
@@ -431,18 +431,18 @@ JS
         {
             if ($column instanceof ActionColumn)
             {
-                $data[$code] = \Yii::t('app','Button actions');
+                $data[$code] = \Yii::t('skeeks/cms','Button actions');
             }
             else if ($column instanceof CheckboxColumn)
             {
-                $data[$code] = \Yii::t('app','Selecting items');
+                $data[$code] = \Yii::t('skeeks/cms','Selecting items');
             }
             else if ($column instanceof SerialColumn)
             {
-                $data[$code] = \Yii::t('app','Sequence number');
+                $data[$code] = \Yii::t('skeeks/cms','Sequence number');
             } else if ($column instanceof ImageColumn)
             {
-                $data[$code] = \Yii::t('app','Main Image');
+                $data[$code] = \Yii::t('skeeks/cms','Main Image');
             } else if ($column instanceof DataColumn)
             {
                 if ($column->label === null)

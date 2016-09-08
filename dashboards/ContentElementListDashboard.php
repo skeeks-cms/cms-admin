@@ -31,7 +31,7 @@ class ContentElementListDashboard extends AdminDashboardWidgetRenderable
     static public function descriptorConfig()
     {
         return array_merge(parent::descriptorConfig(), [
-            'name' => \Yii::t('app', 'The list of content items')
+            'name' => \Yii::t('skeeks/cms', 'The list of content items')
         ]);
     }
 
@@ -73,7 +73,7 @@ class ContentElementListDashboard extends AdminDashboardWidgetRenderable
 
         if (!$this->name)
         {
-            $this->name = \Yii::t('app', 'The list of content items');
+            $this->name = \Yii::t('skeeks/cms', 'The list of content items');
         }
     }
     /**
@@ -106,24 +106,24 @@ class ContentElementListDashboard extends AdminDashboardWidgetRenderable
     public function attributeLabels()
     {
         return ArrayHelper::merge(parent::attributeLabels(), [
-            'name'                           => \Yii::t('app', 'Name'),
+            'name'                           => \Yii::t('skeeks/cms', 'Name'),
 
-            'enabledPaging'             => \Yii::t('app','Enable paging'),
-            'pageSizeLimitMin'          => \Yii::t('app','The minimum allowable value for pagination'),
-            'pageSizeLimitMax'          => \Yii::t('app','The maximum allowable value for pagination'),
-            'pageSize'                  => \Yii::t('app','Number of records on one page'),
+            'enabledPaging'             => \Yii::t('skeeks/cms','Enable paging'),
+            'pageSizeLimitMin'          => \Yii::t('skeeks/cms','The minimum allowable value for pagination'),
+            'pageSizeLimitMax'          => \Yii::t('skeeks/cms','The maximum allowable value for pagination'),
+            'pageSize'                  => \Yii::t('skeeks/cms','Number of records on one page'),
 
-            'orderBy'                   => \Yii::t('app','Sort by what parameter'),
-            'order'                     => \Yii::t('app','Sorting direction'),
+            'orderBy'                   => \Yii::t('skeeks/cms','Sort by what parameter'),
+            'order'                     => \Yii::t('skeeks/cms','Sorting direction'),
 
-            'limit'                     => \Yii::t('app','The maximum number of entries in the sample ({limit})',['limit' => 'limit']),
-            'active'                    => \Yii::t('app','Take into consideration active flag'),
+            'limit'                     => \Yii::t('skeeks/cms','The maximum number of entries in the sample ({limit})',['limit' => 'limit']),
+            'active'                    => \Yii::t('skeeks/cms','Take into consideration active flag'),
 
-            'createdBy'                 => \Yii::t('app','Selecting the user records'),
-            'content_ids'               => \Yii::t('app','Elements of content'),
+            'createdBy'                 => \Yii::t('skeeks/cms','Selecting the user records'),
+            'content_ids'               => \Yii::t('skeeks/cms','Elements of content'),
 
-            'tree_ids'                  => \Yii::t('app','Show items linked to sections'),
-            'enabledActiveTime'         => \Yii::t('app','Take into consideration activity time'),
+            'tree_ids'                  => \Yii::t('skeeks/cms','Show items linked to sections'),
+            'enabledActiveTime'         => \Yii::t('skeeks/cms','Take into consideration activity time'),
         ]);
     }
 
@@ -257,21 +257,21 @@ class ContentElementListDashboard extends AdminDashboardWidgetRenderable
      */
     public function renderConfigForm(ActiveForm $form = null)
     {
-        echo $form->fieldSet(\Yii::t('app','Main'));
+        echo $form->fieldSet(\Yii::t('skeeks/cms','Main'));
             echo $form->field($this, 'name');
         echo $form->fieldSetEnd();
 
-        echo $form->fieldSet(\Yii::t('app','Pagination'));
+        echo $form->fieldSet(\Yii::t('skeeks/cms','Pagination'));
             echo $form->field($this, 'enabledPaging')->checkbox();
             echo $form->field($this, 'pageSize');
             echo $form->field($this, 'pageSizeLimitMin');
             echo $form->field($this, 'pageSizeLimitMax');
         echo $form->fieldSetEnd();
 
-        echo $form->fieldSet(\Yii::t('app','Filtering'));
+        echo $form->fieldSet(\Yii::t('skeeks/cms','Filtering'));
 
             echo $form->field($this, 'enabledActiveTime')->checkbox()
-                ->hint(\Yii::t('app',"Will be considered time of beginning and end of the publication"));
+                ->hint(\Yii::t('skeeks/cms',"Will be considered time of beginning and end of the publication"));
 
             echo $form->fieldSelectMulti($this, 'content_ids', \skeeks\cms\models\CmsContent::getDataForSelect());
             /*echo $form->fieldSelectMulti($this, 'createdBy')->widget(
@@ -287,12 +287,12 @@ class ContentElementListDashboard extends AdminDashboardWidgetRenderable
             );
         echo $form->fieldSetEnd();
 
-        echo $form->fieldSet(\Yii::t('app','Sorting and quantity'));
+        echo $form->fieldSet(\Yii::t('skeeks/cms','Sorting and quantity'));
             echo $form->field($this, 'limit');
             echo $form->fieldSelect($this, 'orderBy', (new \skeeks\cms\models\CmsContentElement())->attributeLabels());
             echo $form->fieldSelect($this, 'order', [
-            SORT_ASC    => "ASC (".\Yii::t('app','from smaller to larger').")",
-            SORT_DESC   => "DESC (".\Yii::t('app','from highest to lowest').")",
+            SORT_ASC    => "ASC (".\Yii::t('skeeks/cms','from smaller to larger').")",
+            SORT_DESC   => "DESC (".\Yii::t('skeeks/cms','from highest to lowest').")",
         ]);
         echo $form->fieldSetEnd();
     }

@@ -24,7 +24,7 @@ $createFormId = $widget->id . '-create-filter';
     'id'        => $widget->getCreateModalId(),
     'header'    => '<b>' . \Yii::t('skeeks/admin', 'Save filter') . '</b>',
     'footer'    => '
-        <button class="btn btn-primary" onclick="$(\'#' . $createFormId . '\').submit(); return false;">' . \Yii::t('app', 'Create') . '</button>
+        <button class="btn btn-primary" onclick="$(\'#' . $createFormId . '\').submit(); return false;">' . \Yii::t('skeeks/cms', 'Create') . '</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">' . \Yii::t('skeeks/admin', 'Close') . '</button>
     ',
 ]);?>

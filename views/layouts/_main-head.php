@@ -24,7 +24,7 @@
                 <? if (\Yii::$app->user->can('admin/admin-role') && \Yii::$app->controller instanceof \skeeks\cms\modules\admin\controllers\AdminController) : ?>
 
                     <a href="#sx-permissions-for-controller" class="btn btn-default btn-primary sx-fancybox">
-                        <i class="glyphicon glyphicon-exclamation-sign" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('app','Setting up access to this section')?>" style="color: white;"></i>
+                        <i class="glyphicon glyphicon-exclamation-sign" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Setting up access to this section')?>" style="color: white;"></i>
 
                     </a>
 
@@ -44,19 +44,19 @@
                             ?>
                             <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
                                 'permissionName'        => \Yii::$app->controller->permissionName,
-                                'permissionDescription' => \Yii::t('app','Administration')." | " . \Yii::$app->controller->name,
-                                'label'                 => \Yii::t('app','Setting up access to the section').": " . \Yii::$app->controller->name,
+                                'permissionDescription' => \Yii::t('skeeks/cms','Administration')." | " . \Yii::$app->controller->name,
+                                'label'                 => \Yii::t('skeeks/cms','Setting up access to the section').": " . \Yii::$app->controller->name,
                                 'items'                 => \yii\helpers\ArrayHelper::map($items, 'name', 'description'),
                             ]); ?>
-                            <?=\Yii::t('app','Specify which groups of users will have access.')?>
+                            <?=\Yii::t('skeeks/cms','Specify which groups of users will have access.')?>
                             <hr />
                             <? \yii\bootstrap\Alert::begin([
                                 'options' => [
                                   'class' => 'alert-info',
                                 ],
                             ])?>
-                                <p><?=\Yii::t('app','Code privileges')?>: <b><?= \Yii::$app->controller->permissionName; ?></b></p>
-                                <p><?=\Yii::t('app','The list displays only those groups that have access to the system administration.')?></p>
+                                <p><?=\Yii::t('skeeks/cms','Code privileges')?>: <b><?= \Yii::$app->controller->permissionName; ?></b></p>
+                                <p><?=\Yii::t('skeeks/cms','The list displays only those groups that have access to the system administration.')?></p>
                             <? \yii\bootstrap\Alert::end()?>
                         </div>
                     </div>

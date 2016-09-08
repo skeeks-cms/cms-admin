@@ -206,7 +206,7 @@ class Tree
 
                     $currentLink = UrlHelper::construct("cms/admin-tree/index")->setData($params);
                     $openCloseLink = Html::a(
-                        Html::tag("span", "" ,["class" => "glyphicon glyphicon-minus", "title" => \Yii::t('app',"Minimize")]),
+                        Html::tag("span", "" ,["class" => "glyphicon glyphicon-minus", "title" => \Yii::t('skeeks/cms',"Minimize")]),
                         $currentLink,
                         ['class' => 'btn btn-sm btn-default']
                     );
@@ -217,7 +217,7 @@ class Tree
                     $params[$this->openedRequestName] = $urlOptionsOpen;
                     $currentLink = UrlHelper::construct("cms/admin-tree/index")->setData($params);
                     $openCloseLink = Html::a(
-                        Html::tag("span", "" ,["class" => "glyphicon glyphicon-plus", "title" => \Yii::t('app',"Restore")]),
+                        Html::tag("span", "" ,["class" => "glyphicon glyphicon-plus", "title" => \Yii::t('skeeks/cms',"Restore")]),
                         $currentLink,
                         ['class' => 'btn btn-sm btn-default']
                     );
@@ -356,7 +356,7 @@ JS
 
             $link = Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
                              $model->getAbsoluteUrl(),
-                             ["target" => "_blank", "class" => "btn-tree-node-controll btn btn-default btn-sm show-at-site", "title" => \Yii::t('app',"Show at site")]
+                             ["target" => "_blank", "class" => "btn-tree-node-controll btn btn-default btn-sm show-at-site", "title" => \Yii::t('skeeks/cms',"Show at site")]
                     );
 
             $linkMove = "";
@@ -364,12 +364,12 @@ JS
             {
                 $linkMove = Html::a('<span class="glyphicon glyphicon-move"></span>',
                              "#",
-                             ["class" => "btn-tree-node-controll btn btn-default btn-sm sx-tree-move", "title" => \Yii::t('app',"Change sorting")]
+                             ["class" => "btn-tree-node-controll btn btn-default btn-sm sx-tree-move", "title" => \Yii::t('skeeks/cms',"Change sorting")]
                     );
             }
 
 
-            $subsection = \Yii::t('app','Create subsection');
+            $subsection = \Yii::t('skeeks/cms','Create subsection');
 
             return Html::tag("li",
                         Html::tag("div",

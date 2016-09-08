@@ -144,7 +144,7 @@ abstract class AdminController extends Controller
 
         if (!$this->name)
         {
-            $this->name = \Yii::t('app','The name of the controller'); //Inflector::humanize($this->id);
+            $this->name = \Yii::t('skeeks/cms','The name of the controller'); //Inflector::humanize($this->id);
         }
     }
 

@@ -27,7 +27,7 @@ class CmsInformDashboard extends AdminDashboardWidgetRenderable
     static public function descriptorConfig()
     {
         return array_merge(parent::descriptorConfig(), [
-            'name' => \Yii::t('app', 'Short info')
+            'name' => \Yii::t('skeeks/cms', 'Short info')
         ]);
     }
 
@@ -40,7 +40,7 @@ class CmsInformDashboard extends AdminDashboardWidgetRenderable
 
         if (!$this->name)
         {
-            $this->name = \Yii::t('app', 'Short info');
+            $this->name = \Yii::t('skeeks/cms', 'Short info');
         }
     }
 
@@ -57,7 +57,7 @@ class CmsInformDashboard extends AdminDashboardWidgetRenderable
     public function attributeLabels()
     {
         return ArrayHelper::merge(parent::attributeLabels(), [
-            'name'                           => \Yii::t('app', 'Name'),
+            'name'                           => \Yii::t('skeeks/cms', 'Name'),
         ]);
     }
 

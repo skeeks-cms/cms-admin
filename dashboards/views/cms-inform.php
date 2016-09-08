@@ -32,7 +32,7 @@ CSS
                 <li>
                     <i class="icon-pie-chart"></i>
                     <div class="number"><?= round($freeSpacePercent); ?>%</div>
-                    <div class="title"><?=\Yii::t('app','Free place')?></div>
+                    <div class="title"><?=\Yii::t('skeeks/cms','Free place')?></div>
                     <div class="progress thin">
                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $freeSpacePercent; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $freeSpacePercent; ?>%">
                             <span class="sr-only"><?= $freeSpacePercent; ?>% Complete (success)</span>
@@ -42,7 +42,7 @@ CSS
             <li>
                 <i class="icon-users"></i>
                 <div class="number"><a href="<?= \skeeks\cms\helpers\UrlHelper::construct('/cms/admin-user')->enableAdmin()->toString(); ?>"><?= \skeeks\cms\models\User::find()->count(); ?></a></div>
-                <div class="title"><?=\Yii::t('app','Number of users')?></div>
+                <div class="title"><?=\Yii::t('skeeks/cms','Number of users')?></div>
             </li>
         </ul>
 

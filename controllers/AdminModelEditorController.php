@@ -168,7 +168,7 @@ class AdminModelEditorController extends AdminController
                 'index' =>
                 [
                     'class'         => ModelEditorGridAction::className(),
-                    'name'          => \Yii::t('app','List'),
+                    'name'          => \Yii::t('skeeks/cms','List'),
                     "icon"          => "glyphicon glyphicon-th-list",
                     "priority"      => 10,
                 ],
@@ -176,7 +176,7 @@ class AdminModelEditorController extends AdminController
                 'create' =>
                 [
                     'class'         => AdminModelEditorCreateAction::className(),
-                    'name'          => \Yii::t('app','Add'),
+                    'name'          => \Yii::t('skeeks/cms','Add'),
                     "icon"          => "glyphicon glyphicon-plus",
                 ],
 
@@ -184,7 +184,7 @@ class AdminModelEditorController extends AdminController
                 "update" =>
                 [
                     'class'         => AdminOneModelUpdateAction::className(),
-                    "name"         => \Yii::t('app',"Edit"),
+                    "name"         => \Yii::t('skeeks/cms',"Edit"),
                     "icon"          => "glyphicon glyphicon-pencil",
                     "priority"      => 10,
                 ],
@@ -192,7 +192,7 @@ class AdminModelEditorController extends AdminController
                 "delete" =>
                 [
                     'class'         => AdminOneModelEditAction::className(),
-                    "name"          => \Yii::t('app',"Delete"),
+                    "name"          => \Yii::t('skeeks/cms',"Delete"),
                     "icon"          => "glyphicon glyphicon-trash",
                     "confirm"       => \Yii::t('yii', 'Are you sure you want to delete this item?'),
                     "method"        => "post",
@@ -204,7 +204,7 @@ class AdminModelEditorController extends AdminController
                 "delete-multi" =>
                 [
                     'class'             => AdminMultiModelEditAction::className(),
-                    "name"              => \Yii::t('app',"Delete"),
+                    "name"              => \Yii::t('skeeks/cms',"Delete"),
                     "icon"              => "glyphicon glyphicon-trash",
                     "confirm"           => \Yii::t('yii', 'Are you sure you want to permanently delete the selected items?'),
                     "eachCallback"      => [$this, 'eachMultiDelete'],
@@ -233,12 +233,12 @@ class AdminModelEditorController extends AdminController
     {
         if (!$this->modelClassName)
         {
-            throw new InvalidConfigException(\Yii::t('app',"For {modelname} must specify the model class",['modelname' => 'AdminModelEditorController']));
+            throw new InvalidConfigException(\Yii::t('skeeks/cms',"For {modelname} must specify the model class",['modelname' => 'AdminModelEditorController']));
         }
 
         if (!class_exists($this->modelClassName))
         {
-            throw new InvalidConfigException("{$this->modelClassName} " . \Yii::t('app','the class is not found, you must specify the existing class model'));
+            throw new InvalidConfigException("{$this->modelClassName} " . \Yii::t('skeeks/cms','the class is not found, you must specify the existing class model'));
         }
     }
 
@@ -489,11 +489,11 @@ class AdminModelEditorController extends AdminController
             {
                 if ($this->model->delete())
                 {
-                    $rr->message = \Yii::t('app','Record deleted successfully');
+                    $rr->message = \Yii::t('skeeks/cms','Record deleted successfully');
                     $rr->success = true;
                 } else
                 {
-                    $rr->message = \Yii::t('app','Record deleted unsuccessfully');
+                    $rr->message = \Yii::t('skeeks/cms','Record deleted unsuccessfully');
                     $rr->success = false;
                 }
             } catch (\Exception $e)
@@ -567,7 +567,7 @@ class AdminModelEditorController extends AdminController
 
             return [
                 'success' => true,
-                'message' => \Yii::t('app','Changes saved'),
+                'message' => \Yii::t('skeeks/cms','Changes saved'),
             ];
         }
     }

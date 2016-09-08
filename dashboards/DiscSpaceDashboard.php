@@ -27,7 +27,7 @@ class DiscSpaceDashboard extends AdminDashboardWidgetRenderable
     static public function descriptorConfig()
     {
         return array_merge(parent::descriptorConfig(), [
-            'name' => \Yii::t('app', 'Disk space')
+            'name' => \Yii::t('skeeks/cms', 'Disk space')
         ]);
     }
 
@@ -40,7 +40,7 @@ class DiscSpaceDashboard extends AdminDashboardWidgetRenderable
 
         if (!$this->name)
         {
-            $this->name = \Yii::t('app', 'Disk space');
+            $this->name = \Yii::t('skeeks/cms', 'Disk space');
         }
     }
     /**
@@ -56,7 +56,7 @@ class DiscSpaceDashboard extends AdminDashboardWidgetRenderable
     public function attributeLabels()
     {
         return ArrayHelper::merge(parent::attributeLabels(), [
-            'name'                           => \Yii::t('app', 'Name'),
+            'name'                           => \Yii::t('skeeks/cms', 'Name'),
         ]);
     }
 
