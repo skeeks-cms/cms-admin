@@ -41,6 +41,8 @@ class Pjax extends \yii\widgets\Pjax
     {
         parent::registerClientScript();
 
+        $errorMessage = \Yii::t('skeeks/admin', 'An unexpected error occurred. Refer to the developers.');
+
         if ($this->blockPjaxContainer === true)
         {
             $this->getView()->registerJs(<<<JS
@@ -50,13 +52,19 @@ class Pjax extends \yii\widgets\Pjax
 
                 $(document).on('pjax:send', function(e)
                 {
-                    var blockerPanel = new sx.classes.Blocker($(e.target));
+                    blockerPanel = new sx.classes.Blocker($(e.target));
                     blockerPanel.block();
-                })
+                });
 
                 $(document).on('pjax:complete', function(e) {
                     blockerPanel.unblock();
-                })
+                });
+
+                $(document).on('pjax:error', function(e, data) {
+                    console.log(data);
+                    sx.notify.error('{$errorMessage}');
+                    blockerPanel.unblock();
+                });
 
             })(sx, sx.$, sx._);
 JS
@@ -74,11 +82,17 @@ JS
                 {
                     var blockerPanel = new sx.classes.Blocker($("{$this->blockContainer}"));
                     blockerPanel.block();
-                })
+                });
 
                 $(document).on('pjax:complete', function(e) {
                     blockerPanel.unblock();
-                })
+                });
+
+                $(document).on('pjax:error', function(e, data) {
+                    console.log(data);
+                    sx.notify.error('{$errorMessage}');
+                    blockerPanel.unblock();
+                });
 
             })(sx, sx.$, sx._);
 JS

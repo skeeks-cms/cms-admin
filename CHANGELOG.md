@@ -3,6 +3,7 @@ CHANGELOG
 
 1.0.2.pre
 -----------------
+  * Correction block form at the time an incorrect answer
   * Translation updates
   * Fixed https://github.com/skeeks-cms/cms-admin/issues/3
 

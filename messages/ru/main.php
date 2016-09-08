@@ -62,4 +62,6 @@ return [
     "Sorting direction"     => "Направление сортировки",
     "Display column"        => "Отображаемые колонки",
     "Increase"              => "Увеличить",
+
+    "An unexpected error occurred. Refer to the developers."              => "Произошла непредвиденная ошибка. Обратитесь к разработчикам.",
 ];
