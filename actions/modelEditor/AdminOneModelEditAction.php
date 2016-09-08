@@ -51,6 +51,20 @@ class AdminOneModelEditAction extends AdminModelEditorAction
         ]);
     }
 
+    protected function beforeRun()
+    {
+        if (parent::beforeRun())
+        {
+            if (!$this->controller->model)
+            {
+                $this->controller->redirect($this->controller->indexUrl);
+                return false;
+            }
+
+            return true;
+        }
+    }
+
     public function run()
     {
         if ($this->callback)

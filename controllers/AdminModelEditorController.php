@@ -358,15 +358,19 @@ class AdminModelEditorController extends AdminController
         $data[] = \Yii::$app->name;
         $data[] = $this->name;
 
-        if ($this->action instanceof AdminOneModelEditAction)
+        if ($this->model)
         {
-            $data[] = $this->model->{$this->modelShowAttribute};
+            if ($this->action instanceof AdminOneModelEditAction)
+            {
+                $data[] = $this->model->{$this->modelShowAttribute};
+            }
         }
 
         if ($this->action && property_exists($this->action, 'name'))
         {
             $data[] = $this->action->name;
         }
+
         $this->view->title = implode(" / ", $data);
         return $this;
     }
@@ -386,7 +390,7 @@ class AdminModelEditorController extends AdminController
             ];
         }
 
-        if ($this->action instanceof AdminOneModelEditAction)
+        if ($this->action instanceof AdminOneModelEditAction && $this->model)
         {
             $this->view->params['breadcrumbs'][] = [
                 'label' => $this->model->{$this->modelShowAttribute},

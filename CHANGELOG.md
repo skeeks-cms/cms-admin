@@ -1,5 +1,10 @@
 CHANGELOG
 ==============
+
+1.0.1.3.pre
+-----------------
+  * Fixed https://github.com/skeeks-cms/cms-admin/issues/3
+
 1.0.1.2
 -----------------
   * Fixed https://github.com/skeeks-cms/cms-admin/issues/1
