@@ -21,7 +21,7 @@ class GridViewSettings extends Component
     static public function descriptorConfig()
     {
         return array_merge(parent::descriptorConfig(), [
-            'name' => \Yii::t('skeeks/cms','Table settings')
+            'name' => \Yii::t('skeeks/admin','Table settings')
         ]);
     }
 
@@ -92,9 +92,9 @@ class GridViewSettings extends Component
             'pageSizeLimitMax'          => \Yii::t('skeeks/cms','The minimum number of records per page'),
 
             'orderBy'                   => \Yii::t('skeeks/cms','Sort by what parameter'),
-            'order'                     => \Yii::t('skeeks/cms','sorting direction'),
+            'order'                     => \Yii::t('skeeks/admin','sorting direction'),
 
-            'visibleColumns'            => \Yii::t('skeeks/cms','Display column'),
+            'visibleColumns'            => \Yii::t('skeeks/admin','Display column'),
         ]);
     }
 

@@ -34,7 +34,7 @@ $controller = \Yii::$app->createController($widget->controllerRoute)[0];
 JS
     ); ?>
 
-    <? $add = \Yii::t('skeeks/cms','Add');?>
+    <? $add = \Yii::t('skeeks/cms', 'Add');?>
     <?= \skeeks\cms\modules\admin\widgets\GridViewHasSettings::widget(\yii\helpers\ArrayHelper::merge([
         'settingsData' =>
         [

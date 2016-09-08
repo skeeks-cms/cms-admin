@@ -12,13 +12,13 @@
     <? $selectedColumns = \skeeks\cms\helpers\UrlHelper::constructCurrent()->getSystem('selectedColumns'); ?>
 
     <? if ($columns) : ?>
-        <?= $form->fieldSet(\Yii::t('skeeks/cms','Table fields')); ?>
+        <?= $form->fieldSet(\Yii::t('skeeks/admin','Table fields')); ?>
 
             <div class="row">
                 <div class="col-lg-6">
 
-                    <label><?=\Yii::t('skeeks/cms','Available fields')?></label>
-                    <p><?=\Yii::t('skeeks/cms','Double-click for item, turn it on')?></p>
+                    <label><?=\Yii::t('skeeks/admin','Available fields')?></label>
+                    <p><?=\Yii::t('skeeks/admin','Double-click for item, turn it on')?></p>
                     <hr />
                     <?= \yii\helpers\Html::listBox('possibleColumns', [], $columns, [
                         'size'      => "20",
@@ -28,8 +28,8 @@
 
                 </div>
                 <div class="col-lg-6">
-                    <label><?=\Yii::t('skeeks/cms','Included fields')?></label>
-                    <p><?=\Yii::t('skeeks/cms','Double-click for item, turn it off. You can also change the order of items by dragging them.')?></p>
+                    <label><?=\Yii::t('skeeks/admin','Included fields')?></label>
+                    <p><?=\Yii::t('skeeks/admin','Double-click for item, turn it off. You can also change the order of items by dragging them.')?></p>
                     <hr />
                     <ul id="sx-visible-selected">
 

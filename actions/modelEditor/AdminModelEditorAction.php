@@ -29,7 +29,7 @@ class AdminModelEditorAction extends AdminAction
     {
         if (!$this->controller instanceof AdminModelEditorController)
         {
-            throw new InvalidParamException(\Yii::t('skeeks/cms','This action is designed to work with the controller: ') . AdminModelEditorController::className());
+            throw new InvalidParamException(\Yii::t('skeeks/admin','This action is designed to work with the controller: ') . AdminModelEditorController::className());
         }
 
         parent::init();
