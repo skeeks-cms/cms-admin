@@ -7,10 +7,10 @@
  */
 ?>
 <div class="sidebar sx-sidebar sx-bg-glass sx-bg-glass-hover">
-    <a href="#" onclick="sx.App.Menu.toggleTrigger(); return false;" class="btn btn-default btn-xs sx-main-menu-toggle sx-main-menu-toggle-opened" data-sx-widget="tooltip-l" data-original-title="<?=\Yii::t('app','Close menu')?>">
+    <a href="#" onclick="sx.App.Menu.toggleTrigger(); return false;" class="btn btn-default btn-xs sx-main-menu-toggle sx-main-menu-toggle-opened" data-sx-widget="tooltip-l" data-original-title="<?=\Yii::t('skeeks/cms','Close menu')?>">
         <i class="glyphicon glyphicon-menu-left"></i>
     </a>
-    <a href="#" onclick="sx.App.Menu.toggleTrigger(); return false;" class="btn btn-default btn-xs sx-main-menu-toggle sx-main-menu-toggle-closed" data-sx-widget="tooltip-r" data-original-title="<?=\Yii::t('app','Open menu')?>">
+    <a href="#" onclick="sx.App.Menu.toggleTrigger(); return false;" class="btn btn-default btn-xs sx-main-menu-toggle sx-main-menu-toggle-closed" data-sx-widget="tooltip-r" data-original-title="<?=\Yii::t('skeeks/cms','Open menu')?>">
         <i class="glyphicon glyphicon-menu-right"></i>
     </a>
     <div class="inner-wrapper scrollbar-macosx">

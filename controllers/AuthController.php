@@ -94,7 +94,7 @@ class AuthController extends AdminController
 
     public function actionLock()
     {
-        $this->view->title = \Yii::t('app','Lock Mode');
+        $this->view->title = \Yii::t('skeeks/cms','Lock Mode');
         \Yii::$app->user->identity->lockAdmin();
 
         if ($ref = UrlHelper::getCurrent()->getRef())
@@ -108,7 +108,7 @@ class AuthController extends AdminController
 
     public function actionResetPassword()
     {
-        $this->view->title = \Yii::t('app','Password recovery');
+        $this->view->title = \Yii::t('skeeks/cms','Password recovery');
         $this->layout = '@skeeks/cms/modules/admin/views/layouts/unauthorized.php';
 
         if (!\Yii::$app->user->isGuest)
@@ -145,14 +145,14 @@ class AuthController extends AdminController
                 \Yii::$app->mailer->compose('@app/mail/new-password', ['user' => $user, 'password' => $password])
                     ->setFrom([\Yii::$app->cms->adminEmail => \Yii::$app->cms->appName])
                     ->setTo($user->email)
-                    ->setSubject(\Yii::t('app','New password') . ' ' . \Yii::$app->cms->appName)
+                    ->setSubject(\Yii::t('skeeks/cms','New password') . ' ' . \Yii::$app->cms->appName)
                     ->send();
 
-                $message = \Yii::t('app','New password sent to your e-mail');
+                $message = \Yii::t('skeeks/cms','New password sent to your e-mail');
             }
         } else
         {
-            $message = \Yii::t('app','Link outdated, try to request a password recovery again.');
+            $message = \Yii::t('skeeks/cms','Link outdated, try to request a password recovery again.');
         }
 
 
@@ -163,7 +163,7 @@ class AuthController extends AdminController
 
     public function actionBlocked()
     {
-        $this->view->title = \Yii::t('app','Lock Mode');
+        $this->view->title = \Yii::t('skeeks/cms','Lock Mode');
 
         $this->layout = '@skeeks/cms/modules/admin/views/layouts/unauthorized.php';
 
@@ -200,7 +200,7 @@ class AuthController extends AdminController
             } else
             {
                 $rr->success = false;
-                $rr->message = \Yii::t('app',"Failed log in");
+                $rr->message = \Yii::t('skeeks/cms',"Failed log in");
             }
 
             return $rr;
@@ -214,7 +214,7 @@ class AuthController extends AdminController
 
     public function actionAuth()
     {
-        $this->view->title = \Yii::t('app','Authorization');
+        $this->view->title = \Yii::t('skeeks/cms','Authorization');
 
         $this->layout = 'unauthorized';
 
@@ -261,7 +261,7 @@ class AuthController extends AdminController
                 } else
                 {
                     $rr->success = false;
-                    $rr->message = \Yii::t('app',"Unsuccessful attempt authorization");
+                    $rr->message = \Yii::t('skeeks/cms',"Unsuccessful attempt authorization");
                     return (array) $rr;
                 }
             }
@@ -281,12 +281,12 @@ class AuthController extends AdminController
                 if ($passwordResetModel->load(\Yii::$app->request->post()) && $passwordResetModel->sendEmail())
                 {
                     $rr->success = true;
-                    $rr->message = \Yii::t('app',"Check your email address");
+                    $rr->message = \Yii::t('skeeks/cms',"Check your email address");
                     return (array) $rr;
                 } else
                 {
                     $rr->success = false;
-                    $rr->message = \Yii::t('app',"Failed send email");
+                    $rr->message = \Yii::t('skeeks/cms',"Failed send email");
                     return (array) $rr;
                 }
             }

@@ -47,7 +47,7 @@ class AdminSettings extends Component
     static public function descriptorConfig()
     {
         return array_merge(parent::descriptorConfig(), [
-            'name'          => \Yii::t('app','Setting the admin panel'),
+            'name'          => \Yii::t('skeeks/cms','Setting the admin panel'),
         ]);
     }
 
@@ -89,7 +89,7 @@ class AdminSettings extends Component
     public function getDasboardWidgets()
     {
         $baseWidgets = [
-            \Yii::t('app', 'Basic widgets') =>
+            \Yii::t('skeeks/cms', 'Basic widgets') =>
             [
                 AboutCmsDashboard::className(),
                 CmsInformDashboard::className(),
@@ -197,26 +197,26 @@ class AdminSettings extends Component
     public function attributeLabels()
     {
         return ArrayHelper::merge(parent::attributeLabels(), [
-            //'asset'                             => \Yii::t('app','Additional css and js admin area'),
-            'enableCustomConfirm'               => \Yii::t('app','Include stylized window confirmation (confirm)'),
-            'enableCustomPromt'                 => \Yii::t('app','Include stylized window question with one field (promt)'),
-            'languageCode'                      => \Yii::t('app','Interface language'),
+            //'asset'                             => \Yii::t('skeeks/cms','Additional css and js admin area'),
+            'enableCustomConfirm'               => \Yii::t('skeeks/cms','Include stylized window confirmation (confirm)'),
+            'enableCustomPromt'                 => \Yii::t('skeeks/cms','Include stylized window question with one field (promt)'),
+            'languageCode'                      => \Yii::t('skeeks/cms','Interface language'),
 
-            'pageParamName'                     => \Yii::t('app','Interface language'),
+            'pageParamName'                     => \Yii::t('skeeks/cms','Interface language'),
 
-            'enabledPjaxPagination'             => \Yii::t('app','Turning ajax navigation'),
-            'pageParamName'                     => \Yii::t('app','Parameter name pages, pagination'),
-            'pageSize'                          => \Yii::t('app','Number of records on one page'),
-            'pageSizeLimitMin'                  => \Yii::t('app','The maximum number of records per page'),
-            'pageSizeLimitMax'                  => \Yii::t('app','The minimum number of records per page'),
+            'enabledPjaxPagination'             => \Yii::t('skeeks/cms','Turning ajax navigation'),
+            'pageParamName'                     => \Yii::t('skeeks/cms','Parameter name pages, pagination'),
+            'pageSize'                          => \Yii::t('skeeks/cms','Number of records on one page'),
+            'pageSizeLimitMin'                  => \Yii::t('skeeks/cms','The maximum number of records per page'),
+            'pageSizeLimitMax'                  => \Yii::t('skeeks/cms','The minimum number of records per page'),
 
-            'ckeditorPreset'                    => \Yii::t('app','Instruments'),
-            'ckeditorSkin'                      => \Yii::t('app','Theme of formalization'),
-            'ckeditorHeight'                    => \Yii::t('app','Height'),
-            'ckeditorCodeSnippetGeshi'          => \Yii::t('app','Use code highlighting') . ' (Code Snippets Using GeSHi)',
-            'ckeditorCodeSnippetTheme'          => \Yii::t('app','Theme of {theme} code',['theme' => 'hightlight']),
+            'ckeditorPreset'                    => \Yii::t('skeeks/cms','Instruments'),
+            'ckeditorSkin'                      => \Yii::t('skeeks/cms','Theme of formalization'),
+            'ckeditorHeight'                    => \Yii::t('skeeks/cms','Height'),
+            'ckeditorCodeSnippetGeshi'          => \Yii::t('skeeks/cms','Use code highlighting') . ' (Code Snippets Using GeSHi)',
+            'ckeditorCodeSnippetTheme'          => \Yii::t('skeeks/cms','Theme of {theme} code',['theme' => 'hightlight']),
 
-            'blockedTime'                       => \Yii::t('app','Time through which block user'),
+            'blockedTime'                       => \Yii::t('skeeks/cms','Time through which block user'),
         ]);
     }
 

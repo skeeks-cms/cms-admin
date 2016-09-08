@@ -10,13 +10,13 @@ $model->columns = 1;
 ?>
 <div class="row sx-main-head sx-bg-glass sx-bg-glass-hover">
     <div class="col-md-6 pull-left">
-        <a href="#sx-dashboard-create" class="btn btn-default btn-primary sx-fancybox"><i class="glyphicon glyphicon-plus"></i> <?= \Yii::t('app', 'Add dashboard'); ?></a>
+        <a href="#sx-dashboard-create" class="btn btn-default btn-primary sx-fancybox"><i class="glyphicon glyphicon-plus"></i> <?= \Yii::t('skeeks/cms', 'Add dashboard'); ?></a>
     </div>
     <div class="col-md-6">
         <div class="pull-right">
-            <a href="#sx-dashboard-widget-create" class="btn btn-default btn-primary sx-fancybox"><i class="icon-calculator"></i> <?= \Yii::t('app', 'Add widget'); ?></a>
-            <a href="#sx-dashboard-edit" class="btn btn-default btn-primary sx-fancybox"><i class="glyphicon glyphicon-cog"></i>  <?= \Yii::t('app', 'Settings'); ?></a>
-            <a href="#" onclick="sx.DashboardsControll.remove(); return false;" class="btn btn-default btn-danger"><i class="glyphicon glyphicon-remove"></i> <?= \Yii::t('app', 'Delete'); ?></a>
+            <a href="#sx-dashboard-widget-create" class="btn btn-default btn-primary sx-fancybox"><i class="icon-calculator"></i> <?= \Yii::t('skeeks/cms', 'Add widget'); ?></a>
+            <a href="#sx-dashboard-edit" class="btn btn-default btn-primary sx-fancybox"><i class="glyphicon glyphicon-cog"></i>  <?= \Yii::t('skeeks/cms', 'Settings'); ?></a>
+            <a href="#" onclick="sx.DashboardsControll.remove(); return false;" class="btn btn-default btn-danger"><i class="glyphicon glyphicon-remove"></i> <?= \Yii::t('skeeks/cms', 'Delete'); ?></a>
         </div>
     </div>
 </div>
@@ -96,7 +96,7 @@ JS
                         \skeeks\cms\widgets\formInputs\componentSettings\ComponentSettingsWidget::className(),
                         [
                             'componentSelectId' => \yii\helpers\Html::getInputId($modelWidget, "component"),
-                            'buttonText'        => \skeeks\cms\shop\Module::t('app', 'Settings handler'),
+                            'buttonText'        => \skeeks\cms\shop\Module::t('skeeks/cms', 'Settings handler'),
                             'buttonClasses'     => "sx-btn-edit btn btn-default"
                         ]
                     ); */?>
@@ -111,7 +111,7 @@ JS
 <?
 $jsonData = \yii\helpers\Json::encode([
     'model' => $dashboard,
-    'confirmMsg' => \Yii::t('app', 'Are you sure you want to delete this desktop?'),
+    'confirmMsg' => \Yii::t('skeeks/cms', 'Are you sure you want to delete this desktop?'),
     'removeBackend' => \skeeks\cms\helpers\UrlHelper::construct(['/admin/index/dashboard-remove', 'pk' => $dashboard->id])->enableAdmin()->toString(),
 ]);
 

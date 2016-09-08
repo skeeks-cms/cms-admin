@@ -21,7 +21,7 @@ class GridViewSettings extends Component
     static public function descriptorConfig()
     {
         return array_merge(parent::descriptorConfig(), [
-            'name' => \Yii::t('app','Table settings')
+            'name' => \Yii::t('skeeks/cms','Table settings')
         ]);
     }
 
@@ -85,16 +85,16 @@ class GridViewSettings extends Component
     {
         return array_merge(parent::attributeLabels(),
         [
-            'enabledPjaxPagination'     => \Yii::t('app','Inclusion {ajax} navigation',['ajax' => 'ajax']),
-            'pageParamName'             => \Yii::t('app','Parameter name pages, pagination'),
-            'pageSize'                  => \Yii::t('app','Number of records on one page'),
-            'pageSizeLimitMin'          => \Yii::t('app','The maximum number of records per page'),
-            'pageSizeLimitMax'          => \Yii::t('app','The minimum number of records per page'),
+            'enabledPjaxPagination'     => \Yii::t('skeeks/cms','Inclusion {ajax} navigation',['ajax' => 'ajax']),
+            'pageParamName'             => \Yii::t('skeeks/cms','Parameter name pages, pagination'),
+            'pageSize'                  => \Yii::t('skeeks/cms','Number of records on one page'),
+            'pageSizeLimitMin'          => \Yii::t('skeeks/cms','The maximum number of records per page'),
+            'pageSizeLimitMax'          => \Yii::t('skeeks/cms','The minimum number of records per page'),
 
-            'orderBy'                   => \Yii::t('app','Sort by what parameter'),
-            'order'                     => \Yii::t('app','sorting direction'),
+            'orderBy'                   => \Yii::t('skeeks/cms','Sort by what parameter'),
+            'order'                     => \Yii::t('skeeks/cms','sorting direction'),
 
-            'visibleColumns'            => \Yii::t('app','Display column'),
+            'visibleColumns'            => \Yii::t('skeeks/cms','Display column'),
         ]);
     }
 

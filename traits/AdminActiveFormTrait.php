@@ -52,7 +52,7 @@ trait AdminActiveFormTrait
         $submit = "";
         if (in_array("save", $buttons))
         {
-            $submit     .= Html::submitButton("<i class=\"glyphicon glyphicon-save\"></i> " .  \Yii::t('app', 'Save'), [
+            $submit     .= Html::submitButton("<i class=\"glyphicon glyphicon-save\"></i> " .  \Yii::t('skeeks/cms', 'Save'), [
                 'class'         => 'btn btn-success',
                 'onclick'       => "return sx.CmsActiveFormButtons.go('save');",
             ]);
@@ -60,7 +60,7 @@ trait AdminActiveFormTrait
 
         if (in_array("apply", $buttons))
         {
-            $submit .= ' ' . Html::submitButton("<i class=\"glyphicon glyphicon-ok\"></i> " . \Yii::t('app', 'Apply'), [
+            $submit .= ' ' . Html::submitButton("<i class=\"glyphicon glyphicon-ok\"></i> " . \Yii::t('skeeks/cms', 'Apply'), [
                     'class' => 'btn btn-primary',
                     'onclick' => "return sx.CmsActiveFormButtons.go('apply');",
                 ]);
@@ -68,7 +68,7 @@ trait AdminActiveFormTrait
 
         if (in_array("close", $buttons))
         {
-            $submit     .= ' ' . Html::submitButton("<i class=\"glyphicon glyphicon-remove\"></i> " .  \Yii::t('app', 'Cancel'), [
+            $submit     .= ' ' . Html::submitButton("<i class=\"glyphicon glyphicon-remove\"></i> " .  \Yii::t('skeeks/cms', 'Cancel'), [
                 'class' => 'btn btn-danger pull-right',
                 'onclick'       => "return sx.CmsActiveFormButtons.go('close');",
             ]);

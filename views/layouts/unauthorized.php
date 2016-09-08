@@ -66,7 +66,7 @@ JS
 
             <!--<a href="/">Перейти на сайт &rarr;</a>-->
         <li class="sx-left-border dropdown visible-md visible-lg visible-sm visible-xs">
-            <a href="/" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('app','To main page of site')?>"><i class="glyphicon glyphicon-globe"></i></a>
+            <a href="/" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','To main page of site')?>"><i class="glyphicon glyphicon-globe"></i></a>
         </li>
 
     </ul>

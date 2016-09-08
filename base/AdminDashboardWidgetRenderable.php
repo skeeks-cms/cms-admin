@@ -40,7 +40,7 @@ class AdminDashboardWidgetRenderable extends AdminDashboardWidget
 
         } else
         {
-            return \Yii::t('app',"Template not found");
+            return \Yii::t('skeeks/cms',"Template not found");
         }
     }
 }

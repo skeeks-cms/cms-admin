@@ -14,8 +14,8 @@ use yii\helpers\Html;
     <table class="table table-condensed table-bordered table-striped table-hover sx-table" style="table-layout: fixed;">
         <thead>
             <tr>
-                <th><?=\Yii::t('app','Name')?></th>
-                <th><?=\Yii::t('app','Value')?></th>
+                <th><?=\Yii::t('skeeks/cms','Name')?></th>
+                <th><?=\Yii::t('skeeks/cms','Value')?></th>
             </tr>
         </thead>
         <tbody>

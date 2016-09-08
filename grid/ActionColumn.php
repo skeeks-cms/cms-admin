@@ -41,12 +41,12 @@ class ActionColumn extends DataColumn
 
         if (!$this->controller)
         {
-            throw new InvalidConfigException("controller - " .\Yii::t('app',"not specified").".");
+            throw new InvalidConfigException("controller - " .\Yii::t('skeeks/cms',"not specified").".");
         }
 
         if (!$this->controller instanceof AdminModelEditorController)
         {
-            throw new InvalidConfigException(\Yii::t('app',"{controller} must be inherited from") . ": " . AdminModelEditorController::className());
+            throw new InvalidConfigException(\Yii::t('skeeks/cms',"{controller} must be inherited from") . ": " . AdminModelEditorController::className());
         }
     }
 

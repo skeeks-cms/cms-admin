@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?php
-        echo Html::submitButton($model->isNewRecord ? \Yii::t('app', 'Create') : \Yii::t('app', 'Update'), [
+        echo Html::submitButton($model->isNewRecord ? \Yii::t('skeeks/cms', 'Create') : \Yii::t('skeeks/cms', 'Update'), [
             'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])
         ?>
     </div>

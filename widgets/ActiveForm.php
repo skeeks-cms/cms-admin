@@ -114,10 +114,10 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
     {
         /*if (Validate::validate(new IsNewRecord(), $model)->isValid())
         {
-            $submit = Html::submitButton("<i class=\"glyphicon glyphicon-saved\"></i> " . \Yii::t('app', 'Create'), ['class' => 'btn btn-success']);
+            $submit = Html::submitButton("<i class=\"glyphicon glyphicon-saved\"></i> " . \Yii::t('skeeks/cms', 'Create'), ['class' => 'btn btn-success']);
         } else
         {
-            $submit = Html::submitButton("<i class=\"glyphicon glyphicon-saved\"></i> " .  \Yii::t('app', 'Update'), ['class' => 'btn btn-primary']);
+            $submit = Html::submitButton("<i class=\"glyphicon glyphicon-saved\"></i> " .  \Yii::t('skeeks/cms', 'Update'), ['class' => 'btn btn-primary']);
         }*/
         return $this->buttonsStandart($model);
     }

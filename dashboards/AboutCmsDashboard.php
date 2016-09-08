@@ -27,7 +27,7 @@ class AboutCmsDashboard extends AdminDashboardWidgetRenderable
     static public function descriptorConfig()
     {
         return array_merge(parent::descriptorConfig(), [
-            'name' => \Yii::t('app', 'Information about SkeekS CMS')
+            'name' => \Yii::t('skeeks/cms', 'Information about SkeekS CMS')
         ]);
     }
 
@@ -40,7 +40,7 @@ class AboutCmsDashboard extends AdminDashboardWidgetRenderable
 
         if (!$this->name)
         {
-            $this->name = \Yii::t('app', 'Information about SkeekS CMS');
+            $this->name = \Yii::t('skeeks/cms', 'Information about SkeekS CMS');
         }
     }
 
@@ -57,7 +57,7 @@ class AboutCmsDashboard extends AdminDashboardWidgetRenderable
     public function attributeLabels()
     {
         return ArrayHelper::merge(parent::attributeLabels(), [
-            'name'                           => \Yii::t('app', 'Name'),
+            'name'                           => \Yii::t('skeeks/cms', 'Name'),
         ]);
     }
 

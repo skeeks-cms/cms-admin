@@ -12,13 +12,13 @@
     <? $selectedColumns = \skeeks\cms\helpers\UrlHelper::constructCurrent()->getSystem('selectedColumns'); ?>
 
     <? if ($columns) : ?>
-        <?= $form->fieldSet(\Yii::t('app','Table fields')); ?>
+        <?= $form->fieldSet(\Yii::t('skeeks/cms','Table fields')); ?>
 
             <div class="row">
                 <div class="col-lg-6">
 
-                    <label><?=\Yii::t('app','Available fields')?></label>
-                    <p><?=\Yii::t('app','Double-click for item, turn it on')?></p>
+                    <label><?=\Yii::t('skeeks/cms','Available fields')?></label>
+                    <p><?=\Yii::t('skeeks/cms','Double-click for item, turn it on')?></p>
                     <hr />
                     <?= \yii\helpers\Html::listBox('possibleColumns', [], $columns, [
                         'size'      => "20",
@@ -28,8 +28,8 @@
 
                 </div>
                 <div class="col-lg-6">
-                    <label><?=\Yii::t('app','Included fields')?></label>
-                    <p><?=\Yii::t('app','Double-click for item, turn it off. You can also change the order of items by dragging them.')?></p>
+                    <label><?=\Yii::t('skeeks/cms','Included fields')?></label>
+                    <p><?=\Yii::t('skeeks/cms','Double-click for item, turn it off. You can also change the order of items by dragging them.')?></p>
                     <hr />
                     <ul id="sx-visible-selected">
 
@@ -46,7 +46,7 @@
         <?= $form->fieldSetEnd(); ?>
     <? endif; ?>
 
-    <?= $form->fieldSet(\Yii::t('app','Pagination')); ?>
+    <?= $form->fieldSet(\Yii::t('skeeks/cms','Pagination')); ?>
         <?= $form->fieldRadioListBoolean($model, 'enabledPjaxPagination', \Yii::$app->cms->booleanFormat()); ?>
         <?= $form->fieldInputInt($model, 'pageSize'); ?>
         <?= $form->fieldInputInt($model, 'pageSizeLimitMin'); ?>
@@ -54,11 +54,11 @@
         <?= $form->field($model, 'pageParamName')->textInput(); ?>
     <?= $form->fieldSetEnd(); ?>
 
-    <?= $form->fieldSet(\Yii::t('app','Priority')); ?>
+    <?= $form->fieldSet(\Yii::t('skeeks/cms','Priority')); ?>
         <?= $form->fieldSelect($model, 'orderBy', (new \skeeks\cms\models\CmsContentElement())->attributeLabels()); ?>
         <?= $form->fieldSelect($model, 'order', [
-            SORT_ASC    => "ASC (".\Yii::t('app','from smaller to larger').")",
-            SORT_DESC   => "DESC (".\Yii::t('app','from highest to lowest').")",
+            SORT_ASC    => "ASC (".\Yii::t('skeeks/cms','from smaller to larger').")",
+            SORT_DESC   => "DESC (".\Yii::t('skeeks/cms','from highest to lowest').")",
         ]); ?>
     <?= $form->fieldSetEnd(); ?>
 

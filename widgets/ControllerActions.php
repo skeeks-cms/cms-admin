@@ -66,12 +66,12 @@ class ControllerActions
     {
         if (!$this->controller)
         {
-            throw new InvalidConfigException(\Yii::t('app',"Incorrectly configured widget, you must pass an controller object to which is built widget"));
+            throw new InvalidConfigException(\Yii::t('skeeks/cms',"Incorrectly configured widget, you must pass an controller object to which is built widget"));
         }
 
         if (!$this->controller instanceof AdminController)
         {
-            throw new InvalidConfigException(\Yii::t('app',"For this controller can not build action"));
+            throw new InvalidConfigException(\Yii::t('skeeks/cms',"For this controller can not build action"));
         }
     }
 

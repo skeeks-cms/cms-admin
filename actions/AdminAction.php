@@ -58,7 +58,7 @@ class AdminAction extends ViewAction
 
         if (!$this->controller instanceof AdminController)
         {
-            throw new InvalidParamException( \Yii::t('app','This action is designed to work with the controller: ') . AdminController::className());
+            throw new InvalidParamException( \Yii::t('skeeks/cms','This action is designed to work with the controller: ') . AdminController::className());
         }
 
         $this->defaultView = $this->id;
@@ -93,7 +93,7 @@ class AdminAction extends ViewAction
         {
             if (!is_callable($this->callback))
             {
-                throw new InvalidConfigException('"' . get_class($this) . '::callback" '.\Yii::t('app','should be a valid callback.'));
+                throw new InvalidConfigException('"' . get_class($this) . '::callback" '.\Yii::t('skeeks/cms','should be a valid callback.'));
             }
 
             return call_user_func($this->callback, $this);

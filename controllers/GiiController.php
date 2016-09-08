@@ -28,7 +28,7 @@ class GiiController extends AdminController
 {
     public function init()
     {
-        $this->name = \Yii::t('app',"Code generator");
+        $this->name = \Yii::t('skeeks/cms',"Code generator");
 
         parent::init();
     }
@@ -40,7 +40,7 @@ class GiiController extends AdminController
             "index" =>
             [
                 "class"        => AdminAction::className(),
-                "name"         => \Yii::t('app',"Code generator"),
+                "name"         => \Yii::t('skeeks/cms',"Code generator"),
             ],
         ];
     }

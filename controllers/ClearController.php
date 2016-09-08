@@ -27,7 +27,7 @@ class ClearController extends AdminController
 {
     public function init()
     {
-        $this->name = \Yii::t('app',"Deleting temporary files");
+        $this->name = \Yii::t('skeeks/cms',"Deleting temporary files");
         parent::init();
     }
 
@@ -38,7 +38,7 @@ class ClearController extends AdminController
             "index" =>
             [
                 "class"        => AdminAction::className(),
-                "name"         => \Yii::t('app',"Clearing temporary data"),
+                "name"         => \Yii::t('skeeks/cms',"Clearing temporary data"),
                 "callback"     => [$this, 'actionIndex'],
             ],
         ];
@@ -97,7 +97,7 @@ class ClearController extends AdminController
             \Yii::$app->cms->generateTmpConsoleConfig();
 
             $rr->success = true;
-            $rr->message = \Yii::t('app','Cache cleared');
+            $rr->message = \Yii::t('skeeks/cms','Cache cleared');
             return $rr;
         }
 

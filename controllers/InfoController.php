@@ -29,7 +29,7 @@ class InfoController extends AdminController
 {
     public function init()
     {
-        $this->name = \Yii::t('app',"Information about the system");
+        $this->name = \Yii::t('skeeks/cms',"Information about the system");
 
         parent::init();
     }
@@ -41,7 +41,7 @@ class InfoController extends AdminController
             'index' =>
             [
                 'class'         => AdminAction::className(),
-                'name'          => \Yii::t('app','General information'),
+                'name'          => \Yii::t('skeeks/cms','General information'),
                 'viewParams'    => $this->indexData(),
             ]
         ];
@@ -87,10 +87,10 @@ class InfoController extends AdminController
     {
         if (\Yii::$app->cms->generateTmpConfig() && \Yii::$app->cms->generateTmpConsoleConfig())
         {
-            \Yii::$app->session->setFlash('success', \Yii::t('app','File, automatic paths to the modules successfully updated'));
+            \Yii::$app->session->setFlash('success', \Yii::t('skeeks/cms','File, automatic paths to the modules successfully updated'));
         } else
         {
-            \Yii::$app->session->setFlash('error', \Yii::t('app','File, automatic paths to the modules are not updated'));
+            \Yii::$app->session->setFlash('error', \Yii::t('skeeks/cms','File, automatic paths to the modules are not updated'));
         }
 
         return $this->redirect(\Yii::$app->request->getReferrer());
@@ -105,7 +105,7 @@ class InfoController extends AdminController
         $env = (string) \Yii::$app->request->get('env');
         if (!$env)
         {
-            \Yii::$app->session->setFlash('error', \Yii::t('app','Not Specified Places to record'));
+            \Yii::$app->session->setFlash('error', \Yii::t('skeeks/cms','Not Specified Places to record'));
             return $this->redirect(\Yii::$app->request->getReferrer());
         }
 
@@ -117,10 +117,10 @@ PHP;
         $file = new File(APP_ENV_GLOBAL_FILE);
         if ($file->write($content))
         {
-            \Yii::$app->session->setFlash('success', \Yii::t('app','File successfully created and written'));
+            \Yii::$app->session->setFlash('success', \Yii::t('skeeks/cms','File successfully created and written'));
         } else
         {
-            \Yii::$app->session->setFlash('error', \Yii::t('app','Failed to write file'));
+            \Yii::$app->session->setFlash('error', \Yii::t('skeeks/cms','Failed to write file'));
         }
 
         return $this->redirect(\Yii::$app->request->getReferrer());
@@ -131,10 +131,10 @@ PHP;
         $file = new File(APP_ENV_GLOBAL_FILE);
         if ($file->remove())
         {
-            \Yii::$app->session->setFlash('success', \Yii::t('app','File deleted successfully'));
+            \Yii::$app->session->setFlash('success', \Yii::t('skeeks/cms','File deleted successfully'));
         } else
         {
-            \Yii::$app->session->setFlash('error', \Yii::t('app','Could not delete the file'));
+            \Yii::$app->session->setFlash('error', \Yii::t('skeeks/cms','Could not delete the file'));
         }
 
         return $this->redirect(\Yii::$app->request->getReferrer());

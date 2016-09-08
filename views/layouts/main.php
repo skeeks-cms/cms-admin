@@ -35,7 +35,7 @@ AdminAsset::register($this);
             <?= $this->render('_main-head'); ?>
 
             <div class="col-lg-12 sx-main-body">
-                <? $openClose = \Yii::t('app', 'Expand/Collapse')?>
+                <? $openClose = \Yii::t('skeeks/cms', 'Expand/Collapse')?>
                 <? \skeeks\cms\modules\admin\widgets\AdminPanelWidget::begin([
                     'name'      => property_exists(\Yii::$app->controller, 'name') ? \Yii::$app->controller->name : "",
                     'actions'   => <<<HTML

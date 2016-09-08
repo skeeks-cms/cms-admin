@@ -19,7 +19,7 @@ $updateModal = \yii\bootstrap\Modal::begin([
     'id' => $widget->getEditFilterFormModalId(),
     'header'    => '<b>' . \Yii::t('skeeks/admin', 'Save filter') . '</b>',
     'footer'    => '
-        <button class="btn btn-primary" onclick="$(\'#' . $updateFormId . '\').submit(); return false;">' . \Yii::t('app', 'Save') . '</button>
+        <button class="btn btn-primary" onclick="$(\'#' . $updateFormId . '\').submit(); return false;">' . \Yii::t('skeeks/cms', 'Save') . '</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">' . \Yii::t('skeeks/admin', 'Close') . '</button>
     ',
 ]);?>
