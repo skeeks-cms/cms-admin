@@ -13,21 +13,17 @@
         <div class="row">
             <div class="sx-one-input col-lg-8 col-md-8 col-sm-8">
             <? if ($widget->model) : ?>
-                <?= \yii\helpers\Html::activeTextInput($widget->model, $widget->attribute, [
-                    'class' => 'form-control'
-                ]); ?>
+                <?= \yii\helpers\Html::activeTextInput($widget->model, $widget->attribute, $widget->options); ?>
 
             <? else: ?>
-                <?= \yii\helpers\Html::textInput($widget->id, $widget->attribute, [
-                    'class' => 'form-control'
-                ]); ?>
+                <?= \yii\helpers\Html::textInput($widget->id, $widget->attribute, $widget->options); ?>
             <? endif; ?>
             </div>
             <div class="sx-one-btn col-lg-2 col-md-2 col-sm-2">
                 <a class="btn btn-default sx-btn-create-file-manager"><i class="glyphicon glyphicon-download-alt"></i> <?=\Yii::t('skeeks/cms','Choose file')?></a>
             </div>
 
-            <div class="sx-one-image col-lg-1 col-md-1 col-sm-1">
+            <div class="sx-one-image col-lg-1 col-md-1 col-sm-1" <?= !$widget->showPreview ? "style='display: none;'": ""?>>
                 <a href="" class="sx-fancybox" data-pjax="0" target="_blank">
                     <img src="" />
                 </a>

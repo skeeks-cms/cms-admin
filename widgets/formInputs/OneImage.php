@@ -23,6 +23,13 @@ use Yii;
  */
 class OneImage extends InputWidget
 {
+    public static $autoIdPrefix = 'inputImage';
+
+    /**
+     * @var bool
+     */
+    public $showPreview = true;
+
     /**
      * @var array
      */
