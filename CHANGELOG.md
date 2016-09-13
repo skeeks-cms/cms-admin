@@ -3,6 +3,7 @@ CHANGELOG
 
 1.0.2.pre
 -----------------
+  * Fixing element file selection form
   * Adapting to new additional properties
   * Correction block form at the time an incorrect answer
   * Translation updates

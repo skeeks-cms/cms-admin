@@ -69,7 +69,7 @@ class OneImage extends InputWidget
 
             }
 
-
+            Html::addCssClass($this->options, 'form-control');
             $additionalData['callbackEvent'] = $this->getCallbackEvent();
 
             $this->selectFileUrl = \skeeks\cms\helpers\UrlHelper::construct('cms/admin-tools/select-file', $additionalData)
