@@ -1,7 +1,7 @@
 CHANGELOG
 ==============
 
-1.0.2.pre
+1.1.0
 -----------------
   * Fixing element file selection form
   * Adapting to new additional properties
