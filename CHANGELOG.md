@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.1.0.1.pre
+-----------------
+  * Fixed css
+
 1.1.0
 -----------------
   * Fixing element file selection form
