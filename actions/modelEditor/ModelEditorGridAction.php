@@ -14,6 +14,7 @@ use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
 use yii\authclient\AuthAction;
+use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
 use yii\web\Application;
@@ -115,15 +116,19 @@ class ModelEditorGridAction extends AdminModelEditorAction
      */
     protected function render($viewName)
     {
-        //TODO:: Bad decision. Rewrite.
+        $result = '';
+
         try
         {
             //Если шаблона нет в стандартном пути, или в нем ошибки берем базовый
             $result = parent::render($viewName);
-        } catch (\Exception $e)
+        } catch (InvalidParamException $e)
         {
-            \Yii::error($e->getMessage(), 'template-render');
-            $result = $this->controller->render("@skeeks/cms/modules/admin/views/base-actions/grid-standart", (array) $this->viewParams);
+            if (!file_exists(\Yii::$app->view->viewFile))
+            {
+                \Yii::warning($e->getMessage(), 'template-render');
+                $result = $this->controller->render("@skeeks/cms/modules/admin/views/base-actions/grid-standart", (array) $this->viewParams);
+            }
         }
 
         return $result;

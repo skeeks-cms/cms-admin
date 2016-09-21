@@ -133,14 +133,21 @@ class AdminModelEditorCreateAction extends AdminModelEditorAction
      */
     protected function render($viewName)
     {
+        $result = '';
+
         try
         {
-            $output = parent::render($viewName);
+            //Если шаблона нет в стандартном пути, или в нем ошибки берем базовый
+            $result = parent::render($viewName);
         } catch (InvalidParamException $e)
         {
-            $output = parent::render('_form');
+            if (!file_exists(\Yii::$app->view->viewFile))
+            {
+                \Yii::warning($e->getMessage(), 'template-render');
+                $result = parent::render('_form');;
+            }
         }
 
-        return $output;
+        return $result;
     }
 }

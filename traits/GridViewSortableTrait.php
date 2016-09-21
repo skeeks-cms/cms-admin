@@ -69,6 +69,11 @@ Css
                         this.Jtable.addClass('sx-sortable');
                         $('tbody', this.Jtable).sortable({
 
+                            forceHelperSize: true,
+                            forcePlaceholderSize: true,
+                            opacity: 0.5,
+                            placeholder: "ui-state-highlight",
+
                             out: function( event, ui )
                             {
                                 var Jtbody = $(ui.item).closest("tbody");
