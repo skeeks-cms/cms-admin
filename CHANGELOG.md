@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.1.3
+-----------------
+  * Search for additional user properties
+
 1.1.2
 -----------------
   * Sorting tables more stable
