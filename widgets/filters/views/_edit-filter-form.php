@@ -32,6 +32,10 @@ $updateModal = \yii\bootstrap\Modal::begin([
         function(jForm, AjaxQuery)
         {
             var Handler = new sx.classes.AjaxHandlerStandartRespose(AjaxQuery);
+            var Blocker = new sx.classes.AjaxHandlerBlocker(AjaxQuery, {
+                'wrapper' : jForm.closest('.modal-content')
+            });
+
             Handler.bind('success', function()
             {
                 _.delay(function()

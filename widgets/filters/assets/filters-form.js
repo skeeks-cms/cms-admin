@@ -40,8 +40,21 @@
                 return false;
             });
 
+            var classes = this.JField.attr('class').split(' ');
+            var id = '';
+            _.each(classes, function(value)
+            {
+                if (value.indexOf('field-') != -1)
+                {
+                    id = value.replace('field-', '');
+                }
+            });
+
+
+
             this.name       = this.JLabel.text();
-            this.id         = this.JLabel.attr('for');
+            //this.id         = this.JLabel.attr('for');
+            this.id         = id;
 
             this.JTriggerBtn = $('<a>', {
                 'href' : '#',

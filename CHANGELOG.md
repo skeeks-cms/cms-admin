@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.1.4.pre
+-----------------
+  * Fixed error on filters
+
 1.1.3
 -----------------
   * Search for additional user properties
