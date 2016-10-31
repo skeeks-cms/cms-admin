@@ -36,6 +36,8 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  */
 class AdminMultiModelEditAction extends AdminModelEditorAction
 {
+    public $options = [];
+
     public function init()
     {
         parent::init();
@@ -54,7 +56,6 @@ class AdminMultiModelEditAction extends AdminModelEditorAction
      * @var callable
      */
     public $eachCallback = null;
-
 
     public function run()
     {

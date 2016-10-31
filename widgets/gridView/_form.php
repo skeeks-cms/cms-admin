@@ -6,10 +6,12 @@
  * @date 27.05.2015
  */
 /* @var $this yii\web\View */
+/* @var $controller \skeeks\cms\controllers\AdminCmsSiteController */
+$controller = \Yii::$app->controller;
 ?>
 
-    <? $columns         = \skeeks\cms\helpers\UrlHelper::constructCurrent()->getSystem('columns'); ?>
-    <? $selectedColumns = \skeeks\cms\helpers\UrlHelper::constructCurrent()->getSystem('selectedColumns'); ?>
+    <? $columns         = \yii\helpers\ArrayHelper::getValue($controller->callableData, 'columns'); ?>
+    <? $selectedColumns = \yii\helpers\ArrayHelper::getValue($controller->callableData, 'selectedColumns'); ?>
 
     <? if ($columns) : ?>
         <?= $form->fieldSet(\Yii::t('skeeks/admin','Table fields')); ?>

@@ -20,6 +20,7 @@ use skeeks\cms\rbac\CmsManager;
 use yii\authclient\AuthAction;
 use yii\base\View;
 use yii\behaviors\BlameableBehavior;
+use yii\bootstrap\Modal;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -36,6 +37,7 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
 class AdminMultiDialogModelEditAction extends AdminMultiModelEditAction
 {
     public $viewDialog      = "";
+
     public $dialogOptions   = [
         'style' => 'min-height: 500px; min-width: 600px;'
     ];
@@ -65,18 +67,31 @@ class AdminMultiDialogModelEditAction extends AdminMultiModelEditAction
             var self = this;
 
             this.jDialog = $( '#' + this.get('dialogId') );
+            this.jDialogContent = $( '.modal-content', this.jDialog );
+
+            this.Blocker = new sx.classes.Blocker(this.jDialogContent);
+
             $('form', this.jDialog).on('submit', function()
             {
                 var data = _.extend(self.Grid.getDataForRequest(), {
                     'formData' : $(this).serialize()
                 });
 
+                self.Blocker.block();
+
                 var ajax = self.createAjaxQuery(data);
                 ajax.onComplete(function()
                 {
-                    $.fancybox.close();
+                    self.jDialog.modal('hide');
+                    self.Blocker.unblock();
+                    /*_.delay(function()
+                    {
+                        self.jDialog.modal('hide');
+                    }, 1000);
+*/
                 });
                 ajax.execute();
+
                 return false;
             });
 
@@ -85,18 +100,7 @@ class AdminMultiDialogModelEditAction extends AdminMultiModelEditAction
         _go: function()
         {
             var self = this;
-
-            var link = $("<a>", {
-                'href' : '#' + this.get('dialogId'),
-            }).hide().text('auto').appendTo('body').fancybox();
-
-            link.click();
-
-            //Надо делать ajax запрос
-            if (this.get("request") == 'ajax')
-            {
-                //return this.executeAjax(self.Grid.getDataForRequest());
-            }
+            self.jDialog.modal('show');
         },
 
     });
@@ -109,14 +113,14 @@ JS
         if ($this->viewDialog)
         {
             $content = $this->controller->view->render($this->viewDialog, [
-                'action' => $this->id,
+                'action' => $this,
             ]);
         }
 
-        return Html::tag('div', $content, ArrayHelper::merge($this->dialogOptions, [
-            'id' => $dialogId
-        ]));
-
+        return \Yii::$app->view->render('@skeeks/cms/modules/admin/actions/modelEditor/views/multi-dialog', [
+            'dialogId'  => $dialogId,
+            'content'   => $content
+        ], $this);
     }
 
 

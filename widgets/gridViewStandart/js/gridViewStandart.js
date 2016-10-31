@@ -109,15 +109,21 @@
 
         reload: function()
         {
-            if (this.get('enabledPjax'))
+            var self = this;
+
+            _.delay(function()
             {
-                var pjaxId = this.get('pjaxId');
-                $.pjax.reload('#' + pjaxId, {});
-                return this;
-            } else
-            {
-                window.location.reload();
-            }
+                if (self.get('enabledPjax'))
+                {
+                    var pjaxId = self.get('pjaxId');
+                    $.pjax.reload('#' + pjaxId, {});
+                    return self;
+                } else
+                {
+                    window.location.reload();
+                }
+            }, 300)
+
 
             return this;
         },

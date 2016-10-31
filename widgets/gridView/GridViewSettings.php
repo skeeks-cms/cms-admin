@@ -121,22 +121,21 @@ class GridViewSettings extends Component
         ], $this);
     }
 
-
     /**
-     * @return $this
+     * @return array
      */
-    public function getEditUrl()
+    public function getCallableData()
     {
-        $url = parent::getEditUrl();
+        $result = parent::getCallableData();
 
         if ($this->grid)
         {
             $columnsData = $this->grid->getColumnsKeyLabels();
 
-            $url->setSystemParam('columns', $columnsData);
-            $url->setSystemParam('selectedColumns', array_keys($this->grid->columns));
+            $result['columns']          = $columnsData;
+            $result['selectedColumns']  = array_keys($this->grid->columns);
         }
 
-        return $url;
+        return $result;
     }
 }

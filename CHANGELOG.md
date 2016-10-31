@@ -1,8 +1,9 @@
 CHANGELOG
 ==============
 
-1.1.4.pre
+1.1.4
 -----------------
+  * Changing the modal windows in batch editing data
   * Fixed error on filters
 
 1.1.3

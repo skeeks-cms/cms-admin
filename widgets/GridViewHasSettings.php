@@ -153,20 +153,29 @@ class GridViewHasSettings extends GridView
      */
     public function renderSettings()
     {
+        $id = $this->id . "-callable-data";
+
         $gridEditSettings = [
-            'url'           => (string) $this->settings->getEditUrl(),
+            'url'           => (string) $this->settings->getCallableEditUrl(),
             'enabledPjax'   => $this->enabledPjax,
             'pjax'          => $this->pjax
         ];
 
         $gridEditSettings = Json::encode($gridEditSettings);
-        return '<div class="sx-grid-settings">' . Html::a('<i class="glyphicon glyphicon-cog"></i>', $this->settings->getEditUrl(), [
+        $callableData = $this->settings->callableData;
+
+        $callableDataInput = Html::textarea('callableData', base64_encode(serialize($callableData)), [
+            'id'    => $this->settings->callableId,
+            'style' => 'display: none;'
+        ]);
+
+        return '<div class="sx-grid-settings">' . Html::a('<i class="glyphicon glyphicon-cog"></i>', $this->settings->getCallableEditUrl(), [
             'class' => 'btn btn-default btn-sm',
             'onclick' => new JsExpression(<<<JS
             new sx.classes.GridEditSettings({$gridEditSettings}); return false;
 JS
 )
-        ]) . "</div>";
+        ]) .  $callableDataInput . "</div>";
 
     }
 

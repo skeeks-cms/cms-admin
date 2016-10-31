@@ -57,6 +57,8 @@ class GridViewStandart extends GridViewHasSettings
 
         $this->columns = ArrayHelper::merge($defaultColumns, $this->columns);
 
+        GridViewStandartAsset::register($this->view);
+
         parent::init();
     }
 
@@ -67,19 +69,35 @@ class GridViewStandart extends GridViewHasSettings
     {
         return "sx.Grid" . $this->id;
     }
+
+
+    /**
+     * @return string
+     */
+    public function renderBeforeTable()
+    {
+        $multiActions = [];
+        if ($this->adminController)
+        {
+            $multiActions = $this->adminController->getMultiActions();
+        }
+
+        if (!$multiActions)
+        {
+            return parent::renderBeforeTable();
+        }
+
+        $this->_initMultiActions();
+        $this->beforeTableLeft = $this->_buttonsMulti;
+
+        return parent::renderBeforeTable();
+    }
+
     /**
      * @return string
      */
     public function renderAfterTable()
     {
-        $id = $this->id;
-
-        GridViewStandartAsset::register($this->view);
-
-        $checkbox = Html::checkbox('sx-select-full-all', false, [
-            'class' => 'sx-select-full-all'
-        ]);
-
         $multiActions = [];
         if ($this->adminController)
         {
@@ -91,6 +109,32 @@ class GridViewStandart extends GridViewHasSettings
             return parent::renderAfterTable();
         }
 
+        $this->_initMultiActions();
+        $this->afterTableLeft = $this->_buttonsMulti . $this->_additionalsMulti;
+
+        return parent::renderAfterTable();
+    }
+
+
+    protected function _initMultiActions()
+    {
+        if ($this->_initMultiOptions === true)
+        {
+            return $this;
+        }
+
+        $this->_initMultiOptions = true;
+
+        $multiActions = [];
+        if ($this->adminController)
+        {
+            $multiActions = $this->adminController->getMultiActions();
+        }
+
+        if (!$multiActions)
+        {
+            return $this;
+        }
 
         $options = [
             'id'                    => $this->id,
@@ -122,16 +166,18 @@ HTML;
         }
 
         $additional = implode("", $additional);
-        $this->afterTableLeft = <<<HTML
+
+        $checkbox = Html::checkbox('sx-select-full-all', false, [
+            'class' => 'sx-select-full-all'
+        ]);
+
+        $this->_buttonsMulti = <<<HTML
     {$checkbox} для всех
     <span class="sx-grid-multi-controlls">
         {$buttons}
     </span>
-    <span style="display: none;">{$additional}</span>
 HTML;
-
-
-
+        $this->_additionalsMulti = $additional;
 
         $this->view->registerCss(<<<CSS
     .sx-grid-multi-controlls
@@ -140,12 +186,11 @@ HTML;
     }
 CSS
 );
-
-        return parent::renderAfterTable();
-
-
     }
 
+    protected $_initMultiOptions = null;
+    protected $_buttonsMulti = null;
+    protected $_additionalsMulti = null;
     /**
      * @param RelatedPropertiesModel|null $relatedPropertiesModel
      * @return array
