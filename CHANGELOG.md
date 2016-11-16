@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.1.4.1.pre
+-----------------
+  * Fixed css on mozila
+
 1.1.4
 -----------------
   * Changing the modal windows in batch editing data
