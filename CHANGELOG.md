@@ -3,6 +3,7 @@ CHANGELOG
 
 1.1.4.1.pre
 -----------------
+  * Completion widgets upload files
   * Fixed css on mozila
 
 1.1.4

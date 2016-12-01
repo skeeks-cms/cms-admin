@@ -46,6 +46,7 @@ class DropdownControllerActions
     {
         $actions = $this->controller->actions;
 
+        $firstAction = '';
         if ($actions && is_array($actions) && count($actions) >= 1)
         {
             $firstAction = array_shift($actions);
