@@ -32,36 +32,44 @@ use yii\web\JsExpression;
  * Class ControllerActions
  * @package skeeks\cms\modules\admin\widgets
  */
-class Tree
-    extends Widget
+class Tree extends Widget
 {
+    public static $autoIdPrefix = 'cmsTreeWidget';
+
     /**
      * @var array
      */
-    public $containerOptions =
-    [
-        "class" => "sx-tree"
-    ];
+    public $options = [];
 
     /**
      * @var array ноды для которых строить дерево.
      */
     public $models      = [];
-    /**
-     * @var string
-     */
-    public $selectedRequestName         = "s";
+
     public $openedRequestName           = "o";
     public $mode                        = "mode";
+
+    public $viewFile                    = 'tree-widget';
+    public $viewItemFile                = 'tree-item-widget';
+
+    public $pjax                        = null;
+
+    protected $_openedTmp = [];
 
     public function init()
     {
         parent::init();
-    }
 
-    protected $_selectedTmp = [];
-    protected $_openedTmp = [];
-    protected $_countTmp = 0;
+        $this->options['id'] = $this->id;
+        Html::addCssClass($this->options, 'sx-tree');
+
+        $this->pjax = \skeeks\cms\modules\admin\widgets\Pjax::begin([
+            'id' => 'sx-pjax-' . $this->id,
+            //'enablePushState' => false,
+            'blockPjaxContainer' => false,
+            'blockContainer' => '.sx-panel',
+        ]);
+    }
 
     /**
      * @return array
@@ -84,19 +92,6 @@ class Tree
     }
 
     /**
-     * @return array
-     */
-    protected function _getSelectedIds()
-    {
-        if ($fromRequest = (array) \Yii::$app->request->getQueryParam($this->selectedRequestName))
-        {
-            return array_unique($fromRequest);
-        }
-
-        return [];
-    }
-
-    /**
      * @return string
      */
     protected function _getMode()
@@ -109,336 +104,214 @@ class Tree
         return '';
     }
 
+
+
     /**
-     * TODO: учитывать приоритет
      * @return string
      */
     public function run()
     {
-        $openedModels = [];
-
-        if (\Yii::$app->request->getQueryParam('setting-open-all'))
-        {
-            \skeeks\cms\models\Tree::find()->where([]);
-            return \Yii::$app->response->redirect(UrlHelper::construct("cms/admin-tree/index"));
-        }
-
-        if ($opened = $this->_getOpenIds())
-        {
-            \Yii::$app->getSession()->set('cms-tree-opened', $opened);
-            $openedModels = \skeeks\cms\models\Tree::find()->where(["id" => $opened])->all();
-        }
-
-        $this->_openedTmp = $openedModels;
-
-        $this->registerAssets();
-
-        $addBtn = '';
-        /*if ($this->_getMode() == 'multi')
-        {
-            $addBtn = Html::tag("div",
-                    Html::a("Добавить отмеченное", '#', ['class' => 'btn btn-primary btn-sm sx-controll-btn-select'])
-                    /*Html::a("Открыть все разделы", UrlHelper::construct("cms/admin-tree/index")->set('setting-open-all', 'true'), ['class' => 'btn btn-primary btn-sm']) .
-                    Html::a("Закрыть все разделы", UrlHelper::construct("cms/admin-tree/index"), ['class' => 'btn btn-primary btn-sm'])
-                , ['class' => "sx-container-controlls col-md-2"]);
-        }*/
-
-        return Html::tag('div',
-
-                Html::tag("div",
-                    Html::tag("div", $this->renderNodes($this->models), $this->containerOptions)
-                , ['class' => "sx-container-tree col-md-12"]) . $addBtn
 
 
-            ,['class' => 'row-fluid']
-        );
+            $openedModels = [];
+
+            if (\Yii::$app->request->getQueryParam('setting-open-all'))
+            {
+                \skeeks\cms\models\Tree::find()->where([]);
+                return \Yii::$app->response->redirect(UrlHelper::construct("cms/admin-tree/index"));
+            }
+
+            if ($opened = $this->_getOpenIds())
+            {
+                \Yii::$app->getSession()->set('cms-tree-opened', $opened);
+                $openedModels = \skeeks\cms\models\Tree::find()->where(["id" => $opened])->all();
+            }
+
+            $this->_openedTmp = $openedModels;
+            $this->registerAssets();
+
+            echo $this->render($this->viewFile);
+
+        \skeeks\cms\modules\admin\widgets\Pjax::end();
     }
 
-
+    /**
+     * @param $models
+     * @return string
+     */
     public function renderNodes($models)
     {
-        $options["item"] = function($model)
-        {
-            $isOpen     = false;
-            $isActive   = false;
-
-            $controller = \Yii::$app->cms->moduleCms->createControllerByID("admin-tree");
-            $controller->setModel($model);
-
-            $child = "";
-            foreach ($this->_openedTmp as $activeNode)
-            {
-                if ($activeNode->id == $model->id)
-                {
-                    $isOpen = true;
-                    break;
-                }
-            }
-
-            if ($isOpen && $model->children)
-            {
-                $child = $this->renderNodes($model->children);
-            }
-
-
-
-
-            $openCloseLink = "";
-            $currentLink = "";
-            if ($model->children)
-            {
-                $openedIds = $this->_getOpenIds();
-
-                if ($isOpen)
-                {
-                    $newOptionsOpen = [];
-                    foreach ($openedIds as $id)
-                    {
-                        if ($id != $model->id)
-                        {
-                            $newOptionsOpen[] = $id;
-                        }
-                    }
-
-                    $urlOptionsOpen = array_unique($newOptionsOpen);
-                    $params = \Yii::$app->request->getQueryParams();
-                    $params[$this->openedRequestName] = $urlOptionsOpen;
-
-                    $currentLink = UrlHelper::construct("cms/admin-tree/index")->setData($params);
-                    $openCloseLink = Html::a(
-                        Html::tag("span", "" ,["class" => "glyphicon glyphicon-minus", "title" => \Yii::t('skeeks/cms',"Minimize")]),
-                        $currentLink,
-                        ['class' => 'btn btn-sm btn-default']
-                    );
-                } else
-                {
-                    $urlOptionsOpen = array_unique(array_merge($openedIds, [$model->id]));
-                    $params = \Yii::$app->request->getQueryParams();
-                    $params[$this->openedRequestName] = $urlOptionsOpen;
-                    $currentLink = UrlHelper::construct("cms/admin-tree/index")->setData($params);
-                    $openCloseLink = Html::a(
-                        Html::tag("span", "" ,["class" => "glyphicon glyphicon-plus", "title" => \Yii::t('skeeks/cms',"Restore")]),
-                        $currentLink,
-                        ['class' => 'btn btn-sm btn-default']
-                    );
-                }
-
-                $openCloseLink = Html::tag("div", $openCloseLink, ["class" => "sx-node-open-close"]);
-            }
-
-
-            if ($this->_getMode() == 'multi')
-            {
-                $params = \Yii::$app->request->getQueryParams();
-                $isSelected = in_array($model->id, $this->_getSelectedIds()) ? true : false;
-                if ($isSelected)
-                {
-                    $result = [];
-                    foreach ($this->_getSelectedIds() as $id)
-                    {
-                        if ($id != $model->id)
-                        {
-                            $result[] = $id;
-                        }
-                    }
-                    $params[$this->selectedRequestName] = $result;
-                } else
-                {
-                    $params[$this->selectedRequestName] = array_unique(array_merge($this->_getSelectedIds(), [$model->id]));
-                }
-
-                $link = UrlHelper::construct("cms/admin-tree/index")->setData($params);
-
-
-                $controllElement = Html::checkbox('tree_id', $isSelected, [
-                    'value'     => $model->id,
-                    'style'     => 'float: left; margin-left: 5px; margin-right: 5px;',
-                    'onclick'   => new JsExpression(<<<JS
-        sx.Tree.select("{$model->id}", "{$link}"); return false;
-JS
-)
-                ]);
-
-
-            } else if ($this->_getMode() == 'single')
-            {
-                $params = \Yii::$app->request->getQueryParams();
-                $isSelected = in_array($model->id, $this->_getSelectedIds()) ? true : false;
-                if ($isSelected)
-                {
-                    $params[$this->selectedRequestName] = [];
-                } else
-                {
-                    $params[$this->selectedRequestName] = [$model->id];
-                }
-
-                $link = UrlHelper::construct("cms/admin-tree/index")->setData($params);
-
-                $controllElement = Html::radio('tree_id', $isSelected, [
-                    'value'     => $model->id,
-                    'class'     => 'sx-readio',
-                    'style'     => 'float: left; margin-left: 5px; margin-right: 5px;',
-                    'onclick'   => new JsExpression(<<<JS
-        sx.Tree.selectSingle("{$model->id}");
-JS
-)
-                ]);
-
-            }  else if ($this->_getMode() == 'combo')
-            {
-                $params = \Yii::$app->request->getQueryParams();
-                $isSelected = in_array($model->id, $this->_getSelectedIds()) ? true : false;
-                if ($isSelected)
-                {
-                    $result = [];
-                    foreach ($this->_getSelectedIds() as $id)
-                    {
-                        if ($id != $model->id)
-                        {
-                            $result[] = $id;
-                        }
-                    }
-                    $params[$this->selectedRequestName] = $result;
-                } else
-                {
-                    $params[$this->selectedRequestName] = array_unique(array_merge($this->_getSelectedIds(), [$model->id]));
-                }
-
-                $link = UrlHelper::construct("cms/admin-tree/index")->setData($params);
-
-                $controllElement = Html::radio('tree_id', false, [
-                                    'value'     => $model->id,
-                                    'class'     => 'sx-readio',
-                                    'style'     => 'float: left; margin-left: 5px; margin-right: 5px;',
-                                    'onclick'   => new JsExpression(<<<JS
-                        sx.Tree.selectSingle("{$model->id}");
-JS
-                )
-                    ]);
-
-
-                $controllElement .= Html::checkbox('tree_id', $isSelected, [
-                    'value'     => $model->id,
-                    'style'     => 'float: left; margin-left: 5px; margin-right: 5px;',
-                    'onclick'   => new JsExpression(<<<JS
-        sx.Tree.select("{$model->id}", "{$link}"); return false;
-JS
-)
-                ]);
-
-
-
-
-            } else
-            {
-                $controllElement = '';
-            }
-
-
-            /**
-             * @var $model \skeeks\cms\models\Tree
-             */
-            $additionalName = '';
-            if ($model->level == 0)
-            {
-                $site = CmsSite::findOne(['code' => $model->site_code]);
-                if ($site)
-                {
-                    $additionalName = $site->name;
-                }
-            } else
-            {
-                if ($model->name_hidden)
-                {
-                    $additionalName = $model->name_hidden;
-                }
-            }
-
-            $link = Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
-                             $model->getAbsoluteUrl(),
-                             ["target" => "_blank", "class" => "btn-tree-node-controll btn btn-default btn-sm show-at-site", "title" => \Yii::t('skeeks/cms',"Show at site")]
-                    );
-
-            $linkMove = "";
-            if ($model->level > 0)
-            {
-                $linkMove = Html::a('<span class="glyphicon glyphicon-move"></span>',
-                             "#",
-                             ["class" => "btn-tree-node-controll btn btn-default btn-sm sx-tree-move", "title" => \Yii::t('skeeks/cms',"Change sorting")]
-                    );
-            }
-
-
-            $subsection = \Yii::t('skeeks/cms','Create subsection');
-
-            return Html::tag("li",
-                        Html::tag("div",
-                            $openCloseLink .
-                            $controllElement .
-                            Html::tag("div",
-                                Html::a($model->name . ($additionalName ? ' [' . $additionalName . ']': ''), $currentLink),
-                                [
-                                    "class" => "sx-label-node level-" . $model->level . " status-" . $model->active
-                                ]
-
-                            ) .
-
-                            Html::tag("div",
-                                    DropdownControllerActions::widget([
-                                        "controller"    => $controller,
-                                        "renderFirstAction"    => true,
-                                        "containerClass"     => "dropdown pull-left",
-                                        'clientOptions' =>
-                                        [
-                                            'pjax-id' => 'sx-pjax-tree'
-                                        ]
-                                    ]) .
-
-                                    Html::tag("div",
-                                        <<<HTML
-                                        <a href="#" class="btn-tree-node-controll btn btn-default btn-sm add-tree-child" title="{$subsection}" data-id={$model->id}><span class="glyphicon glyphicon-plus"></span></a>
-HTML
-                                    ,
-                                        [
-                                            "class" => "pull-left sx-controll-act"
-                                        ]
-
-                                    ) .
-
-                                    Html::tag("div", $link,
-                                        [
-                                            "class" => "pull-left sx-controll-act"
-                                        ]
-                                    ) .
-
-                                    Html::tag("div", $linkMove,
-                                        [
-                                            "class" => "pull-left sx-controll-act"
-                                        ]
-                                    )
-                                ,
-                                [
-                                    "class" => "sx-controll-node row"
-                                ]
-                            ) .
-
-                            ($model->treeType ? Html::tag("div", $model->treeType->name, [
-                                "class"     => "pull-right sx-tree-type",
-                            ]) : '')
-
-                        , ["class" => "row"])
-                        . $child ,
-                        [
-                            "class" => "sx-tree-node " . ($isActive ? " active" : "") . ($isOpen ? " open" : ""),
-                            "data-id" => $model->id,
-                            "title" => "Двойной клик — переход к редактированию раздела."
-                        ]
-            );
-        };
-
+        $options["item"] = [$this, 'renderItem'];
         $ul = Html::ul($models, $options);
 
         return $ul;
+    }
+
+    public function renderItem($model)
+    {
+        if ($this->_getMode() == 'multi')
+        {
+            $controllElement = Html::checkbox('tree_id', $isSelected, [
+                'value'     => $model->id,
+                'class'     => 'sx-checkbox',
+                'style'     => 'float: left; margin-left: 5px; margin-right: 5px;',
+                'onclick'   => new JsExpression(<<<JS
+    sx.Tree.select("{$model->id}");
+JS
+)
+            ]);
+
+
+        } else if ($this->_getMode() == 'single')
+        {
+
+            $controllElement = Html::radio('tree_id', $isSelected, [
+                'value'     => $model->id,
+                'class'     => 'sx-readio',
+                'style'     => 'float: left; margin-left: 5px; margin-right: 5px;',
+                'onclick'   => new JsExpression(<<<JS
+    sx.Tree.selectSingle("{$model->id}");
+JS
+)
+            ]);
+
+        }  else if ($this->_getMode() == 'combo')
+        {
+
+            $controllElement = Html::radio('tree_id', false, [
+                                'value'     => $model->id,
+                                'class'     => 'sx-readio',
+                                'style'     => 'float: left; margin-left: 5px; margin-right: 5px;',
+                                'onclick'   => new JsExpression(<<<JS
+                    sx.Tree.selectSingle("{$model->id}");
+JS
+            )
+                ]);
+
+            $controllElement .= Html::checkbox('tree_id', $isSelected, [
+                'value'     => $model->id,
+                'class'     => 'sx-checkbox',
+                'style'     => 'float: left; margin-left: 5px; margin-right: 5px;',
+                'onclick'   => new JsExpression(<<<JS
+    sx.Tree.select("{$model->id}");
+JS
+)
+            ]);
+
+        } else
+        {
+            $controllElement = '';
+        }
+
+
+        return $this->render($this->viewItemFile, [
+            'controllElement' => $controllElement,
+            'model' => $model,
+        ]);
+    }
+
+
+    /**
+     * @param $model
+     * @return $this|string
+     */
+    public function getLink($model)
+    {
+        $currentLink = "";
+
+        if ($model->children)
+        {
+            $openedIds = $this->_getOpenIds();
+
+            if ($this->isOpenNode($model))
+            {
+                $newOptionsOpen = [];
+                foreach ($openedIds as $id)
+                {
+                    if ($id != $model->id)
+                    {
+                        $newOptionsOpen[] = $id;
+                    }
+                }
+
+                $urlOptionsOpen = array_unique($newOptionsOpen);
+                $params = \Yii::$app->request->getQueryParams();
+                $pathInfo = \Yii::$app->request->pathInfo;
+                $params[$this->openedRequestName] = $urlOptionsOpen;
+
+                $currentLink = "/{$pathInfo}?" . http_build_query($params);
+            } else
+            {
+                $urlOptionsOpen = array_unique(array_merge($openedIds, [$model->id]));
+                $params = \Yii::$app->request->getQueryParams();
+                $params[$this->openedRequestName] = $urlOptionsOpen;
+                $pathInfo = \Yii::$app->request->pathInfo;
+
+                $currentLink = "/{$pathInfo}?" . http_build_query($params);
+            }
+        }
+
+        return $currentLink;
+    }
+
+    /**
+     * Нода для этой модели открыта?
+     *
+     * @param $model
+     * @return bool
+     */
+    public function isOpenNode($model)
+    {
+        $isOpen = false;
+
+        foreach ($this->_openedTmp as $activeNode)
+        {
+            if ($activeNode->id == $model->id)
+            {
+                $isOpen = true;
+                break;
+            }
+        }
+
+        return $isOpen;
+    }
+
+    /**
+     *
+     *
+     * @param $model
+     * @return string
+     */
+    public function getNodeName($model)
+    {
+        /**
+         * @var $model \skeeks\cms\models\Tree
+         */
+
+        $result = $model->name;
+
+        $additionalName = '';
+        if ($model->level == 0)
+        {
+            $site = CmsSite::findOne(['code' => $model->site_code]);
+            if ($site)
+            {
+                $additionalName = $site->name;
+            }
+        } else
+        {
+            if ($model->name_hidden)
+            {
+                $additionalName = $model->name_hidden;
+            }
+        }
+
+        if ($additionalName)
+        {
+            $result .= " [{$additionalName}]";
+        }
+
+        return $result;
     }
 
 
@@ -446,9 +319,10 @@ HTML
     {
         Sortable::widget();
 
-
-        $models     = \skeeks\cms\models\Tree::find()->where(["id" => $this->_getSelectedIds()])->all();
-        $options    = Json::encode(['selected' => $models]);
+        $options    = Json::encode([
+            'id' => $this->id,
+            'pjaxid' => $this->pjax->id
+        ]);
 
         Asset::register($this->getView());
         $this->getView()->registerJs(<<<JS
@@ -462,10 +336,6 @@ HTML
                 _init: function()
                 {
                     var self = this;
-                    if (sx.Window.openerWidget())
-                    {
-                        this._parentWidget = sx.Window.openerWidget();
-                    }
                 },
 
                 _onDomReady: function()
@@ -527,15 +397,6 @@ HTML
                     });
 
                     var self = this;
-                    $('.sx-controll-btn-select').on('click', function()
-                    {
-                        self._parentWidget.trigger('selected', {
-                            'selected': self.get('selected')
-                        });
-
-                        window.close();
-                        return false;
-                    });
 
                     $('.add-tree-child').on('click', function()
                     {
@@ -563,7 +424,7 @@ HTML
 
                                 ajax.onError(function(e, data)
                                 {
-                                    $.pjax.reload('#sx-pjax-tree', {});
+                                    $.pjax.reload('#' + self.get('pjaxid'), {});
                                     /*sx.notify.info("Подождите сейчас страница будет перезагружена");
                                     _.delay(function()
                                     {
@@ -574,7 +435,7 @@ HTML
                                 {
                                     blocker.unblock();
 
-                                    $.pjax.reload('#sx-pjax-tree', {});
+                                    $.pjax.reload('#' + self.get('pjaxid'), {});
                                     /*sx.notify.info("Подождите сейчас страница будет перезагружена");
                                     _.delay(function()
                                     {
@@ -596,7 +457,7 @@ HTML
                     });
                 },
 
-                select: function(id, link)
+                select: function(id)
                 {
                     var selected = [];
                     $("input[type='checkbox']:checked").each(function()
@@ -608,18 +469,6 @@ HTML
                         'selected': selected,
                         'select': id
                     });
-
-                    _.delay(function()
-                    {
-                        $(".sx-tree").append();
-
-                        $("<a>", {
-                            'href':link,
-                            'style':'display:none;'
-                        }).append("test").appendTo($(".sx-tree")).click();
-
-                        //window.location.href = link;
-                    }, 100);
                 },
 
                 selectSingle: function(id)
@@ -631,7 +480,6 @@ HTML
 
                 setSingle: function(id)
                 {
-                    console.log('setSingle' + id);
                     var Jelement = $(".sx-tree .sx-readio[value='" + id + "']");
                     if (!Jelement.is(":checked"))
                     {
@@ -639,7 +487,20 @@ HTML
                     };
                 },
 
-
+                setSelect: function(ids)
+                {
+                    if (ids)
+                    {
+                        _.each(ids, function(id)
+                        {
+                            var Jelement = $(".sx-tree .sx-checkbox[value='" + id + "']");
+                            if (!Jelement.is(":checked"))
+                            {
+                                Jelement.click();
+                            };
+                        });
+                    }
+                },
             });
 
             sx.Tree = new sx.classes.Tree({$options});
