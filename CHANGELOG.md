@@ -1,8 +1,9 @@
 CHANGELOG
 ==============
 
-1.1.5.pre
+1.2.0.pre
 -----------------
+  * Removed Tree Widget
   * Complete rebuilding of sections of the tree widget
   * Completion widgets upload files
   * Fixed css on mozila
