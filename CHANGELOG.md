@@ -3,6 +3,7 @@ CHANGELOG
 
 1.2.0.pre
 -----------------
+  * The number on the page is a multiple of 5
   * Pjax Widget updated
   * Removed Tree Widget
   * Complete rebuilding of sections of the tree widget

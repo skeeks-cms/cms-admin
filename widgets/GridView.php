@@ -159,7 +159,10 @@ class GridView extends \yii\grid\GridView
         $i = 0;
         for ($i >= $min; $i <= $max; $i++)
         {
-            $items[] = $i;
+            if ($i % 5 == 0 && $i > 0)
+            {
+                $items[$i] = $i;
+            }
         }
 
         $id = $this->id . "-per-page";
