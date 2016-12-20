@@ -64,4 +64,9 @@ return [
     "Increase"              => "Увеличить",
 
     "An unexpected error occurred. Refer to the developers."              => "Произошла непредвиденная ошибка. Обратитесь к разработчикам.",
+    "Add widget"                => "Добавить виджет",
+    "Add"                       => "Добавить",
+    "Widget"                    => "Виджет",
+    "Add desktop"               => "Добавить рабочий стол",
+    "Desktop customization"     => "Настройки рабочего стола",
 ];

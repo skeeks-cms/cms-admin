@@ -10,42 +10,64 @@ $model->columns = 1;
 ?>
 <div class="row sx-main-head sx-bg-glass sx-bg-glass-hover">
     <div class="col-md-6 pull-left">
-        <a href="#sx-dashboard-create" class="btn btn-default btn-primary sx-fancybox"><i class="glyphicon glyphicon-plus"></i> <?= \Yii::t('skeeks/cms', 'Add dashboard'); ?></a>
+        <a href="#" data-toggle="modal" data-target="#sx-dashboard-create" class="btn btn-default btn-primary"><i class="glyphicon glyphicon-plus"></i> <?= \Yii::t('skeeks/cms', 'Add dashboard'); ?></a>
     </div>
     <div class="col-md-6">
         <div class="pull-right">
-            <a href="#sx-dashboard-widget-create" class="btn btn-default btn-primary sx-fancybox"><i class="icon-calculator"></i> <?= \Yii::t('skeeks/cms', 'Add widget'); ?></a>
-            <a href="#sx-dashboard-edit" class="btn btn-default btn-primary sx-fancybox"><i class="glyphicon glyphicon-cog"></i>  <?= \Yii::t('skeeks/cms', 'Settings'); ?></a>
+            <a href="#" data-toggle="modal" data-target="#sx-dashboard-widget-create" class="btn btn-default btn-primary"><i class="icon-calculator"></i> <?= \Yii::t('skeeks/cms', 'Add widget'); ?></a>
+            <a href="#" data-toggle="modal" data-target="#sx-dashboard-edit" class="btn btn-default btn-primary"><i class="glyphicon glyphicon-cog"></i>  <?= \Yii::t('skeeks/cms', 'Settings'); ?></a>
             <a href="#" onclick="sx.DashboardsControll.remove(); return false;" class="btn btn-default btn-danger"><i class="glyphicon glyphicon-remove"></i> <?= \Yii::t('skeeks/cms', 'Delete'); ?></a>
         </div>
     </div>
 </div>
 
-<div style="display: none;">
-    <div id="sx-dashboard-edit" style="min-width: 500px; max-width: 800px;">
-        <? $form = \skeeks\cms\modules\admin\widgets\ActiveForm::begin([
-            'usePjax'           => false,
-            'useAjaxSubmit'     => true,
-            'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/index/dashboard-validate', 'pk' => $dashboard->id])->enableAdmin()->toString(),
-            'action'            => \skeeks\cms\helpers\UrlHelper::construct(['admin/index/dashboard-save', 'pk' => $dashboard->id])->enableAdmin()->toString(),
+<? $createModal = \yii\bootstrap\Modal::begin([
+    'id'        => 'sx-dashboard-widget-create',
+    'header'    => '<b>' . \Yii::t('skeeks/admin', 'Add widget') . '</b>',
+    'footer'    => '
+        <button class="btn btn-primary" onclick="$(\'#sx-create-widget-form\').submit(); return false;">' . \Yii::t('skeeks/admin', 'Add') . '</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">' . \Yii::t('skeeks/admin', 'Close') . '</button>
+    ',
+]); ?>
 
-            'afterValidateCallback'                     => new \yii\web\JsExpression(<<<JS
-                function(jForm, ajaxQuery){
-                    new sx.classes.DashboardsControllCallback(jForm, ajaxQuery);
-                };
+    <? $form = \skeeks\cms\modules\admin\widgets\ActiveForm::begin([
+        'id'                => 'sx-create-widget-form',
+        'usePjax'           => false,
+        'useAjaxSubmit'     => true,
+        'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/index/dashboard-widget-create-validate', 'pk' => $model->id])->enableAdmin()->toString(),
+        'action'            => \skeeks\cms\helpers\UrlHelper::construct(['admin/index/dashboard-widget-create-save', 'pk' => $model->id])->enableAdmin()->toString(),
+
+        'afterValidateCallback'                     => new \yii\web\JsExpression(<<<JS
+            function(jForm, ajaxQuery){
+                new sx.classes.DashboardsControllCallback(jForm, ajaxQuery);
+            };
 JS
-    ),
+),
 
-        ])?>
-            <?= $form->field($dashboard, 'name'); ?>
-            <?= $form->field($dashboard, 'columns'); ?>
-            <?= $form->field($dashboard, 'priority'); ?>
-            <?= $form->buttonsStandart($dashboard, ['save']); ?>
-        <? \skeeks\cms\modules\admin\widgets\ActiveForm::end()?>
-    </div>
+    ])?>
+        <div style="display: none;">
+            <?= $form->field($modelWidget, 'cms_dashboard_id')->hiddenInput()->label(false); ?>
+        </div>
+        <?= $form->fieldSelect($modelWidget, 'component', \Yii::$app->admin->dasboardWidgetsLabels)->label(\Yii::t('skeeks/admin', 'Widget')); ?>
 
-    <div id="sx-dashboard-create" style="min-width: 500px; max-width: 800px;">
-        <? $form = \skeeks\cms\modules\admin\widgets\ActiveForm::begin([
+        <div style="display: none;">
+            <?= $form->buttonsStandart($model, ['save']); ?>
+        </div>
+    <? \skeeks\cms\modules\admin\widgets\ActiveForm::end()?>
+<? \yii\bootstrap\Modal::end();?>
+
+
+<? $createModal = \yii\bootstrap\Modal::begin([
+    'id'        => 'sx-dashboard-create',
+    'header'    => '<b>' . \Yii::t('skeeks/admin', 'Add desktop') . '</b>',
+    'footer'    => '
+        <button class="btn btn-primary" onclick="$(\'#sx-dashboard-create-form\').submit(); return false;">' . \Yii::t('skeeks/admin', 'Add') . '</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">' . \Yii::t('skeeks/admin', 'Close') . '</button>
+    ',
+]); ?>
+
+    <? $form = \skeeks\cms\modules\admin\widgets\ActiveForm::begin([
+            'id'                => 'sx-dashboard-create-form',
             'usePjax'           => false,
             'useAjaxSubmit'     => true,
             'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/index/dashboard-create-validate', 'pk' => $model->id])->enableAdmin()->toString(),
@@ -62,16 +84,29 @@ JS
             <?= $form->field($model, 'name'); ?>
             <?= $form->field($model, 'columns'); ?>
             <?= $form->field($model, 'priority'); ?>
-            <?= $form->buttonsStandart($model, ['save']); ?>
+            <div style="display: none;">
+                <?= $form->buttonsStandart($model, ['save']); ?>
+            </div>
         <? \skeeks\cms\modules\admin\widgets\ActiveForm::end()?>
-    </div>
 
-    <div id="sx-dashboard-widget-create" style="min-width: 500px; min-height: 500px; max-width: 800px;">
-        <? $form = \skeeks\cms\modules\admin\widgets\ActiveForm::begin([
+<? \yii\bootstrap\Modal::end();?>
+
+
+<? $createModal = \yii\bootstrap\Modal::begin([
+    'id'        => 'sx-dashboard-edit',
+    'header'    => '<b>' . \Yii::t('skeeks/admin', 'Desktop customization') . '</b>',
+    'footer'    => '
+        <button class="btn btn-primary" onclick="$(\'#sx-dashboard-edit-form\').submit(); return false;">' . \Yii::t('skeeks/admin', 'Save') . '</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">' . \Yii::t('skeeks/admin', 'Close') . '</button>
+    ',
+]); ?>
+
+    <? $form = \skeeks\cms\modules\admin\widgets\ActiveForm::begin([
+            'id'                => 'sx-dashboard-edit-form',
             'usePjax'           => false,
             'useAjaxSubmit'     => true,
-            'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/index/dashboard-widget-create-validate', 'pk' => $model->id])->enableAdmin()->toString(),
-            'action'            => \skeeks\cms\helpers\UrlHelper::construct(['admin/index/dashboard-widget-create-save', 'pk' => $model->id])->enableAdmin()->toString(),
+            'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/index/dashboard-validate', 'pk' => $dashboard->id])->enableAdmin()->toString(),
+            'action'            => \skeeks\cms\helpers\UrlHelper::construct(['admin/index/dashboard-save', 'pk' => $dashboard->id])->enableAdmin()->toString(),
 
             'afterValidateCallback'                     => new \yii\web\JsExpression(<<<JS
                 function(jForm, ajaxQuery){
@@ -81,32 +116,15 @@ JS
     ),
 
         ])?>
-            <?= $form->field($modelWidget, 'cms_dashboard_id')->hiddenInput()->label(false); ?>
-
-            <?= $form->fieldSelect($modelWidget, 'component', \Yii::$app->admin->dasboardWidgetsLabels); ?>
-
-            <!--<div class="row">
-                <div class="col-md-6">
-                    --><?/*= $form->fieldSelect($modelWidget, 'component', \Yii::$app->admin->dasboardWidgetsLabels); */?>
-                    <?/*= $form->field($modelWidget, 'component')->listBox(\Yii::$app->admin->dasboardWidgetsLabels, ['size' => 1]); */?>
-                <!--</div>-->
-                <!--<div class="col-md-6">
-                    <label></label>
-                    <?/*= $form->field($modelWidget, 'componentSettingsString')->label(false)->widget(
-                        \skeeks\cms\widgets\formInputs\componentSettings\ComponentSettingsWidget::className(),
-                        [
-                            'componentSelectId' => \yii\helpers\Html::getInputId($modelWidget, "component"),
-                            'buttonText'        => \skeeks\cms\shop\Module::t('skeeks/cms', 'Settings handler'),
-                            'buttonClasses'     => "sx-btn-edit btn btn-default"
-                        ]
-                    ); */?>
-                </div>-->
-            <!--</div>-->
-
-            <?= $form->buttonsStandart($modelWidget, ['save']); ?>
+            <?= $form->field($dashboard, 'name'); ?>
+            <?= $form->field($dashboard, 'columns'); ?>
+            <?= $form->field($dashboard, 'priority'); ?>
+            <div style="display: none;">
+                <?= $form->buttonsStandart($model, ['save']); ?>
+            </div>
         <? \skeeks\cms\modules\admin\widgets\ActiveForm::end()?>
-    </div>
-</div>
+
+<? \yii\bootstrap\Modal::end();?>
 
 <?
 $jsonData = \yii\helpers\Json::encode([
@@ -165,7 +183,7 @@ $this->registerJs(<<<JS
 
             handler.bind('success', function(response)
             {
-                $.fancybox.close();
+                $('div').modal('hide');
 
                 _.delay(function()
                 {
