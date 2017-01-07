@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.2.1.pre
+-----------------
+  * GridViewStandart Mempry limit
+
 1.2.0
 -----------------
   * Finalization of desktops

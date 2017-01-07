@@ -210,6 +210,7 @@ CSS
                 $property = $relatedPropertiesModel->getRelatedProperty($name);
                 $filter = '';
 
+                //TODO: добавить лимиты, поменять элементы фильтрации. Mempry limit когда много записей.
                 if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_ELEMENT)
                 {
                     $propertyType = $property->handler;
