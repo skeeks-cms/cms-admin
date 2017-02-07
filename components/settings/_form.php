@@ -62,27 +62,27 @@ use yii\helpers\Html;
 
     <?= \skeeks\cms\modules\admin\widgets\BlockTitleWidget::widget(['content' => 'Основное']); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ADMIN_ACCESS,
         'label'                 => \Yii::t('skeeks/admin','Access to the administrate area'),
     ]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_EDIT_VIEW_FILES,
         'label'                 => \Yii::t('skeeks/admin','The ability to edit view files'),
     ]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => "cms/admin-settings",
         'label'                 => \Yii::t('skeeks/admin','The ability to edit settings'),
     ]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ADMIN_DASHBOARDS_EDIT,
         'label'                 => \Yii::t('skeeks/admin','Access to edit dashboards'),
     ]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_USER_FULL_EDIT,
         'label'                 => \Yii::t('skeeks/admin','The ability to manage user groups'),
     ]); ?>
@@ -90,39 +90,39 @@ use yii\helpers\Html;
 
     <?= \skeeks\cms\modules\admin\widgets\BlockTitleWidget::widget(['content' => \Yii::t('skeeks/admin',"Control recodrs")]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_CREATE,
         'label'                 => \Yii::t('skeeks/admin','The ability to manage user groups'),
     ]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_UPDATE,
         'label'                 => \Yii::t('skeeks/admin','The ability to update records'),
     ]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_UPDATE_ADVANCED,
         'label'                 => \Yii::t('skeeks/admin','The ability to update service information at records'),
     ]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_DELETE,
         'label'                 => \Yii::t('skeeks/admin','Ability to delete records'),
     ]); ?>
 
     <?= \skeeks\cms\modules\admin\widgets\BlockTitleWidget::widget(['content' => \Yii::t('skeeks/admin','Control only own records')]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_UPDATE_OWN,
         'label'                 => \Yii::t('skeeks/admin','The ability to update their records'),
     ]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_UPDATE_ADVANCED_OWN,
         'label'                 => \Yii::t('skeeks/admin','The ability to update service information at records'),
     ]); ?>
 
-    <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
         'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_DELETE_OWN,
         'label'                 => \Yii::t('skeeks/admin','Ability to delete own records'),
     ]); ?>

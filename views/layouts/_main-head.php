@@ -42,7 +42,7 @@
                                 }
                             }
                             ?>
-                            <?= \skeeks\cms\widgets\rbac\PermissionForRoles::widget([
+                            <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
                                 'permissionName'        => \Yii::$app->controller->permissionName,
                                 'permissionDescription' => \Yii::t('skeeks/cms','Administration')." | " . \Yii::$app->controller->name,
                                 'label'                 => \Yii::t('skeeks/cms','Setting up access to the section').": " . \Yii::$app->controller->name,

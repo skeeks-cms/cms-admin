@@ -3,6 +3,7 @@ CHANGELOG
 
 1.2.1.pre
 -----------------
+  * Removed \skeeks\cms\widgets\rbac\PermissionForRoles
   * GridViewStandart Mempry limit
 
 1.2.0
