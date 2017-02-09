@@ -30,8 +30,8 @@ CSS
 <div class="row sx-about-cms">
     <div class="col-md-12 col-lg-12">
 
-        <a href="http://cms.skeeks.com" target="_blank">
-            <img src="http://cms.skeeks.com/img/box_cms.svg" />
+        <a href="https://cms.skeeks.com" target="_blank">
+            <img src="https://cms.skeeks.com/img/box_cms.svg" />
         </a>
 
         <p>
@@ -40,11 +40,10 @@ CSS
 
         <p>
             <ul>
-                <li><a href="http://cms.skeeks.com" target="_blank">cms.skeeks.com</a> — Веб сайт.</li>
-                <li><a href="http://en.cms.skeeks.com" target="_blank">en.cms.skeeks.com</a> — Веб сайт (eng).</li>
-                <li><a href="http://en.cms.skeeks.com/docs" target="_blank">dev.cms.skeeks.com/docs/dev</a> — Документация.</li>
-                <li><a href="http://marketplace.cms.skeeks.com" target="_blank">marketplace.cms.skeeks.com</a> — Готовые решения.</li>
-                <li><a href="http://skeeks.com/contacts" target="_blank">skeeks.com/contacts</a> — Задать вопрос.</li>
+                <li><a href="https://cms.skeeks.com" target="_blank">cms.skeeks.com</a> — Веб сайт.</li>
+                <li><a href="https://cms.skeeks.com/docs" target="_blank">cms.skeeks.com/docs</a> — Документация.</li>
+                <li><a href="https://cms.skeeks.com/marketplace" target="_blank">cms.skeeks.com/marketplace</a> — Готовые решения.</li>
+                <li><a href="https://skeeks.com/contacts" target="_blank">skeeks.com/contacts</a> — Задать вопрос.</li>
             </ul>
         </p>
 

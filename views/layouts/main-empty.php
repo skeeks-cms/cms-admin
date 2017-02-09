@@ -21,7 +21,7 @@ AdminAsset::register($this);
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
-        <link rel="icon" href="http://skeeks.com/favicon.ico"  type="image/x-icon" />
+        <link rel="icon" href="https://skeeks.com/favicon.ico"  type="image/x-icon" />
         <?php $this->head() ?>
     </head>
     <body class="<?= \Yii::$app->user->isGuest ? "sidebar-hidden" : ""?> <?= \Yii::$app->admin->isEmptyLayout() ? "empty" : ""?>">
