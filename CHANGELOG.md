@@ -1,7 +1,7 @@
 CHANGELOG
 ==============
 
-1.2.1.pre
+1.2.1
 -----------------
   * Default pjax options [timeout => 30000]
   * Removed \skeeks\cms\widgets\rbac\PermissionForRoles
