@@ -65,6 +65,11 @@
         {
             var self = this;
 
+            if ($.pjax)
+            {
+                $.pjax.defaults.timeout = 30000;
+            }
+
             this._initBootstrap();
 
             //Отключение пустых ссылок
@@ -77,7 +82,6 @@
             }
 
             this._initWindowCloseButtons();
-
 
             $(".sx-sidebar .scrollbar-macosx").scrollbar();
 

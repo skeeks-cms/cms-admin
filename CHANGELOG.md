@@ -3,6 +3,7 @@ CHANGELOG
 
 1.2.1.pre
 -----------------
+  * Default pjax options [timeout => 30000]
   * Removed \skeeks\cms\widgets\rbac\PermissionForRoles
   * GridViewStandart Mempry limit
 

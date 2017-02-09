@@ -80,6 +80,16 @@ class AdminSettings extends Component
 
     public $blockedTime                 = 900; //15 минут
 
+    /**
+     * Default pjax options
+     *
+     * @var array
+     */
+    public $pjax                        =
+    [
+        'timeout' => 30000
+    ];
+
     public $noImage = '';
 
 
@@ -151,7 +161,11 @@ class AdminSettings extends Component
 
         if ($this->requestIsAdmin)
         {
-            //TODO: add di check
+            if ($this->pjax)
+            {
+                \Yii::$container->set('yii\widgets\Pjax', $this->pjax);
+            }
+
             if (\Yii::$app->get('cmsMarketplace'))
             {
                 \Yii::$app->cmsMarketplace->info;
