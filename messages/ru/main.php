@@ -69,4 +69,6 @@ return [
     "Widget"                    => "Виджет",
     "Add desktop"               => "Добавить рабочий стол",
     "Desktop customization"     => "Настройки рабочего стола",
+
+    "This field is required"     => "Это поле обязательно к заполнению",
 ];

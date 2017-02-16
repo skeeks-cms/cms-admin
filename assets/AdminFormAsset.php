@@ -17,7 +17,9 @@ class AdminFormAsset extends AdminAsset
         'css/form.css',
     ];
 
-    public $js = [];
+    public $js = [
+        'js/classes/Form.js',
+    ];
 
     public $depends =
     [
