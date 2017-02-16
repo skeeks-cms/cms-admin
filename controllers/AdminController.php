@@ -30,6 +30,7 @@ use yii\helpers\Inflector;
 use yii\web\Application;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 
 /**
  * @property string             $permissionName
@@ -90,6 +91,11 @@ abstract class AdminController extends Controller
                         'allow'         => true,
                         'matchCallback' => function($rule, $action)
                         {
+                            /*if (!\Yii::$app->admin->checkAccess())
+                            {
+                                return false;
+                            }*/
+
                             if ($this->permissionName)
                             {
                                 if ($permission = \Yii::$app->authManager->getPermission($this->permissionName))
@@ -155,6 +161,21 @@ abstract class AdminController extends Controller
      */
     public function beforeAction($action)
     {
+        if (!\Yii::$app->admin->requestIsAdmin)
+        {
+            throw new NotFoundHttpException;
+        }
+
+        \Yii::$app->view->theme = new Theme([
+            'pathMap' =>
+            [
+                '@app/views' =>
+                [
+                    '@skeeks/cms/modules/admin/views',
+                ]
+            ]
+        ]);
+
         $this->_initMetaData();
         $this->_initBreadcrumbsData();
 

@@ -3,6 +3,7 @@ CHANGELOG
 
 1.2.2.pre
 -----------------
+  * AdminSettings added allowedIPs
   * Mark required fields character form *
 
 1.2.1
