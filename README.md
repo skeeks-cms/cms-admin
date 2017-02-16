@@ -27,7 +27,8 @@ Configuration app
 
     'admin' =>
     [
-        'class' => '\skeeks\cms\modules\admin\components\settings\AdminSettings'
+        'class' => '\skeeks\cms\modules\admin\components\settings\AdminSettings',
+        'allowedIPs' => ['91.219.167.*', '111.*']
     ],
 
     'urlManager' => [
