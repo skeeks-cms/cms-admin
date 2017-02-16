@@ -6,6 +6,7 @@
  * @date 30.09.2015
  */
 namespace skeeks\cms\modules\admin\widgets;
+use skeeks\cms\modules\admin\components\UrlRule;
 use yii\base\Widget;
 use yii\helpers\Url;
 
@@ -37,7 +38,7 @@ JS
             'isGuest'               => (bool) \Yii::$app->user->isGuest,
             'ajaxLeftTimeInfo'      => 300,
             'interval'              => 5,
-            'backendGetUser'        => Url::to(['/cms/admin-tools/admin-last-activity']),
+            'backendGetUser'        => Url::to(['/cms/admin-tools/admin-last-activity', UrlRule::ADMIN_PARAM_NAME => UrlRule::ADMIN_PARAM_VALUE]),
         ];
     }
 

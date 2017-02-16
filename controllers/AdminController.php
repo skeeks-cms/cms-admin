@@ -163,7 +163,7 @@ abstract class AdminController extends Controller
     {
         if (!\Yii::$app->admin->requestIsAdmin)
         {
-            throw new NotFoundHttpException;
+            throw new NotFoundHttpException("Request: " . \Yii::$app->request->pathInfo . " ip: " . \Yii::$app->request->userIP);
         }
 
         \Yii::$app->view->theme = new Theme([
