@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.2.2.pre
+-----------------
+  * Mark required fields character form *
+
 1.2.1
 -----------------
   * Go to https

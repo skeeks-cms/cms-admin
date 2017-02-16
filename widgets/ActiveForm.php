@@ -91,7 +91,22 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
     {
         parent::run();
 
+        $clientOptions = Json::encode([
+            'id' => $this->id,
+            'msg_title' => \Yii::t('skeeks/admin', 'This field is required'),
+        ]);
+
+
         AdminFormAsset::register($this->view);
+
+        $this->view->registerJs(<<<JS
+(function(sx, $, _)
+{
+    new sx.classes.forms.AdminForm({$clientOptions});
+})(sx, sx.$, sx._);
+JS
+);
+
 
         if ($this->useAjaxSubmit)
         {

@@ -1,4 +1,4 @@
-/** Оформление форм админки */
+/** Admin forms */
 
 form.sx-form-admin
 {
@@ -9,6 +9,11 @@ form.sx-form-admin
     form.sx-form-admin .hint-block
     {
         font-size: 11px;
+    }
+
+    form.sx-form-admin .sx-from-required
+    {
+        color: red;
     }
 
         form.sx-form-admin .tab-content
