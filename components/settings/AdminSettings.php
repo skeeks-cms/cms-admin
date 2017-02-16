@@ -24,6 +24,8 @@ use yii\base\BootstrapInterface;
 use yii\base\Theme;
 use yii\helpers\ArrayHelper;
 use yii\web\Application;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 
@@ -51,9 +53,40 @@ class AdminSettings extends Component
         ]);
     }
 
+    /**
+     * @var Additional styling admin
+     */
     public $asset;
 
+    /**
+     * @var array Components Desktops
+     */
     public $dashboards = [];
+
+    /**
+     * @var array the list of IPs that are allowed to access this module.
+     * Each array element represents a single IP filter which can be either an IP address
+     * or an address with wildcard (e.g. 192.168.0.*) to represent a network segment.
+     * The default value is `['127.0.0.1', '::1']`, which means the module can only be accessed
+     * by localhost.
+     */
+    public $allowedIPs = ['*'];
+
+    /**
+     * Default pjax options
+     *
+     * @var array
+     */
+    public $pjax                        =
+    [
+        'timeout' => 30000
+    ];
+
+
+    /**
+     * Control via the admin interface
+     */
+
 
     //Всплывающие окошки
     public $enableCustomConfirm     = Cms::BOOL_Y;
@@ -61,7 +94,6 @@ class AdminSettings extends Component
 
     //Языковые настройки
     public $languageCode            = "ru";
-
 
     //Настройки таблиц
     public $enabledPjaxPagination       = Cms::BOOL_Y;
@@ -77,18 +109,7 @@ class AdminSettings extends Component
     public $ckeditorCodeSnippetGeshi    = Cms::BOOL_N;
     public $ckeditorCodeSnippetTheme    = 'monokai_sublime';
 
-
     public $blockedTime                 = 900; //15 минут
-
-    /**
-     * Default pjax options
-     *
-     * @var array
-     */
-    public $pjax                        =
-    [
-        'timeout' => 30000
-    ];
 
     public $noImage = '';
 
@@ -171,18 +192,15 @@ class AdminSettings extends Component
                 \Yii::$app->cmsMarketplace->info;
             }
 
-            \Yii::$app->language = $this->languageCode;
+            /*\Yii::$app->on(Application::EVENT_BEFORE_REQUEST, function($e)
+            {
+                if (!\Yii::$app->admin->checkAccess())
+                {
+                    throw new NotFoundHttpException('You are not allowed to access this page.');;
+                }
+            });*/
 
-            //TODO: Добавить возможность настройки
-            \Yii::$app->view->theme = new Theme([
-                'pathMap' =>
-                [
-                    '@app/views' =>
-                    [
-                        '@skeeks/cms/modules/admin/views',
-                    ]
-                ]
-            ]);
+            \Yii::$app->language = $this->languageCode;
 
             if (!$this->noImage)
             {
@@ -191,6 +209,24 @@ class AdminSettings extends Component
         }
     }
 
+
+    /**
+     * @return boolean whether the module can be accessed by the current user
+     */
+    public function checkAccess()
+    {
+        $ip = \Yii::$app->getRequest()->getUserIP();
+
+        foreach ($this->allowedIPs as $filter) {
+            if ($filter === '*' || $filter === $ip || (($pos = strpos($filter, '*')) !== false && !strncmp($ip, $filter, $pos))) {
+                return true;
+            }
+        }
+
+        \Yii::warning('Access to Admin is denied due to IP address restriction. The requested IP is ' . $ip, __METHOD__);
+
+        return false;
+    }
 
     public function rules()
     {

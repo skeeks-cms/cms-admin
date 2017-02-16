@@ -81,6 +81,11 @@ class UrlRule
 
         if ($firstPrefix == $this->adminPrefix)
         {
+            if (!\Yii::$app->admin->checkAccess())
+            {
+                return false;
+            }
+
             $route = str_replace($this->adminPrefix, "", $pathInfo);
             if (!$route || $route == "/")
             {
