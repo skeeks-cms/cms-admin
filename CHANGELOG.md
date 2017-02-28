@@ -1,7 +1,7 @@
 CHANGELOG
 ==============
 
-1.2.2.pre
+1.2.2
 -----------------
   * AdminSettings added allowedIPs
   * Mark required fields character form *
