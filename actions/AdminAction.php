@@ -58,7 +58,8 @@ class AdminAction extends ViewAction
 
         if (!$this->controller instanceof AdminController)
         {
-            throw new InvalidParamException( \Yii::t('skeeks/admin','This action is designed to work with the controller: ') . AdminController::className());
+            //TODO::need interface
+            //throw new InvalidParamException( \Yii::t('skeeks/admin','This action is designed to work with the controller: ') . AdminController::className());
         }
 
         $this->defaultView = $this->id;

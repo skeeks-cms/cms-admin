@@ -3,6 +3,8 @@ CHANGELOG
 
 1.2.3.pre
 -----------------
+  * Need interface
+  * Removed old code
   * Admin url rules updated
 
 1.2.2

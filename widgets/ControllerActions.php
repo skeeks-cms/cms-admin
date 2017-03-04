@@ -71,7 +71,8 @@ class ControllerActions
 
         if (!$this->controller instanceof AdminController)
         {
-            throw new InvalidConfigException(\Yii::t('skeeks/cms',"For this controller can not build action"));
+            //TODO::need interface
+            //throw new InvalidConfigException(\Yii::t('skeeks/cms',"For this controller can not build action"));
         }
     }
 

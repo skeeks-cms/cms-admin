@@ -46,7 +46,8 @@ class ActionColumn extends DataColumn
 
         if (!$this->controller instanceof AdminModelEditorController)
         {
-            throw new InvalidConfigException(\Yii::t('skeeks/cms',"{controller} must be inherited from") . ": " . AdminModelEditorController::className());
+            //TODO::need interface
+            //throw new InvalidConfigException(\Yii::t('skeeks/cms',"{controller} must be inherited from") . ": " . AdminModelEditorController::className());
         }
     }
 
