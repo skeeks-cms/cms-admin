@@ -10,6 +10,8 @@
  */
 namespace skeeks\cms\modules\admin\components;
 use \yii\base\InvalidConfigException;
+use yii\helpers\ArrayHelper;
+
 /**
  * Class Storage
  * @package skeeks\cms\components
@@ -47,17 +49,27 @@ class UrlRule
      */
     public function createUrl($manager, $route, $params)
     {
-        if (!isset($params[self::ADMIN_PARAM_NAME]))
+        $routeData = explode("/", $route);
+        $isAdminRoute = false;
+        if (isset($routeData[1]))
+        {
+            if (strpos($routeData[1], 'admin-') !== false)
+            {
+                $isAdminRoute = true;
+            }
+        }
+
+        if (ArrayHelper::getValue($params, self::ADMIN_PARAM_NAME) == self::ADMIN_PARAM_VALUE)
+        {
+            $isAdminRoute = true;
+        }
+
+        if ($isAdminRoute === false)
         {
             return false;
         }
 
-        if ($params[self::ADMIN_PARAM_NAME] != self::ADMIN_PARAM_VALUE)
-        {
-            return false;
-        }
-
-        unset($params[self::ADMIN_PARAM_NAME]);
+        ArrayHelper::remove($params, self::ADMIN_PARAM_NAME);
 
         $url = $this->adminPrefix . "/" . $route;
         if (!empty($params) && ($query = http_build_query($params)) !== '')

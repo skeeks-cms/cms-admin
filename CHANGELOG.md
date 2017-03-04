@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.2.3.pre
+-----------------
+  * Admin url rules updated
+
 1.2.2
 -----------------
   * AdminSettings added allowedIPs
