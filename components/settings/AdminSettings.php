@@ -431,7 +431,7 @@ JS
                     $params         = $request->getQueryParams();
                     $firstPrefix    = substr($pathInfo, 0, strlen($urlRuleAdmin->adminPrefix));
 
-                    if ($firstPrefix == $urlRuleAdmin->adminPrefix)
+                    if ($firstPrefix == $urlRuleAdmin->urlPrefix)
                     {
                         $this->_requestIsAdmin = true;
                         return $this->_requestIsAdmin;
