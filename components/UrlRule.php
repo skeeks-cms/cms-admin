@@ -17,7 +17,7 @@ use yii\helpers\ArrayHelper;
  * @package skeeks\cms\components
  */
 class UrlRule
-    extends \skeeks\cms\backend\UrlRule
+    extends \skeeks\cms\backend\BackendUrlRule
 {
     public $urlPrefix   = '~sx';
     public $routePrefix = 'admin';

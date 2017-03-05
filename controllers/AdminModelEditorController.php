@@ -12,6 +12,7 @@
 
 namespace skeeks\cms\modules\admin\controllers;
 use skeeks\admin\components\AccessControl;
+use skeeks\cms\backend\BackendInfoInterface;
 use skeeks\cms\base\widgets\ActiveForm;
 use skeeks\cms\components\Cms;
 use skeeks\cms\Exception;
@@ -386,7 +387,7 @@ class AdminModelEditorController extends AdminController
         {
             $this->view->params['breadcrumbs'][] = [
                 'label' => $this->name,
-                'url' => UrlHelper::constructCurrent()->setRoute($baseRoute. '/' . $this->defaultAction)->enableAdmin()->toString()
+                'url' => $this->url
             ];
         }
 
@@ -401,7 +402,7 @@ class AdminModelEditorController extends AdminController
         }
 
 
-        if ($this->action && property_exists($this->action, 'name'))
+        if ($this->action && $this->action instanceof BackendInfoInterface)
         {
              $this->view->params['breadcrumbs'][] = $this->action->name;
         }

@@ -7,6 +7,10 @@
  */
 namespace skeeks\cms\modules\admin\actions;
 
+use skeeks\cms\backend\BackendInfoInterface;
+use skeeks\cms\backend\InfoInterface;
+use skeeks\cms\backend\traits\BackendInfoTrait;
+use skeeks\cms\backend\traits\InfoTrait;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
@@ -23,9 +27,36 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  * Class AdminViewAction
  * @package skeeks\cms\modules\admin\actions
  */
-class AdminAction extends ViewAction
+class AdminAction extends ViewAction implements BackendInfoInterface
 {
-    use AdminActionTrait;
+    use BackendInfoTrait;
+
+    /**
+     * @var string Здавать вопрос перед запуском этого действия?
+     */
+    public $confirm = '';
+
+    /**
+     * @var string
+     */
+    public $method  = 'get';
+
+    /**
+     * @var string
+     */
+    public $request = ''; //ajax
+
+    /**
+     * @var bool Показывается в меню или нет
+     */
+    public $visible = true;
+
+    /**
+     * @var int приоритет виляет на сортировку
+     */
+    public $priority = 100;
+
+
 
     /**
      * @var string Не используем prifix по умолчанию.

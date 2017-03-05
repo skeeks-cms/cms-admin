@@ -37,7 +37,7 @@ AdminAsset::register($this);
             <div class="col-lg-12 sx-main-body">
                 <? $openClose = \Yii::t('skeeks/cms', 'Expand/Collapse')?>
                 <? \skeeks\cms\modules\admin\widgets\AdminPanelWidget::begin([
-                    'name'      => property_exists(\Yii::$app->controller, 'name') ? \Yii::$app->controller->name : "",
+                    'name'      => \Yii::$app->controller instanceof \skeeks\cms\backend\BackendInfoInterface ? \Yii::$app->controller->name : "",
                     'actions'   => <<<HTML
                         <a href="#" class="sx-btn-trigger-full">
                             <i class="glyphicon glyphicon-fullscreen" data-sx-widget="tooltip-b" data-original-title="{$openClose}" style="color: white;"></i>

@@ -182,6 +182,16 @@ class AdminSettings extends Component
 
         if ($this->requestIsAdmin)
         {
+            \Yii::$app->view->theme = new Theme([
+                'pathMap' =>
+                [
+                    '@app/views' =>
+                    [
+                        '@skeeks/cms/modules/admin/views',
+                    ]
+                ]
+            ]);
+
             if ($this->pjax)
             {
                 \Yii::$container->set('yii\widgets\Pjax', $this->pjax);
@@ -191,14 +201,6 @@ class AdminSettings extends Component
             {
                 \Yii::$app->cmsMarketplace->info;
             }
-
-            /*\Yii::$app->on(Application::EVENT_BEFORE_REQUEST, function($e)
-            {
-                if (!\Yii::$app->admin->checkAccess())
-                {
-                    throw new NotFoundHttpException('You are not allowed to access this page.');;
-                }
-            });*/
 
             \Yii::$app->language = $this->languageCode;
 
@@ -429,7 +431,7 @@ JS
                     $request        = \Yii::$app->request;
                     $pathInfo       = $request->getPathInfo();
                     $params         = $request->getQueryParams();
-                    $firstPrefix    = substr($pathInfo, 0, strlen($urlRuleAdmin->adminPrefix));
+                    $firstPrefix    = substr($pathInfo, 0, strlen($urlRuleAdmin->urlPrefix));
 
                     if ($firstPrefix == $urlRuleAdmin->urlPrefix)
                     {

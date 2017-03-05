@@ -7,54 +7,30 @@
  */
 namespace skeeks\cms\modules\admin\controllers;
 
-use skeeks\cms\helpers\UrlHelper;
-use skeeks\cms\modules\admin\actions\AdminAction;
-use skeeks\cms\modules\admin\components\UrlRule;
-use skeeks\cms\modules\admin\controllers\helpers\ActionManager;
-use skeeks\cms\modules\admin\filters\AccessControl;
-use skeeks\cms\modules\admin\filters\AccessRule;
+use skeeks\cms\backend\controllers\BackendController;
 use skeeks\cms\modules\admin\filters\AdminAccessControl;
 use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
-use skeeks\cms\modules\admin\widgets\ControllerActions;
 use skeeks\cms\rbac\CmsManager;
-use yii\base\ActionEvent;
-use yii\base\Event;
-use yii\base\Exception;
-use yii\base\InlineAction;
-use yii\base\Model;
-use yii\base\Theme;
-use yii\behaviors\BlameableBehavior;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
-use yii\helpers\Inflector;
-use yii\web\Application;
-use yii\web\Controller;
-use yii\web\ForbiddenHttpException;
-use yii\web\NotFoundHttpException;
 
 /**
+ * @property array             $permissionNames
  * @property string             $permissionName
  *
  * Class AdminController
  * @package skeeks\cms\modules\admin\controllers
  */
-abstract class AdminController extends Controller
+class AdminController extends BackendController
 {
-    const LAYOUT_EMPTY                  = 'main-empty';
-    const LAYOUT_MAIN                   = 'main';
-
     /**
-     * @var string Понятное название контроллера, будет добавлено в хлебные крошки и title страницы
+     * @return array
      */
-    public $name           = '';
-
-    /**
-     * The name of the privilege of access to this controller
-     * @return string
-     */
-    public function getPermissionName()
+    public function getPermissionNames()
     {
-        return $this->getUniqueId();
+        return [
+            CmsManager::PERMISSION_ADMIN_ACCESS,
+            $this->permissionName
+        ];
     }
 
     /**
@@ -63,54 +39,12 @@ abstract class AdminController extends Controller
      */
     public function behaviors()
     {
-        return
+        return ArrayHelper::merge(parent::behaviors(),
         [
             //Проверка основной привелигии доступа к админ панели
-            'adminAccess' =>
+            'access' =>
             [
                 'class'         => AdminAccessControl::className(),
-                'rules' =>
-                [
-                    [
-                        'allow'         => true,
-                        'roles'         =>
-                        [
-                            CmsManager::PERMISSION_ADMIN_ACCESS
-                        ],
-                    ],
-                ]
-            ],
-
-            //Стандартная проверка доступности контроллера целиком
-            'adminActionsAccess' =>
-            [
-                'class'         => AdminAccessControl::className(),
-                'rules' =>
-                [
-                    [
-                        'allow'         => true,
-                        'matchCallback' => function($rule, $action)
-                        {
-                            /*if (!\Yii::$app->admin->checkAccess())
-                            {
-                                return false;
-                            }*/
-
-                            if ($this->permissionName)
-                            {
-                                if ($permission = \Yii::$app->authManager->getPermission($this->permissionName))
-                                {
-                                    if (!\Yii::$app->user->can($permission->name))
-                                    {
-                                        return false;
-                                    }
-                                }
-                            }
-
-                            return true;
-                        }
-                    ]
-                ],
             ],
 
             //Обновление активности пользователя взаимдействие с админкой
@@ -138,87 +72,25 @@ abstract class AdminController extends Controller
                     ]
                 ],
             ],
-        ];
+        ]);
     }
 
 
     public function init()
     {
         \Yii::$app->admin;
-
         parent::init();
-
-        if (!$this->name)
-        {
-            $this->name = \Yii::t('skeeks/cms','The name of the controller'); //Inflector::humanize($this->id);
-        }
     }
 
     /**
-     * @param \yii\base\Action $action
-     * @return bool
-     * @throws \yii\web\BadRequestHttpException
+     * TODO::Is deprecated
+     *
+     * The name of the privilege of access to this controller
+     * @return string
      */
-    public function beforeAction($action)
+    public function getPermissionName()
     {
-        if (!\Yii::$app->admin->requestIsAdmin)
-        {
-            throw new NotFoundHttpException("Request: " . \Yii::$app->request->pathInfo . " ip: " . \Yii::$app->request->userIP);
-        }
-
-        \Yii::$app->view->theme = new Theme([
-            'pathMap' =>
-            [
-                '@app/views' =>
-                [
-                    '@skeeks/cms/modules/admin/views',
-                ]
-            ]
-        ]);
-
-        $this->_initMetaData();
-        $this->_initBreadcrumbsData();
-
-        return parent::beforeAction($action);
+        return $this->getUniqueId();
     }
 
-    /**
-     * @return $this
-     */
-    protected function _initMetaData()
-    {
-        $data = [];
-        $data[] = \Yii::$app->name;
-        $data[] = $this->name;
-
-        if ($this->action && property_exists($this->action, 'name'))
-        {
-            $data[] = $this->action->name;
-        }
-        $this->view->title = implode(" / ", $data);
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    protected function _initBreadcrumbsData()
-    {
-        $baseRoute = $this->module instanceof Application ? $this->id : ("/" . $this->module->id . "/" . $this->id);
-
-        if ($this->name)
-        {
-            $this->view->params['breadcrumbs'][] = [
-                'label' => $this->name,
-                'url' => UrlHelper::constructCurrent()->setRoute($baseRoute. '/' . $this->defaultAction)->enableAdmin()->toString()
-            ];
-        }
-
-        if ($this->action && property_exists($this->action, 'name'))
-        {
-             $this->view->params['breadcrumbs'][] = $this->action->name;
-        }
-
-        return $this;
-    }
 }

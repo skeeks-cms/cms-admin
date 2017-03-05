@@ -3,6 +3,7 @@ CHANGELOG
 
 1.3.0.pre
 -----------------
+  * Remove AdminActionTraite / Updated admin controllers
   * Change UrlRule
   * Need interface
   * Removed old code
