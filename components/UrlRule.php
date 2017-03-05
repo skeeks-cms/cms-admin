@@ -53,7 +53,7 @@ class UrlRule
         $isAdminRoute = false;
         if (isset($routeData[1]))
         {
-            if (strpos($routeData[1], 'admin-') !== false)
+            if (strpos(trim($routeData[1]), 'admin-') == 0)
             {
                 $isAdminRoute = true;
             }
