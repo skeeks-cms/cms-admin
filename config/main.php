@@ -12,7 +12,6 @@ return [
             'rules' => [
                 'cms-admin' => [
                     "class" => 'skeeks\cms\modules\admin\components\UrlRule',
-                    'adminPrefix' => '~sx'
                 ],
             ]
         ],

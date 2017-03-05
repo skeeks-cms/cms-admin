@@ -32,7 +32,7 @@ class AdminImagePreviewWidget extends Widget
             $src            = \Yii::$app->imaging->getImagingUrl($this->image->src, new \skeeks\cms\components\imaging\filters\Thumbnail());
         } else
         {
-            $src            = \Yii::$app->cms->moduleAdmin->noImage;
+            $src            = \Yii::$app->cms->noImageUrl;
             $originalSrc    = $src;
         }
 

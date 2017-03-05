@@ -18,31 +18,15 @@ use yii\helpers\ArrayHelper;
  */
 class UrlRule
     extends \skeeks\cms\backend\UrlRule
-    //extends \yii\web\UrlRule
 {
-    /**
-     * TODO:: is deprecated;
-     */
-    const ADMIN_PARAM_NAME  = "namespace";
-    const ADMIN_PARAM_VALUE = "admin";
+    public $urlPrefix   = '~sx';
+    public $routePrefix = 'admin';
 
     /**
+     * TODO::is deprecated
      * @var string
      */
     public $adminPrefix = '~sx';
-
-    public function init()
-    {
-        $this->urlPrefix    = $this->adminPrefix;
-
-        if (!$this->routePrefix)
-        {
-            $this->routePrefix = 'admin';
-        }
-
-        parent::init();
-    }
-
 
     /**
      * @param \yii\web\UrlManager $manager

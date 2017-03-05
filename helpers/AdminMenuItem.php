@@ -10,6 +10,7 @@ namespace skeeks\cms\modules\admin\helpers;
 use skeeks\cms\modules\admin\assets\AdminAsset;
 use yii\base\Component;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * Class AdminMenuItem
@@ -98,7 +99,25 @@ class AdminMenuItem extends Component
 
         if (is_array($this->url))
         {
-            if (strpos('-' . \Yii::$app->controller->route . '/', $this->url[0] . '/'))
+            $routeData = explode("/", $this->url[0]);
+            $routeDataCheck = [];
+            if ($routeData && is_array($routeData))
+            {
+                foreach ($routeData as $routePath)
+                {
+                    if ($routePath)
+                    {
+                        $routeDataCheck[] = $routePath;
+                    }
+                }
+            }
+
+            if (!$routeDataCheck)
+            {
+                return false;
+            }
+
+            if (strpos('-' . \Yii::$app->controller->route . '/', implode("/", $routeDataCheck) . '/') !== false)
             {
                 return true;
             }
@@ -207,7 +226,11 @@ class AdminMenuItem extends Component
             return "";
         } if (is_array($this->url))
         {
-            return \Yii::$app->cms->moduleAdmin->createUrl($this->url);
+            if (isset($this->url[0]))
+            {
+                $this->url[0] = "/" . $this->url[0];
+            }
+            return Url::to($this->url);
         } if (is_string($this->url))
         {
             return (string) $this->img;

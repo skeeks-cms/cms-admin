@@ -38,7 +38,7 @@ JS
             'isGuest'               => (bool) \Yii::$app->user->isGuest,
             'ajaxLeftTimeInfo'      => 300,
             'interval'              => 5,
-            'backendGetUser'        => Url::to(['/cms/admin-tools/admin-last-activity', UrlRule::ADMIN_PARAM_NAME => UrlRule::ADMIN_PARAM_VALUE]),
+            'backendGetUser'        => Url::to(['/cms/admin-tools/admin-last-activity']),
         ];
     }
 

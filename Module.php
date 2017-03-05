@@ -1,12 +1,9 @@
 <?php
 /**
- * Module
- *
  * @author Semenov Alexander <semenov@skeeks.com>
  * @link http://skeeks.com/
- * @copyright 2010-2014 SkeekS (Sx)
- * @date 28.10.2014
- * @since 1.0.0
+ * @copyright 2010 SkeekS (СкикС)
+ * @date 05.03.2017
  */
 namespace skeeks\cms\modules\admin;
 
@@ -30,23 +27,4 @@ class Module extends \yii\base\Module
     const SYSTEM_QUERY_EMPTY_LAYOUT     = 'sx-empty-layout';
 
     public $controllerNamespace = 'skeeks\cms\modules\admin\controllers';
-
-    /**
-     * @param array $data
-     * @return string
-     */
-    public function createUrl(array $data)
-    {
-        $data[UrlRule::ADMIN_PARAM_NAME] = UrlRule::ADMIN_PARAM_VALUE;
-        return \Yii::$app->urlManager->createUrl($data);
-    }
-
-    /**
-     * TODO: is depricated
-     * @return string
-     */
-    public function getNoImage()
-    {
-        return \Yii::$app->admin->noImage;
-    }
 }

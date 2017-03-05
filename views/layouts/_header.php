@@ -69,7 +69,7 @@ JS
 <? if (!\Yii::$app->user->isGuest): ?>
     <ul class="nav navbar-nav navbar-actions navbar-left">
         <li class="visible-md visible-lg visible-sm visible-xs">
-            <a href="<?= \Yii::$app->cms->moduleAdmin->createUrl(["admin/index/index"]); ?>" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','To main page of admin area')?>"><i class="glyphicon glyphicon-home"></i></a>
+            <a href="<?= \yii\helpers\Url::to(["/admin/index"]); ?>" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','To main page of admin area')?>"><i class="glyphicon glyphicon-home"></i></a>
         </li>
 
         <li class="visible-md visible-lg visible-sm visible-xs">
@@ -126,7 +126,7 @@ JS
             <? if (\Yii::$app->user->identity->image) : ?>
                 <img src="<?= \Yii::$app->user->identity->avatarSrc; ?>" width="49" height="49"/>
             <? else : ?>
-                <img src="<?= Yii::$app->cms->moduleAdmin->noImage; ?>" width="49" height="49"/>
+                <img src="<?= Yii::$app->cms->noImageUrl; ?>" width="49" height="49"/>
             <? endif; ?>
         </a>
         <!--sx-dropdown-menu-left-->
