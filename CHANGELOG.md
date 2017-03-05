@@ -1,8 +1,9 @@
 CHANGELOG
 ==============
 
-1.2.3.pre
+1.3.0.pre
 -----------------
+  * Change UrlRule
   * Need interface
   * Removed old code
   * Admin url rules updated
