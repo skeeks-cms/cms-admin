@@ -21,7 +21,7 @@
 	},
     "autoload": {
         "psr-4": {
-            "skeeks\\cms\\modules\\admin\\": ""
+            "skeeks\\cms\\modules\\admin\\": "src/"
         }
     }
 }
