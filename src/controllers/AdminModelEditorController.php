@@ -61,7 +61,7 @@ use yii\web\Response;
  * Class AdminModelEditorController
  * @package skeeks\cms\modules\admin\controllers
  */
-class AdminModelEditorController extends AdminController
+abstract class AdminModelEditorController extends AdminController
 {
     /**
      * Обязателен к заполнению!

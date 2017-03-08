@@ -20,7 +20,7 @@ use yii\helpers\ArrayHelper;
  * Class AdminController
  * @package skeeks\cms\modules\admin\controllers
  */
-class AdminController extends BackendController
+abstract class AdminController extends BackendController
 {
     /**
      * @return array

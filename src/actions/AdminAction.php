@@ -11,7 +11,7 @@ use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\IHasInfo;
 use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
-use skeeks\cms\traits\InfoTrait;
+use skeeks\cms\traits\THasInfo;
 use yii\base\InvalidParamException;
 use yii\helpers\Inflector;
 use yii\web\Application;
@@ -27,7 +27,7 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  */
 class AdminAction extends ViewAction implements IHasInfo
 {
-    use InfoTrait;
+    use THasInfo;
 
     /**
      * @var string Здавать вопрос перед запуском этого действия?
