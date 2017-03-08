@@ -7,9 +7,8 @@
  */
 namespace skeeks\cms\modules\admin\actions;
 
-use skeeks\cms\backend\BackendInfoInterface;
+use skeeks\cms\backend\HasInfoInterface;
 use skeeks\cms\backend\InfoInterface;
-use skeeks\cms\backend\traits\BackendInfoTrait;
 use skeeks\cms\backend\traits\InfoTrait;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\modules\admin\components\UrlRule;
@@ -27,9 +26,9 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  * Class AdminViewAction
  * @package skeeks\cms\modules\admin\actions
  */
-class AdminAction extends ViewAction implements BackendInfoInterface
+class AdminAction extends ViewAction implements HasInfoInterface
 {
-    use BackendInfoTrait;
+    use InfoTrait;
 
     /**
      * @var string Здавать вопрос перед запуском этого действия?
