@@ -7,12 +7,11 @@
  */
 namespace skeeks\cms\modules\admin\actions;
 
-use skeeks\cms\backend\HasInfoInterface;
-use skeeks\cms\backend\InfoInterface;
-use skeeks\cms\backend\traits\InfoTrait;
 use skeeks\cms\helpers\UrlHelper;
+use skeeks\cms\IHasInfo;
 use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
+use skeeks\cms\traits\InfoTrait;
 use yii\base\InvalidParamException;
 use yii\helpers\Inflector;
 use yii\web\Application;
@@ -26,7 +25,7 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  * Class AdminViewAction
  * @package skeeks\cms\modules\admin\actions
  */
-class AdminAction extends ViewAction implements HasInfoInterface
+class AdminAction extends ViewAction implements IHasInfo
 {
     use InfoTrait;
 
