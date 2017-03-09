@@ -116,7 +116,7 @@ JS
 
     <? if (\Yii::$app->user->can('cms/admin-settings')) : ?>
     <li class="sx-left-border dropdown visible-md visible-lg visible-sm visible-xs">
-        <a href="<?= UrlHelper::construct('cms/admin-settings')->enableAdmin(); ?>" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Project settings')?>"><i class="glyphicon glyphicon-cog"></i></a>
+        <a href="<?= \yii\helpers\Url::to(['/cms/admin-settings']); ?>" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Project settings')?>"><i class="glyphicon glyphicon-cog"></i></a>
     </li>
     <? endif; ?>
 
@@ -134,7 +134,7 @@ JS
             <li class="dropdown-menu-header text-center">
                 <strong><?= \Yii::$app->user->identity->username ?></strong>
             </li>
-            <li><a href="<?= UrlHelper::construct("cms/admin-profile/update")->enableAdmin() ?>"><i class="glyphicon glyphicon-user"></i> <?=\Yii::t('skeeks/cms','Profile')?></a></li>
+            <li><a href="<?= \yii\helpers\Url::to(['/cms/admin-profile/update']); ?>"><i class="glyphicon glyphicon-user"></i> <?=\Yii::t('skeeks/cms','Profile')?></a></li>
             <!--<li><a href="#"><i class="fa fa-envelope-o"></i> Сообщения <span class="label label-info">42</span></a></li>-->
             <li class="divider"></li>
             <li>

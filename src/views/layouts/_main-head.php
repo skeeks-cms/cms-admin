@@ -11,12 +11,15 @@
 
     <div class="row sx-main-head sx-bg-glass sx-bg-glass-hover">
         <div class="col-md-11 pull-left">
-            <?= \yii\widgets\Breadcrumbs::widget([
-                'homeLink' => ['label' => \Yii::t("yii", "Home"), 'url' =>
-                    \skeeks\cms\helpers\UrlHelper::construct('admin/index')->enableAdmin()->toString()
-                ],
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
+            <? $controller = \Yii::$app->controller; ?>
+            <? if ($controller && $controller instanceof \skeeks\cms\backend\IHasBreadcrumbs) : ?>
+                <?= \yii\widgets\Breadcrumbs::widget([
+                    'homeLink' => ['label' => \Yii::t("yii", "Home"), 'url' =>
+                        \yii\helpers\Url::to(['/admin/index'])
+                    ],
+                    'links' => $controller->breadcrumbsData,
+                ]) ?>
+            <? endif; ?>
         </div>
         <div class="col-md-1">
             <div class="pull-right">
