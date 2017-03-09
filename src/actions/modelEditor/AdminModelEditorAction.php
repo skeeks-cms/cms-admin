@@ -8,7 +8,6 @@
 namespace skeeks\cms\modules\admin\actions\modelEditor;
 
 use skeeks\cms\modules\admin\actions\AdminAction;
-use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
 use yii\authclient\AuthAction;

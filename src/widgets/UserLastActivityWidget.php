@@ -6,7 +6,6 @@
  * @date 30.09.2015
  */
 namespace skeeks\cms\modules\admin\widgets;
-use skeeks\cms\modules\admin\components\UrlRule;
 use yii\base\Widget;
 use yii\helpers\Url;
 

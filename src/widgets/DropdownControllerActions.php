@@ -11,7 +11,6 @@
 
 namespace skeeks\cms\modules\admin\widgets;
 
-use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\controllers\AdminController;
 use skeeks\cms\modules\admin\controllers\helpers\Action;
 use skeeks\cms\modules\admin\controllers\helpers\ActionManager;

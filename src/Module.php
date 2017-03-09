@@ -10,7 +10,6 @@ namespace skeeks\cms\modules\admin;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Site;
 use skeeks\cms\modules\admin\assets\AdminAsset;
-use skeeks\cms\modules\admin\components\UrlRule;
 use yii\base\BootstrapInterface;
 use yii\base\Event;
 use yii\base\Object;

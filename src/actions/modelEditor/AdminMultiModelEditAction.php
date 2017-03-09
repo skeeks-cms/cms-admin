@@ -11,7 +11,6 @@ use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Search;
 use skeeks\cms\modules\admin\actions\AdminAction;
-use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\filters\AdminAccessControl;
 use skeeks\cms\modules\admin\widgets\ControllerActions;

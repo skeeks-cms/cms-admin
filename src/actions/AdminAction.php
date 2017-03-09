@@ -9,7 +9,6 @@ namespace skeeks\cms\modules\admin\actions;
 
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\IHasInfo;
-use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
 use skeeks\cms\traits\THasInfo;
 use yii\base\InvalidParamException;

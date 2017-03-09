@@ -28,7 +28,6 @@ use skeeks\cms\modules\admin\actions\modelEditor\AdminMultiModelEditAction;
 use skeeks\cms\modules\admin\actions\modelEditor\AdminOneModelEditAction;
 use skeeks\cms\modules\admin\actions\modelEditor\AdminOneModelUpdateAction;
 use skeeks\cms\modules\admin\actions\modelEditor\ModelEditorGridAction;
-use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\controllers\helpers\Action;
 use skeeks\cms\modules\admin\controllers\helpers\ActionModel;
 use skeeks\cms\modules\admin\controllers\helpers\rules\HasModel;

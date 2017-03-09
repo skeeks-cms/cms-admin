@@ -19,14 +19,15 @@ use yii\helpers\ArrayHelper;
 class UrlRule
     extends \skeeks\cms\backend\BackendUrlRule
 {
-    public $urlPrefix   = '~sx';
-    public $routePrefix = 'admin';
-
     /**
-     * TODO::is deprecated
      * @var string
      */
-    public $adminPrefix = '~sx';
+    public $urlPrefix   = '~sx';
+
+    /**
+     * @var string
+     */
+    public $controllerPrefix = 'admin';
 
     /**
      * @param \yii\web\UrlManager $manager
