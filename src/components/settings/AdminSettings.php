@@ -6,6 +6,7 @@
  * @date 30.03.2015
  */
 namespace skeeks\cms\modules\admin\components\settings;
+use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\base\Component;
 use skeeks\cms\base\Widget;
 use skeeks\cms\components\Cms;
@@ -72,15 +73,6 @@ class AdminSettings extends Component
      */
     public $allowedIPs = ['*'];
 
-    /**
-     * Default pjax options
-     *
-     * @var array
-     */
-    public $pjax                        =
-    [
-        'timeout' => 30000
-    ];
 
 
     /**
@@ -111,7 +103,6 @@ class AdminSettings extends Component
 
     public $blockedTime                 = 900; //15 минут
 
-    public $noImage = '';
 
 
     /**
@@ -174,41 +165,6 @@ class AdminSettings extends Component
         }
 
         return $result;
-    }
-
-    public function init()
-    {
-        parent::init();
-
-        if ($this->requestIsAdmin)
-        {
-            \Yii::$app->view->theme = new Theme([
-                'pathMap' =>
-                [
-                    '@app/views' =>
-                    [
-                        '@skeeks/cms/modules/admin/views',
-                    ]
-                ]
-            ]);
-
-            if ($this->pjax)
-            {
-                \Yii::$container->set('yii\widgets\Pjax', $this->pjax);
-            }
-
-            if (\Yii::$app->get('cmsMarketplace'))
-            {
-                \Yii::$app->cmsMarketplace->info;
-            }
-
-            \Yii::$app->language = $this->languageCode;
-
-            if (!$this->noImage)
-            {
-                $this->noImage = AdminAsset::getAssetUrl("images/no-photo.gif");
-            }
-        }
     }
 
 
@@ -408,42 +364,17 @@ JS
     }
 
 
-    protected $_requestIsAdmin = null;
-
     /**
      * @return bool
      */
     public function getRequestIsAdmin()
     {
-        if ($this->_requestIsAdmin !== null)
+        if (BackendComponent::getCurrent() && BackendComponent::getCurrent()->controllerPrefix == 'admin')
         {
-            return $this->_requestIsAdmin;
+            return true;
         }
 
-        if (\Yii::$app->urlManager->rules)
-        {
-            foreach (\Yii::$app->urlManager->rules as $rule)
-            {
-                if ($rule instanceof UrlRule)
-                {
-                    $urlRuleAdmin = $rule;
-
-                    $request        = \Yii::$app->request;
-                    $pathInfo       = $request->getPathInfo();
-                    $params         = $request->getQueryParams();
-                    $firstPrefix    = substr($pathInfo, 0, strlen($urlRuleAdmin->urlPrefix));
-
-                    if ($firstPrefix == $urlRuleAdmin->urlPrefix)
-                    {
-                        $this->_requestIsAdmin = true;
-                        return $this->_requestIsAdmin;
-                    }
-                }
-            }
-        }
-
-        $this->_requestIsAdmin = false;
-        return $this->_requestIsAdmin;
+        return false;
     }
 
     /**
