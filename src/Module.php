@@ -16,6 +16,8 @@ use yii\base\Object;
 use yii\web\Application;
 
 /**
+ * TODO: is deprecated!
+ *
  * Class Module
  * @package skeeks\modules\cms\user
  */

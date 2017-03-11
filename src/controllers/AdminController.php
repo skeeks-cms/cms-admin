@@ -7,20 +7,23 @@
  */
 namespace skeeks\cms\modules\admin\controllers;
 
-use skeeks\cms\backend\controllers\BackendController;
+use skeeks\cms\backend\BackendController;
 use skeeks\cms\modules\admin\filters\AdminAccessControl;
 use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
 use skeeks\cms\rbac\CmsManager;
 use yii\helpers\ArrayHelper;
 
 /**
+ * TODO: is deprecated!
+ *
+ *
  * @property array             $permissionNames
  * @property string             $permissionName
  *
  * Class AdminController
  * @package skeeks\cms\modules\admin\controllers
  */
-abstract class AdminController extends BackendController
+abstract class AdminController extends \skeeks\cms\admin\AdminController
 {
     /**
      * @return array
@@ -31,55 +34,6 @@ abstract class AdminController extends BackendController
             CmsManager::PERMISSION_ADMIN_ACCESS,
             $this->permissionName
         ];
-    }
-
-    /**
-     * Проверка доступа к админке
-     * @return array
-     */
-    public function behaviors()
-    {
-        return ArrayHelper::merge(parent::behaviors(),
-        [
-            //Проверка основной привелигии доступа к админ панели
-            'access' =>
-            [
-                'class'         => AdminAccessControl::className(),
-            ],
-
-            //Обновление активности пользователя взаимдействие с админкой
-            'adminLastActivityAccess' =>
-            [
-                'class'         => AdminLastActivityAccessControl::className(),
-                'rules' =>
-                [
-                    [
-                        'allow'         => true,
-                        'matchCallback' => function($rule, $action)
-                        {
-                            if (\Yii::$app->user->identity->lastAdminActivityAgo > \Yii::$app->admin->blockedTime)
-                            {
-                                return false;
-                            }
-
-                            if (\Yii::$app->user->identity)
-                            {
-                                \Yii::$app->user->identity->updateLastAdminActivity();
-                            }
-
-                            return true;
-                        }
-                    ]
-                ],
-            ],
-        ]);
-    }
-
-
-    public function init()
-    {
-        \Yii::$app->admin;
-        parent::init();
     }
 
     /**

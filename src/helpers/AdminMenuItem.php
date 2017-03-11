@@ -184,19 +184,23 @@ class AdminMenuItem extends Component
             }
 
 
-            if ($permission = \Yii::$app->authManager->getPermission($controller->permissionName))
+            foreach ($controller->permissionNames as $name)
             {
-                if (\Yii::$app->user->can($permission->name))
+                if ($permission = \Yii::$app->authManager->getPermission($name))
                 {
-                    return $this->_accessCallback();
+                    if (\Yii::$app->user->can($permission->name))
+                    {
+                        return $this->_accessCallback();
+                    } else
+                    {
+                        return false;
+                    }
                 } else
                 {
-                    return false;
+                    return $this->_accessCallback();
                 }
-            } else
-            {
-                return $this->_accessCallback();
             }
+
         }
 
         return $this->_accessCallback();
