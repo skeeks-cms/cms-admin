@@ -27,6 +27,6 @@ class AdminFiltersFormAsset extends AssetBundle
 
     public $depends =
     [
-        'skeeks\cms\modules\admin\assets\AdminAsset',
+        //'skeeks\cms\admin\assets\AdminAsset',
     ];
 }

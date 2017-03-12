@@ -10,7 +10,7 @@
  */
 namespace skeeks\cms\modules\admin\widgets;
 use skeeks\cms\helpers\UrlHelper;
-use skeeks\cms\modules\admin\assets\AdminFormAsset;
+use skeeks\cms\admin\assets\AdminFormAsset;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\traits\ActiveFormTrait;
 use skeeks\cms\modules\admin\traits\AdminActiveFormTrait;
