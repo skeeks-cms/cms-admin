@@ -12,7 +12,7 @@ use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Search;
 use skeeks\cms\modules\admin\actions\AdminAction;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
-use skeeks\cms\modules\admin\filters\AdminAccessControl;
+use skeeks\cms\admin\AdminAccessControl;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
 use skeeks\cms\rbac\CmsManager;
 use yii\authclient\AuthAction;
@@ -38,7 +38,7 @@ class AdminOneModelEditAction extends AdminModelEditorAction
         //Для работы с любой моделью нужно как минимум иметь привилегию CmsManager::PERMISSION_ALLOW_MODEL_UPDATE
         $this->controller->attachBehavior('accessCreate',
         [
-            'class'         => AdminAccessControl::className(),
+            'class'         => \skeeks\cms\admin\AdminAccessControl::className(),
             'only'          => [$this->id],
             'rules'         =>
             [

@@ -8,8 +8,7 @@
 namespace skeeks\cms\modules\admin\actions\modelEditor;
 use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
-use skeeks\cms\modules\admin\filters\AccessControl;
-use skeeks\cms\modules\admin\filters\AdminAccessControl;
+use skeeks\cms\admin\AdminAccessControl;
 use skeeks\cms\rbac\CmsManager;
 use yii\base\InvalidParamException;
 use yii\behaviors\BlameableBehavior;

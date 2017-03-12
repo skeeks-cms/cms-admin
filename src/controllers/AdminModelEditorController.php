@@ -32,7 +32,7 @@ use skeeks\cms\modules\admin\controllers\helpers\Action;
 use skeeks\cms\modules\admin\controllers\helpers\ActionModel;
 use skeeks\cms\modules\admin\controllers\helpers\rules\HasModel;
 use skeeks\cms\modules\admin\controllers\helpers\rules\NoModel;
-use skeeks\cms\modules\admin\filters\AdminAccessControl;
+use skeeks\cms\admin\AdminAccessControl;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
 use skeeks\cms\modules\admin\widgets\ControllerModelActions;
 use skeeks\cms\rbac\CmsManager;
@@ -126,7 +126,7 @@ abstract class AdminModelEditorController extends AdminController
 
             'accessDelete' =>
             [
-                'class'         => AdminAccessControl::className(),
+                'class'         => \skeeks\cms\admin\AdminAccessControl::className(),
                 'only'          => ['delete'],
                 'rules'         =>
                 [
