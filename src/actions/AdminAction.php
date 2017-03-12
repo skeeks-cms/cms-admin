@@ -7,6 +7,7 @@
  */
 namespace skeeks\cms\modules\admin\actions;
 
+use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\IHasInfo;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
@@ -140,7 +141,7 @@ class AdminAction extends ViewAction implements IHasInfo
         $this->viewParams = array_merge($this->viewParams, [
             'action' => $this
         ]);
-
+        
         return $this->controller->render($viewName, (array) $this->viewParams);
     }
 

@@ -274,15 +274,6 @@ JS
      */
     public function registerAsset(View $view)
     {
-        if ($this->asset)
-        {
-            if (class_exists($this->asset))
-            {
-                $className = $this->asset;
-                $className::register($view);
-            }
-        }
-
         if ($this->enableCustomPromt == Cms::BOOL_Y)
         {
             $file = AdminAsset::getAssetUrl('js/classes/modal/Promt.js');

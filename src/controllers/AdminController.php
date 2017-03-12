@@ -24,27 +24,4 @@ use yii\helpers\ArrayHelper;
  * @package skeeks\cms\modules\admin\controllers
  */
 abstract class AdminController extends \skeeks\cms\admin\AdminController
-{
-    /**
-     * @return array
-     */
-    public function getPermissionNames()
-    {
-        return [
-            CmsManager::PERMISSION_ADMIN_ACCESS,
-            $this->permissionName
-        ];
-    }
-
-    /**
-     * TODO::Is deprecated
-     *
-     * The name of the privilege of access to this controller
-     * @return string
-     */
-    public function getPermissionName()
-    {
-        return $this->getUniqueId();
-    }
-
-}
+{}

@@ -13,37 +13,23 @@ use \yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 
 /**
+ * TODO: is deprecated!
+ *
  * Class Storage
  * @package skeeks\cms\components
  */
 class UrlRule
-    extends \skeeks\cms\backend\BackendUrlRule
+    extends \yii\web\UrlRule
 {
+    const ADMIN_PARAM_NAME  = "namespace";
+    const ADMIN_PARAM_VALUE = "admin";
     /**
      * @var string
      */
-    public $urlPrefix   = '~sx';
+    public $adminPrefix = '~sx';
 
     /**
-     * @var string
+     * Deleted not use it!
      */
-    public $controllerPrefix = 'admin';
 
-    /**
-     * @param \yii\web\UrlManager $manager
-     * @param \yii\web\Request $request
-     * @return array|bool
-     */
-    public function parseRequest($manager, $request)
-    {
-        if ($result = parent::parseRequest($manager, $request))
-        {
-            if (!\Yii::$app->admin->checkAccess())
-            {
-                return false;
-            }
-        }
-
-        return $result;
-    }
 }
