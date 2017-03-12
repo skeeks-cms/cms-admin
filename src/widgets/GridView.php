@@ -101,7 +101,7 @@ class GridView extends \yii\grid\GridView
     public function registerAsset()
     {
         $this->registerSortableJs();
-        //AdminGridAsset::register($this->view);
+        \skeeks\cms\admin\assets\AdminGridAsset::register($this->view);
     }
 
 

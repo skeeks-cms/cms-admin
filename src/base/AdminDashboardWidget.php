@@ -9,7 +9,7 @@ namespace skeeks\cms\modules\admin\base;
 
 use skeeks\cms\base\ConfigFormInterface;
 use skeeks\cms\traits\HasComponentDescriptorTrait;
-use skeeks\cms\traits\WidgetTrait;
+use skeeks\cms\traits\TWidget;
 use yii\base\Model;
 use yii\base\ViewContextInterface;
 use yii\widgets\ActiveForm;
@@ -23,7 +23,7 @@ class AdminDashboardWidget extends Model implements ViewContextInterface, Config
     /**
      * @see \yii\base\Widget
      */
-    use WidgetTrait;
+    use TWidget;
 
     //Можно задавать описание компонента.
     use HasComponentDescriptorTrait;
