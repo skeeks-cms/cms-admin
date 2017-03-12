@@ -36,7 +36,6 @@ use yii\widgets\ActiveForm;
  * @property [] $dasboardWidgetsLabels
  *
  * @property bool $requestIsAdmin
- * @property Menu $menu
  *
  * Class AdminSettings
  * @package skeeks\cms\modules\admin\components\settings
@@ -366,26 +365,5 @@ JS
         }
 
         return false;
-    }
-
-    /**
-     * @var null|\skeeks\cms\modules\admin\components\Menu
-     */
-    protected $_menu = null;
-
-    /**
-     * @return null|\skeeks\cms\modules\admin\components\Menu
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getMenu()
-    {
-        if (!$this->_menu)
-        {
-            $this->_menu = \Yii::createObject([
-                'class' => 'skeeks\cms\modules\admin\components\Menu'
-            ]);
-        }
-
-        return $this->_menu;
     }
 }
