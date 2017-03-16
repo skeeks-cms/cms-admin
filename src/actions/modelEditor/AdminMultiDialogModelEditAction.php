@@ -33,7 +33,7 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  * Class AdminMultiDialogModelEditAction
  * @package skeeks\cms\modules\admin\actions\modelEditor
  */
-class AdminMultiDialogModelEditAction extends AdminAction
+class AdminMultiDialogModelEditAction extends AdminMultiModelEditAction
 {
     public $viewDialog      = "";
 
