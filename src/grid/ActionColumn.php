@@ -10,10 +10,10 @@
  */
 namespace skeeks\cms\modules\admin\grid;
 
+use skeeks\cms\backend\widgets\DropdownControllerActionsWidget;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
 use skeeks\cms\modules\admin\widgets\ControllerModelActions;
-use skeeks\cms\modules\admin\widgets\DropdownControllerActions;
 use yii\base\InvalidConfigException;
 use yii\grid\DataColumn;
 
@@ -68,7 +68,7 @@ class ActionColumn extends DataColumn
 
         $this->gridDoubleClickAction();
 
-        return DropdownControllerActions::widget([
+        return DropdownControllerActionsWidget::widget([
             "controller"            => $controller,
             "isOpenNewWindow"       => $this->isOpenNewWindow,
             "clientOptions"         => $this->clientOptions,

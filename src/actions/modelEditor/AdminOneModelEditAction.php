@@ -18,6 +18,7 @@ use skeeks\cms\rbac\CmsManager;
 use yii\authclient\AuthAction;
 use yii\behaviors\BlameableBehavior;
 use yii\helpers\Inflector;
+use yii\helpers\Url;
 use yii\web\Application;
 use yii\web\ViewAction;
 use \skeeks\cms\modules\admin\controllers\AdminController;
@@ -28,7 +29,7 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  * Class AdminModelsGridAction
  * @package skeeks\cms\modules\admin\actions
  */
-class AdminOneModelEditAction extends AdminModelEditorAction
+class AdminOneModelEditAction extends AdminAction
 {
 
     public function init()
@@ -68,7 +69,7 @@ class AdminOneModelEditAction extends AdminModelEditorAction
     {
         if ($this->callback)
         {
-            return $this->runCallback();
+            return call_user_func($this->callback, $this);
         }
 
         if (!$this->controller->model)
@@ -78,14 +79,26 @@ class AdminOneModelEditAction extends AdminModelEditorAction
 
         return parent::run();
     }
+
     /**
-     * @return UrlHelper
+     * @return string
      */
     public function getUrl()
     {
-        $url = parent::getUrl();
-        $url->set($this->controller->requestPkParamName, $this->controller->model->{$this->controller->modelPkAttribute});
-        return $url;
+        if ($this->_url)
+        {
+            return $this->_url;
+        }
+
+        if ($this->controller->module instanceof Application)
+        {
+            $this->_url = Url::to(['/' . $this->controller->id . '/' . $this->id, $this->controller->requestPkParamName => $this->controller->model->{$this->controller->modelPkAttribute}]);
+        } else
+        {
+            $this->_url = $this->_url = Url::to(['/' . $this->controller->module->id . '/' . $this->controller->id . '/' . $this->id, $this->controller->requestPkParamName => $this->controller->model->{$this->controller->modelPkAttribute}]);
+        }
+
+        return $this->_url;
     }
 
     /**

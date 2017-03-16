@@ -33,7 +33,7 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  * Class AdminModelsGridAction
  * @package skeeks\cms\modules\admin\actions
  */
-class AdminMultiModelEditAction extends AdminModelEditorAction
+class AdminMultiModelEditAction extends AdminAction
 {
     public $options = [];
 

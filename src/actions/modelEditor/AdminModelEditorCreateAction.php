@@ -9,6 +9,7 @@ namespace skeeks\cms\modules\admin\actions\modelEditor;
 use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\admin\AdminAccessControl;
+use skeeks\cms\modules\admin\actions\AdminAction;
 use skeeks\cms\rbac\CmsManager;
 use yii\base\InvalidParamException;
 use yii\behaviors\BlameableBehavior;
@@ -18,7 +19,7 @@ use yii\web\Response;
  * Class AdminModelsGridAction
  * @package skeeks\cms\modules\admin\actions\modelEditor
  */
-class AdminModelEditorCreateAction extends AdminModelEditorAction
+class AdminModelEditorCreateAction extends AdminAction
 {
     /**
      * @var bool
@@ -29,6 +30,11 @@ class AdminModelEditorCreateAction extends AdminModelEditorAction
      * @var string
      */
     public $modelScenario = "";
+
+    /**
+     * @var string
+     */
+    public $defaultView = "_form";
 
     public function init()
     {
@@ -65,7 +71,7 @@ class AdminModelEditorCreateAction extends AdminModelEditorAction
 
         if ($this->callback)
         {
-            return $this->runCallback();
+            return call_user_func($this->callback, $this);
         }
 
 
@@ -116,10 +122,7 @@ class AdminModelEditorCreateAction extends AdminModelEditorAction
             }
         }
 
-        $this->viewParams =
-        [
-            'model' => $model
-        ];
+        $this->controller->model = $model;
 
         return parent::run();
     }
@@ -132,21 +135,7 @@ class AdminModelEditorCreateAction extends AdminModelEditorAction
      */
     protected function render($viewName)
     {
-        $result = '';
-
-        try
-        {
-            //Если шаблона нет в стандартном пути, или в нем ошибки берем базовый
-            $result = parent::render($viewName);
-        } catch (InvalidParamException $e)
-        {
-            if (!file_exists(\Yii::$app->view->viewFile))
-            {
-                \Yii::warning($e->getMessage(), 'template-render');
-                $result = parent::render('_form');;
-            }
-        }
-
-        return $result;
+        return $this->controller->render($viewName, ['model' => $this->controller->model]);
     }
+
 }

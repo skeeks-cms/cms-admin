@@ -243,19 +243,6 @@ abstract class AdminModelEditorController extends AdminController
     }
 
     /**
-     * @param \yii\base\Action $action
-     * @return bool
-     * @throws \yii\web\BadRequestHttpException
-     */
-    public function beforeAction($action)
-    {
-        $this->_initActionsData();
-
-        return parent::beforeAction($action);
-    }
-
-
-    /**
      * @return ActiveRecord
      * @throws NotFoundHttpException
      */
@@ -302,11 +289,11 @@ abstract class AdminModelEditorController extends AdminController
         {
             foreach ($actions as $id => $data)
             {
-                $action                 = $this->createAction($id);
+                $action = $this->createAction($id);
 
                 if ($action instanceof AdminMultiModelEditAction)
                 {
-                    if ($action->isVisible())
+                    if ($action->visible)
                     {
                         $this->_multiActions[$id]    = $action;
                     }
@@ -329,24 +316,6 @@ abstract class AdminModelEditorController extends AdminController
     }
 
 
-    /**
-     * Рендер действий текущего контроллера
-     * Сразу запускаем нужный виджет и формируем готовый html
-     *
-     * @return $this
-     */
-    protected function _initActionsData()
-    {
-        if (count($this->actions) > 1)
-        {
-            $this->view->params["actions"] = ControllerActions::begin([
-                "activeActionId"        => $this->action->id,
-                "controller"            => $this,
-            ])->run();
-        }
-
-        return $this;
-    }
 
 
     /**
@@ -436,11 +405,11 @@ abstract class AdminModelEditorController extends AdminController
             {
                 $action                 = $this->createAction($id);
 
-                if ($this->model)
+                if ($this->model && !$this->model->isNewRecord)
                 {
                     if ($action instanceof AdminOneModelEditAction)
                     {
-                        if ($action->isVisible())
+                        if ($action->visible)
                         {
                             $this->_actions[$id]    = $action;
                         }
@@ -449,7 +418,7 @@ abstract class AdminModelEditorController extends AdminController
                 {
                     if (!$action instanceof AdminOneModelEditAction && !$action instanceof AdminMultiModelEditAction)
                     {
-                        if ($action->isVisible())
+                        if ($action->visible)
                         {
                             $this->_actions[$id]    = $action;
                         }

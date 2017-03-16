@@ -25,7 +25,7 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  * Class AdminModelsGridAction
  * @package skeeks\cms\modules\admin\actions
  */
-class ModelEditorGridAction extends AdminModelEditorAction
+class ModelEditorGridAction extends AdminAction
 {
     /**
      * @var string
@@ -49,6 +49,7 @@ class ModelEditorGridAction extends AdminModelEditorAction
 
     public $filter          = null;
 
+    public $viewParams = [];
 
     /**
      * @return string
@@ -120,7 +121,7 @@ class ModelEditorGridAction extends AdminModelEditorAction
         try
         {
             //Если шаблона нет в стандартном пути, или в нем ошибки берем базовый
-            $result = parent::render($viewName);
+            return $this->controller->render($viewName, $this->viewParams);
         } catch (InvalidParamException $e)
         {
             if (!file_exists(\Yii::$app->view->viewFile))

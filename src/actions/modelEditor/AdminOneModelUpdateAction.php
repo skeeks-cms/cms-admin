@@ -9,6 +9,7 @@ namespace skeeks\cms\modules\admin\actions\modelEditor;
 use skeeks\admin\components\AccessControl;
 use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
+use skeeks\cms\modules\admin\actions\AdminAction;
 use skeeks\cms\modules\admin\filters\AdminAccessControl;
 use skeeks\cms\rbac\CmsManager;
 use yii\base\InvalidParamException;
@@ -31,12 +32,16 @@ class AdminOneModelUpdateAction extends AdminOneModelEditAction
      */
     public $modelScenario = "";
 
+    /**
+     * @var string
+     */
+    public $defaultView = "_form";
 
     public function run()
     {
         if ($this->callback)
         {
-            return $this->runCallback();
+            return call_user_func($this->callback, $this);
         }
 
         $model          = $this->controller->model;
@@ -96,10 +101,6 @@ class AdminOneModelUpdateAction extends AdminOneModelEditAction
             }
         }
 
-        $this->viewParams =
-        [
-            'model' => $model
-        ];
 
         return parent::run();
     }
@@ -112,21 +113,6 @@ class AdminOneModelUpdateAction extends AdminOneModelEditAction
      */
     protected function render($viewName)
     {
-        $result = '';
-
-        try
-        {
-            //Если шаблона нет в стандартном пути, или в нем ошибки берем базовый
-            $result = parent::render($viewName);
-        } catch (InvalidParamException $e)
-        {
-            if (!file_exists(\Yii::$app->view->viewFile))
-            {
-                \Yii::warning($e->getMessage(), 'template-render');
-                $result = parent::render('_form');;
-            }
-        }
-
-        return $result;
+        return $this->controller->render($viewName, ['model' => $this->controller->model]);
     }
 }
