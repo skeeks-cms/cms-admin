@@ -69,10 +69,10 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
             $this->namespace = \Yii::$app->controller->uniqueId;
         }
 
-        if (!$this->indexUrl)
+        /*if (!$this->indexUrl)
         {
             $this->indexUrl = \Yii::$app->controller->indexUrl;
-        }
+        }*/
 
         $this->filter;
 

@@ -1,24 +1,25 @@
 <?php
 /**
- * AdminModelEditorController - базовый контроллер админки, который позволяет показывать список моделей.
- * А так же предоставляет действия создания сущьностей, редактирования, просмотра, удаления
- *
  * @author Semenov Alexander <semenov@skeeks.com>
- * @link http://skeeks.com/
- * @copyright 2010-2014 SkeekS (Sx)
- * @date 30.10.2014
- * @since 2.0.0
+ * @link https://skeeks.com/
+ * @copyright (c) 2010 SkeekS
+ * @date 18.03.2017
  */
 
 namespace skeeks\cms\modules\admin\controllers;
 use skeeks\admin\components\AccessControl;
+use skeeks\cms\backend\actions\IBackendModelAction;
+use skeeks\cms\backend\actions\IBackendModelMultiAction;
 use skeeks\cms\backend\BackendInfoInterface;
+use skeeks\cms\backend\controllers\IBackendModelController;
+use skeeks\cms\backend\controllers\TBackendModelController;
 use skeeks\cms\base\widgets\ActiveForm;
 use skeeks\cms\components\Cms;
 use skeeks\cms\Exception;
 use skeeks\cms\helpers\ComponentHelper;
 use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
+use skeeks\cms\IHasModel;
 use skeeks\cms\models\Search;
 use skeeks\cms\modules\admin\actions\AdminAction;
 use skeeks\cms\modules\admin\actions\AdminModelAction;
@@ -53,59 +54,13 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
- * @property string $indexUrl
- * @property AdminAction[] $actions
- * @property \yii\db\ActiveRecord $model
- *
  * Class AdminModelEditorController
  * @package skeeks\cms\modules\admin\controllers
  */
 abstract class AdminModelEditorController extends AdminController
+    implements IHasModel, IBackendModelController
 {
-    /**
-     * Обязателен к заполнению!
-     * Класс модели с которым работает контроллер.
-     *
-     * @example ActiveRecord::className();
-     * @see _ensure()
-     * @var string
-     */
-    public $modelClassName;
-
-    /**
-     * Действие для управления моделью по умолчанию
-     * @var string
-     */
-    public $modelDefaultAction      = "update";
-
-    /**
-     * Атрибут модели который будет показан в хлебных крошках, и title страницы.
-     * @var string
-     */
-    public $modelShowAttribute      = "id";
-
-    /**
-     * PK будет использоваться для поиска модели
-     * @var string
-     */
-    public $modelPkAttribute        = "id";
-
-    /**
-     * Названия параметра PK, в запросе
-     * @var string
-     */
-    public $requestPkParamName        = "pk";
-
-
-    /**
-     * @var null|AdminMultiModelEditAction[]
-     */
-    protected $_multiActions    = null;
-
-    /**
-     * @var ActiveRecord
-     */
-    protected $_model = null;
+    use TBackendModelController;
 
     /**
      * @return array
@@ -222,99 +177,20 @@ abstract class AdminModelEditorController extends AdminController
     {
         parent::init();
 
-        $this->_ensure();
+        $this->_ensureBackendModelController();
     }
 
-    /**
-     * Немного проверок для уверенности что все пойдет как надо
-     * @throws InvalidConfigException
-     */
-    protected function _ensure()
-    {
-        if (!$this->modelClassName)
-        {
-            throw new InvalidConfigException(\Yii::t('skeeks/cms',"For {modelname} must specify the model class",['modelname' => 'AdminModelEditorController']));
-        }
 
-        if (!class_exists($this->modelClassName))
-        {
-            throw new InvalidConfigException("{$this->modelClassName} " . \Yii::t('skeeks/cms','the class is not found, you must specify the existing class model'));
-        }
-    }
+
 
     /**
-     * @return ActiveRecord
-     * @throws NotFoundHttpException
-     */
-    public function getModel()
-    {
-        if ($this->_model === null)
-        {
-            $pk             = \Yii::$app->request->get($this->requestPkParamName);
-
-            if ($pk)
-            {
-                $modelClass     = $this->modelClassName;
-                $this->_model   = $modelClass::findOne($pk);
-            }
-        }
-
-        return $this->_model;
-    }
-
-    /**
-     * @param ActiveRecord $model
-     * @return $this
-     */
-    public function setModel($model)
-    {
-        $this->_model   = $model;
-        $this->_actions = null;
-        return $this;
-    }
-
-    /**
+     * TODO: is deprecated!
      * @return array|null|\skeeks\cms\modules\admin\actions\modelEditor\AdminMultiModelEditAction[]
      */
     public function getMultiActions()
     {
-        if ($this->_multiActions !== null)
-        {
-            return $this->_multiActions;
-        }
-
-        $actions = $this->actions();
-
-        if ($actions)
-        {
-            foreach ($actions as $id => $data)
-            {
-                $action = $this->createAction($id);
-
-                if ($action instanceof AdminMultiModelEditAction)
-                {
-                    if ($action->visible)
-                    {
-                        $this->_multiActions[$id]    = $action;
-                    }
-                }
-
-            }
-        } else
-        {
-            $this->_multiActions = [];
-        }
-
-        //Сортировка по приоритетам
-        if ($this->_multiActions)
-        {
-            ArrayHelper::multisort($this->_multiActions, 'priority');
-
-        }
-
-        return $this->_multiActions;
+        return $this->modelMultiActions;
     }
-
 
 
 
@@ -329,7 +205,7 @@ abstract class AdminModelEditorController extends AdminController
 
         if ($this->model)
         {
-            if ($this->action instanceof AdminOneModelEditAction)
+            if ($this->action instanceof IBackendModelAction)
             {
                 $data[] = $this->model->{$this->modelShowAttribute};
             }
@@ -344,101 +220,6 @@ abstract class AdminModelEditorController extends AdminController
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    protected function _initBreadcrumbsData()
-    {
-        $baseRoute = $this->module instanceof Application ? "/" . $this->id : ("/" . $this->module->id . "/" . $this->id);
-
-        if ($this->name)
-        {
-            $this->view->params['breadcrumbs'][] = [
-                'label' => $this->name,
-                'url' => $this->url
-            ];
-        }
-
-        if ($this->action instanceof AdminOneModelEditAction && $this->model)
-        {
-            $this->view->params['breadcrumbs'][] = [
-                'label' => $this->model->{$this->modelShowAttribute},
-                'url' => UrlHelper::constructCurrent()->setRoute($baseRoute . '/' . $this->modelDefaultAction)->set(
-                    $this->requestPkParamName, $this->model->{$this->modelPkAttribute}
-                )->enableAdmin()->normalizeCurrentRoute()->toString()
-            ];
-        }
-
-
-        if ($this->action && $this->action instanceof BackendInfoInterface)
-        {
-             $this->view->params['breadcrumbs'][] = $this->action->name;
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * @var null|AdminAction[]
-     */
-    protected $_actions    = null;
-
-    /**
-     * Массив объектов действий доступных для текущего контроллера
-     * Используется при построении меню.
-     * @see ControllerActions
-     * @return AdminAction[]
-     */
-    public function getActions()
-    {
-        if ($this->_actions !== null)
-        {
-            return $this->_actions;
-        }
-
-        $actions = $this->actions();
-
-        if ($actions)
-        {
-            foreach ($actions as $id => $data)
-            {
-                $action                 = $this->createAction($id);
-
-                if ($this->model && !$this->model->isNewRecord)
-                {
-                    if ($action instanceof AdminOneModelEditAction)
-                    {
-                        if ($action->visible)
-                        {
-                            $this->_actions[$id]    = $action;
-                        }
-                    }
-                } else
-                {
-                    if (!$action instanceof AdminOneModelEditAction && !$action instanceof AdminMultiModelEditAction)
-                    {
-                        if ($action->visible)
-                        {
-                            $this->_actions[$id]    = $action;
-                        }
-                    }
-                }
-            }
-        } else
-        {
-            $this->_actions = [];
-        }
-
-        //Сортировка по приоритетам
-        if ($this->_actions)
-        {
-            ArrayHelper::multisort($this->_actions, 'priority');
-
-        }
-
-        return $this->_actions;
-    }
 
 
 
@@ -493,14 +274,6 @@ abstract class AdminModelEditorController extends AdminController
 
 
 
-
-    /**
-     * @return string
-     */
-    public function getIndexUrl()
-    {
-        return UrlHelper::construct("/" . $this->id . '/' . $this->action->id)->enableAdmin()->setRoute($this->defaultAction)->normalizeCurrentRoute()->toString();
-    }
 
 
 

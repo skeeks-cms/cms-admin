@@ -7,6 +7,7 @@
  */
 namespace skeeks\cms\modules\admin\actions\modelEditor;
 
+use skeeks\cms\backend\actions\IBackendModelAction;
 use skeeks\cms\helpers\ComponentHelper;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Search;
@@ -30,6 +31,7 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  * @package skeeks\cms\modules\admin\actions
  */
 class AdminOneModelEditAction extends AdminAction
+    implements IBackendModelAction
 {
 
     public function init()
@@ -90,6 +92,10 @@ class AdminOneModelEditAction extends AdminAction
             return $this->_url;
         }
 
+        if (!$this->controller->model)
+        {
+            return '';
+        }
         if ($this->controller->module instanceof Application)
         {
             $this->_url = Url::to(['/' . $this->controller->id . '/' . $this->id, $this->controller->requestPkParamName => $this->controller->model->{$this->controller->modelPkAttribute}]);

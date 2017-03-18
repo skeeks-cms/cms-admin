@@ -69,7 +69,7 @@ class ActionColumn extends DataColumn
         $this->gridDoubleClickAction();
 
         return DropdownControllerActionsWidget::widget([
-            "controller"            => $controller,
+            "actions"               => $controller->modelActions,
             "isOpenNewWindow"       => $this->isOpenNewWindow,
             "clientOptions"         => $this->clientOptions,
         ]);

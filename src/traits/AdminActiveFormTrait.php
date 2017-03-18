@@ -34,9 +34,9 @@ trait AdminActiveFormTrait
     {
         $baseData = [];
         $baseData['indexUrl'] = UrlHelper::construct(\Yii::$app->controller->id . '/index')->toString();
-        if (\Yii::$app->controller instanceof AdminModelEditorController)
+        if (\Yii::$app->request->referrer)
         {
-            $baseData['indexUrl'] = \Yii::$app->controller->getIndexUrl();
+            $baseData['indexUrl'] = \Yii::$app->request->referrer;
         }
         $baseData['isEmptyLayout'] = (int) \Yii::$app->admin->isEmptyLayout();
         $baseData['input-id'] = $this->id . '-submit-btn';

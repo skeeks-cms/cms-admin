@@ -7,6 +7,7 @@
  */
 namespace skeeks\cms\modules\admin\actions\modelEditor;
 
+use skeeks\cms\backend\actions\IBackendModelMultiAction;
 use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Search;
@@ -34,6 +35,7 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  * @package skeeks\cms\modules\admin\actions
  */
 class AdminMultiModelEditAction extends AdminAction
+    implements IBackendModelMultiAction
 {
     public $options = [];
 
