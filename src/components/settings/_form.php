@@ -11,10 +11,6 @@ use yii\helpers\Html;
 /* @var $model \skeeks\cms\models\WidgetConfig */
 ?>
 
-<?= $form->fieldSet(\Yii::t('skeeks/admin', 'Main')); ?>
-    <?= $form->fieldRadioListBoolean($model, 'enableCustomConfirm') ?>
-    <?= $form->fieldRadioListBoolean($model, 'enableCustomPromt') ?>
-<?= $form->fieldSetEnd(); ?>
 
 <?= $form->fieldSet(\Yii::t('skeeks/admin', 'Language settings')); ?>
     <?= $form->fieldSelect($model, 'languageCode', \yii\helpers\ArrayHelper::map(

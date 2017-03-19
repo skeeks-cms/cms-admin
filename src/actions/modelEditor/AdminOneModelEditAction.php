@@ -39,7 +39,7 @@ class AdminOneModelEditAction extends AdminAction
         parent::init();
 
         //Для работы с любой моделью нужно как минимум иметь привилегию CmsManager::PERMISSION_ALLOW_MODEL_UPDATE
-        $this->controller->attachBehavior('accessCreate',
+        /*$this->controller->attachBehavior('accessUpdate',
         [
             'class'         => \skeeks\cms\admin\AdminAccessControl::className(),
             'only'          => [$this->id],
@@ -50,8 +50,37 @@ class AdminOneModelEditAction extends AdminAction
                     'matchCallback' => [$this, 'checkUpdateAccess']
                 ],
             ],
-        ]);
+        ]);*/
     }
+
+
+    protected function _initUrl()
+    {
+        if (!$this->_url)
+        {
+            if (!$this->controller->model)
+            {
+                return $this;
+            }
+
+            if ($this->controller->module instanceof Application)
+            {
+                $this->_url = [
+                    '/' . $this->controller->id . '/' . $this->id,
+                    $this->controller->requestPkParamName => $this->controller->modelPkValue
+                ];
+            } else
+            {
+                $this->_url = [
+                    '/' . $this->controller->module->id . '/' . $this->controller->id . '/' . $this->id,
+                    $this->controller->requestPkParamName => $this->controller->modelPkValue
+                ];
+            }
+        }
+
+        return $this;
+    }
+
 
     protected function beforeRun()
     {
@@ -59,7 +88,7 @@ class AdminOneModelEditAction extends AdminAction
         {
             if (!$this->controller->model)
             {
-                $this->controller->redirect($this->controller->indexUrl);
+                $this->controller->redirect($this->controller->url);
                 return false;
             }
 
@@ -76,43 +105,18 @@ class AdminOneModelEditAction extends AdminAction
 
         if (!$this->controller->model)
         {
-            return $this->controller->redirect($this->controller->indexUrl);
+            return $this->controller->redirect($this->controller->url);
         }
 
         return parent::run();
     }
 
     /**
-     * @return string
-     */
-    public function getUrl()
-    {
-        if ($this->_url)
-        {
-            return $this->_url;
-        }
-
-        if (!$this->controller->model)
-        {
-            return '';
-        }
-        if ($this->controller->module instanceof Application)
-        {
-            $this->_url = Url::to(['/' . $this->controller->id . '/' . $this->id, $this->controller->requestPkParamName => $this->controller->model->{$this->controller->modelPkAttribute}]);
-        } else
-        {
-            $this->_url = $this->_url = Url::to(['/' . $this->controller->module->id . '/' . $this->controller->id . '/' . $this->id, $this->controller->requestPkParamName => $this->controller->model->{$this->controller->modelPkAttribute}]);
-        }
-
-        return $this->_url;
-    }
-
-    /**
      * @return bool
      */
-    public function isVisible()
+    public function getIsVisible()
     {
-        if (!parent::isVisible())
+        if (!parent::getIsVisible())
         {
             return false;
         }
@@ -149,4 +153,44 @@ class AdminOneModelEditAction extends AdminAction
 
         return true;
     }
+
+
+
+
+    /**
+     * @return bool
+     */
+    /*public function getIsAllow()
+    {
+        if ($this->permissionNames)
+        {
+            foreach ($this->permissionNames as $permissionName => $permissionLabel)
+            {
+                //Привилегия доступу к админке
+                if (!$permission = \Yii::$app->authManager->getPermission($permissionName))
+                {
+                    $permission = \Yii::$app->authManager->createPermission($permissionName);
+                    $permission->description = $permissionLabel;
+                    \Yii::$app->authManager->add($permission);
+                }
+
+                if ($roleRoot = \Yii::$app->authManager->getRole(CmsManager::ROLE_ROOT))
+                {
+                    if (!\Yii::$app->authManager->hasChild($roleRoot, $permission))
+                    {
+                        \Yii::$app->authManager->addChild($roleRoot, $permission);
+                    }
+                }
+
+                if (!\Yii::$app->user->can($permissionName))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }*/
 }

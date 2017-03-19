@@ -36,36 +36,6 @@ class AdminModelEditorCreateAction extends AdminAction
      */
     public $defaultView = "_form";
 
-    public function init()
-    {
-        parent::init();
-
-        $this->controller->attachBehavior('accessCreate',
-        [
-            'class'         => AdminAccessControl::className(),
-            'only'          => [$this->id],
-            'rules'         =>
-            [
-                [
-                    'allow'         => true,
-                    'matchCallback' => function($rule, $action)
-                    {
-                        //Если такая привилегия заведена, нужно ее проверять.
-                        if ($permission = \Yii::$app->authManager->getPermission(CmsManager::PERMISSION_ALLOW_MODEL_CREATE))
-                        {
-                            if (!\Yii::$app->user->can($permission->name))
-                            {
-                                return false;
-                            }
-                        }
-
-                        return true;
-                    }
-                ],
-            ],
-        ]);
-    }
-
     public function run()
     {
 

@@ -15,5 +15,10 @@ use skeeks\cms\backend\ViewBackendAction;
  */
 class AdminAction extends ViewBackendAction
 {
+    public $visible = true;
 
+    public function init()
+    {
+        parent::init();
+    }
 }
