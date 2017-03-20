@@ -15,10 +15,7 @@ use skeeks\cms\backend\ViewBackendAction;
  */
 class AdminAction extends ViewBackendAction
 {
+    //TODO: is deprecated;
+    //TODO: not used visible;
     public $visible = true;
-
-    public function init()
-    {
-        parent::init();
-    }
 }
