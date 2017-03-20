@@ -84,46 +84,6 @@ use yii\helpers\Html;
     ]); ?>
 
 
-    <?= \skeeks\cms\modules\admin\widgets\BlockTitleWidget::widget(['content' => \Yii::t('skeeks/admin',"Control recodrs")]); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_CREATE,
-        'label'                 => \Yii::t('skeeks/admin','The ability to manage user groups'),
-    ]); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_UPDATE,
-        'label'                 => \Yii::t('skeeks/admin','The ability to update records'),
-    ]); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_UPDATE_ADVANCED,
-        'label'                 => \Yii::t('skeeks/admin','The ability to update service information at records'),
-    ]); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_DELETE,
-        'label'                 => \Yii::t('skeeks/admin','Ability to delete records'),
-    ]); ?>
-
-    <?= \skeeks\cms\modules\admin\widgets\BlockTitleWidget::widget(['content' => \Yii::t('skeeks/admin','Control only own records')]); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_UPDATE_OWN,
-        'label'                 => \Yii::t('skeeks/admin','The ability to update their records'),
-    ]); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_UPDATE_ADVANCED_OWN,
-        'label'                 => \Yii::t('skeeks/admin','The ability to update service information at records'),
-    ]); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ALLOW_MODEL_DELETE_OWN,
-        'label'                 => \Yii::t('skeeks/admin','Ability to delete own records'),
-    ]); ?>
-
-
 <?= $form->fieldSetEnd(); ?>
 
 
