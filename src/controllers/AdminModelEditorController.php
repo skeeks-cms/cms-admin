@@ -8,6 +8,9 @@
 
 namespace skeeks\cms\modules\admin\controllers;
 use skeeks\admin\components\AccessControl;
+use skeeks\cms\backend\actions\BackendModelAction;
+use skeeks\cms\backend\actions\BackendModelCreateAction;
+use skeeks\cms\backend\actions\BackendModelUpdateAction;
 use skeeks\cms\backend\actions\IBackendModelAction;
 use skeeks\cms\backend\actions\IBackendModelMultiAction;
 use skeeks\cms\backend\BackendInfoInterface;
@@ -130,7 +133,7 @@ abstract class AdminModelEditorController extends AdminController
 
                 'create' =>
                 [
-                    'class'         => AdminModelEditorCreateAction::className(),
+                    'class'         => BackendModelCreateAction::class,
                     'name'          => \Yii::t('skeeks/cms','Add'),
                     "icon"          => "glyphicon glyphicon-plus",
                 ],
@@ -138,7 +141,7 @@ abstract class AdminModelEditorController extends AdminController
 
                 "update" =>
                 [
-                    'class'         => AdminOneModelUpdateAction::className(),
+                    'class'         => BackendModelUpdateAction::class,
                     "name"         => \Yii::t('skeeks/cms',"Edit"),
                     "icon"          => "glyphicon glyphicon-pencil",
                     "priority"      => 10,
@@ -146,7 +149,7 @@ abstract class AdminModelEditorController extends AdminController
 
                 "delete" =>
                 [
-                    'class'         => AdminOneModelEditAction::className(),
+                    'class'         => BackendModelAction::class,
                     "name"          => \Yii::t('skeeks/cms',"Delete"),
                     "icon"          => "glyphicon glyphicon-trash",
                     "confirm"       => \Yii::t('skeeks/cms', 'Are you sure you want to delete this item?'),

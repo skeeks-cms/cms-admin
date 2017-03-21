@@ -16,6 +16,3 @@ $context = $this->context;
 ]); ?>
     <?= $content; ?>
 <? \yii\bootstrap\Modal::end(); ?>
-<?/* echo \yii\helpers\Html::tag('div', $content, \yii\helpers\ArrayHelper::merge($context->dialogOptions, [
-    'id' => $dialogId
-])); */?>
