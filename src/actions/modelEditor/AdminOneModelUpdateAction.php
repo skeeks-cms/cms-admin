@@ -10,8 +10,6 @@ use skeeks\admin\components\AccessControl;
 use skeeks\cms\backend\actions\BackendModelUpdateAction;
 use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
-use skeeks\cms\modules\admin\actions\AdminAction;
-use skeeks\cms\modules\admin\filters\AdminAccessControl;
 use skeeks\cms\rbac\CmsManager;
 use yii\base\InvalidParamException;
 use yii\behaviors\BlameableBehavior;
