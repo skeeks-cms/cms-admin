@@ -1,8 +1,13 @@
 CHANGELOG
 ==============
 
-1.2.3.pre
+2.0.0.pre
 -----------------
+  * Code folder /src
+  * Remove AdminActionTraite / Updated admin controllers
+  * Change UrlRule
+  * Need interface
+  * Removed old code
   * Admin url rules updated
 
 1.2.2

@@ -35,7 +35,7 @@ Configuration app
         'rules' => [
             'cms-admin' => [
                 "class" => 'skeeks\cms\modules\admin\components\UrlRule',
-                'adminPrefix' => '~sx'
+                'controllerPrefix' => '~sx'
             ],
         ]
     ]
