@@ -21,7 +21,8 @@ $this->registerCss(<<<CSS
     padding-right: 15px;
 }
 CSS
-)
+);
+$controller = \Yii::$app->createController('/cms/admin-cms-content-element')[0];
 ?>
 
 <div class="row sx-content-element-list">
@@ -33,7 +34,7 @@ CSS
             'columns' => [
                 [
                     'class'                 => \skeeks\cms\modules\admin\grid\ActionColumn::className(),
-                    'controller'            => \Yii::$app->createController('/cms/admin-cms-content-element')[0],
+                    'controller'            => $controller,
                     'isOpenNewWindow'       => 1
                 ],
                 [
