@@ -13,7 +13,7 @@ use skeeks\cms\models\Search;
 use skeeks\cms\modules\admin\actions\AdminAction;
 use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
-use skeeks\cms\modules\admin\filters\AdminAccessControl;
+use skeeks\cms\admin\AdminAccessControl;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
 use skeeks\cms\modules\admin\widgets\GridViewStandart;
 use skeeks\cms\rbac\CmsManager;

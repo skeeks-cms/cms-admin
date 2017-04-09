@@ -22,7 +22,7 @@ use skeeks\cms\models\forms\PasswordResetRequestForm;
 use skeeks\cms\models\forms\PasswordResetRequestFormEmailOrLogin;
 use skeeks\cms\modules\admin\controllers\helpers\ActionManager;
 use skeeks\cms\modules\admin\filters\AccessControl;
-use skeeks\cms\modules\admin\filters\AdminAccessControl;
+use skeeks\cms\admin\AdminAccessControl;
 use skeeks\cms\modules\admin\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;

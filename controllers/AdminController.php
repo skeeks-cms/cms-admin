@@ -13,7 +13,7 @@ use skeeks\cms\modules\admin\components\UrlRule;
 use skeeks\cms\modules\admin\controllers\helpers\ActionManager;
 use skeeks\cms\modules\admin\filters\AccessControl;
 use skeeks\cms\modules\admin\filters\AccessRule;
-use skeeks\cms\modules\admin\filters\AdminAccessControl;
+use skeeks\cms\admin\AdminAccessControl;
 use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
 use skeeks\cms\rbac\CmsManager;
