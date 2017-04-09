@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
  * Class DiscSpaceDashboard
  * @package skeeks\cms\modules\admin\dashboards
  */
-class DiscSpaceDashboard extends AdminDashboardWidgetRenderable
+class DiscSpaceDashboard extends AdminDashboardWidget
 {
     static public function descriptorConfig()
     {

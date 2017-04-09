@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
  * Class ContentElementListDashboard
  * @package skeeks\cms\modules\admin\dashboards
  */
-class ContentElementListDashboard extends AdminDashboardWidgetRenderable
+class ContentElementListDashboard extends AdminDashboardWidget
 {
     static public function descriptorConfig()
     {
