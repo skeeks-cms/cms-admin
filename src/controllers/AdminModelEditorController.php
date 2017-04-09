@@ -77,35 +77,6 @@ abstract class AdminModelEditorController extends AdminController
                 ],
             ],
 
-            'accessDelete' =>
-            [
-                'class'         => \skeeks\cms\admin\AdminAccessControl::className(),
-                'only'          => ['delete'],
-                'rules'         =>
-                [
-                    [
-                        'allow'         => true,
-                        'matchCallback' => function($rule, $action)
-                        {
-                            if (ComponentHelper::hasBehavior($this->model, BlameableBehavior::className()))
-                            {
-                                //Если такая привилегия заведена, нужно ее проверять.
-                                if ($permission = \Yii::$app->authManager->getPermission(CmsManager::PERMISSION_ALLOW_MODEL_DELETE))
-                                {
-                                    if (!\Yii::$app->user->can($permission->name, [
-                                        'model' => $this->model
-                                    ]))
-                                    {
-                                        return false;
-                                    }
-                                }
-                            }
-
-                            return true;
-                        }
-                    ],
-                ],
-            ]
         ]);
 
         return $behaviors;
