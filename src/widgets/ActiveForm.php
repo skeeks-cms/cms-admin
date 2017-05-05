@@ -75,6 +75,7 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
         {
             Pjax::begin(ArrayHelper::merge([
                 'id' => 'sx-pjax-form-' . $this->id,
+                'enablePushState' => false,
             ], $this->pjaxOptions));
 
             $this->options = ArrayHelper::merge($this->options, [
