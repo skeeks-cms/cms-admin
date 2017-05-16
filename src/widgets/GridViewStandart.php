@@ -31,6 +31,7 @@ class GridViewStandart extends GridViewHasSettings
     public $adminController = null;
     public $isOpenNewWindow = false;
     public $enabledCheckbox = true;
+    public $enabledEditActions = true;
 
     public function init()
     {
@@ -43,11 +44,15 @@ class GridViewStandart extends GridViewHasSettings
 
         if ($this->adminController)
         {
-            $defaultColumns[] = [
-                'class'                 => \skeeks\cms\modules\admin\grid\ActionColumn::className(),
-                'controller'            => $this->adminController,
-                'isOpenNewWindow'       => $this->isOpenNewWindow
-            ];
+            if ($this->enabledEditActions)
+            {
+                $defaultColumns[] = [
+                    'class'                 => \skeeks\cms\modules\admin\grid\ActionColumn::className(),
+                    'controller'            => $this->adminController,
+                    'isOpenNewWindow'       => $this->isOpenNewWindow
+                ];
+            }
+
         }
 
         $defaultColumns[] = [

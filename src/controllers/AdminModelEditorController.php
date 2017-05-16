@@ -283,4 +283,13 @@ abstract class AdminModelEditorController extends AdminController
         }
     }
 
+    /**
+     * @return mixed
+     * @deprecated
+     */
+    public function getIndexUrl()
+    {
+        return $this->url;
+    }
+
 }
