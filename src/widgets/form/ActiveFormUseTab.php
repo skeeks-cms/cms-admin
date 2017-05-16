@@ -13,6 +13,7 @@ namespace skeeks\cms\modules\admin\widgets\form;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
 
 /**
  * Class ActiveFormUseTab
@@ -55,8 +56,12 @@ HTML;
 
         parent::init();
 
+        $loadText = \Yii::t('skeeks/cms', 'Loading');
         echo<<<HTML
-        <div role="tabpanel" class="sx-form-tab-panel">
+        <div class="sx-pre-loader-form" style="text-align: center; padding: 20px;">
+            {$loadText}...
+        </div>
+        <div role="tabpanel" class="sx-form-tab-panel" style="display: none;">
             <ul class="nav nav-tabs" role="tablist">
             </ul>
             <div class="tab-content">
@@ -72,6 +77,10 @@ HTML;
     {
         $view = $this->getView();
 
+        $jsOptions = Json::encode([
+            'id' => $this->id
+        ]);
+
         $view->registerJs(<<<JS
         (function(sx, $, _)
         {
@@ -86,6 +95,8 @@ HTML;
                 {
                     var self = this;
 
+                    var JForm = $("#" + this.get('id'));
+                    
                     var counter = 0;
                     $('.sx-form-tab').each(function(i,s)
                     {
@@ -127,41 +138,22 @@ HTML;
 
                         $('.sx-form-tab-panel .nav').append(Jli);
                     });
-
-
-
+                    
+                    _.defer(function()
+                    {
+                        $('.sx-pre-loader-form', JForm).hide();
+                        $('.sx-form-tab-panel', JForm).fadeIn();
+                    });
                 },
-
-                _onWindowReady: function()
-                {}
             });
 
-            new sx.classes.FormUseTabs();
+            new sx.classes.FormUseTabs({$jsOptions});
 
         })(sx, sx.$, sx._);
 JS
 );
 
-        //$view->registerJs("jQuery('#$id').yiiActiveForm($attributes, $options);");
         echo <<<HTML
-        <!--<div role="tabpanel">
-
-          &lt;!&ndash; Nav tabs &ndash;&gt;
-          <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-          </ul>
-
-          &lt;!&ndash; Tab panes &ndash;&gt;
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="home">1</div>
-            <div role="tabpanel" class="tab-pane" id="profile">2</div>
-            <div role="tabpanel" class="tab-pane" id="messages">3</div>
-            <div role="tabpanel" class="tab-pane" id="settings">4</div>
-          </div>-->
-
             </div>
         </div>
 HTML;

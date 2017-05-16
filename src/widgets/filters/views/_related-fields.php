@@ -24,7 +24,7 @@ $form = $widget;
         $filter = '';
     ?>
 
-    <? if ($property->filtrable == 'Y') : ?>
+    <?/* if ($property->filtrable == 'Y') : */?>
 
         <? if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_STRING) :?>
             <?= $form->field($searchRelatedPropertiesModel, $name); ?>
@@ -60,6 +60,6 @@ $form = $widget;
 
         <? endif; ?>
 
-    <? endif; ?>
+    <?/* endif; */?>
 
 <? endforeach; ?>
