@@ -87,3 +87,7 @@
     display: none;
 }
 
+.sx-admin-filters-form-wrapper .form-horizontal .form-group{
+    margin-right: 0;
+    margin-left: 0;
+}

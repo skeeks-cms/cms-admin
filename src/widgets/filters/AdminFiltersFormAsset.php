@@ -29,5 +29,6 @@ class AdminFiltersFormAsset extends AssetBundle
     [
         'yii\web\YiiAsset',
         '\skeeks\sx\assets\Custom',
+        '\skeeks\sx\assets\ComponentAjaxLoader',
     ];
 }
