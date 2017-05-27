@@ -10,6 +10,7 @@ namespace skeeks\cms\modules\admin\controllers;
 use skeeks\admin\components\AccessControl;
 use skeeks\cms\backend\actions\BackendModelAction;
 use skeeks\cms\backend\actions\BackendModelCreateAction;
+use skeeks\cms\backend\actions\BackendModelDeleteAction;
 use skeeks\cms\backend\actions\BackendModelUpdateAction;
 use skeeks\cms\backend\actions\IBackendModelAction;
 use skeeks\cms\backend\actions\IBackendModelMultiAction;
@@ -60,26 +61,10 @@ abstract class AdminModelEditorController extends AdminController
 {
     use TBackendModelController;
 
-    /**
-     * @return array
-     */
-    public function behaviors()
+    public function init()
     {
-        $behaviors = ArrayHelper::merge(parent::behaviors(), [
-
-            'verbs' =>
-            [
-                'class' => VerbFilter::className(),
-                'actions' =>
-                [
-                    'delete'        => ['post'],
-                    'delete-multi'  => ['post'],
-                ],
-            ],
-
-        ]);
-
-        return $behaviors;
+        parent::init();
+        $this->_ensureBackendModelController();
     }
 
     /**
@@ -97,33 +82,9 @@ abstract class AdminModelEditorController extends AdminController
                     "priority"      => 10,
                 ],
 
-                'create' =>
-                [
-                    'class'         => BackendModelCreateAction::class,
-                    'name'          => \Yii::t('skeeks/cms','Add'),
-                    "icon"          => "glyphicon glyphicon-plus",
-                ],
-
-
-                "update" =>
-                [
-                    'class'         => BackendModelUpdateAction::class,
-                    "name"         => \Yii::t('skeeks/cms',"Edit"),
-                    "icon"          => "glyphicon glyphicon-pencil",
-                    "priority"      => 10,
-                ],
-
-                "delete" =>
-                [
-                    'class'         => BackendModelAction::class,
-                    "name"          => \Yii::t('skeeks/cms',"Delete"),
-                    "icon"          => "glyphicon glyphicon-trash",
-                    "confirm"       => \Yii::t('skeeks/cms', 'Are you sure you want to delete this item?'),
-                    "method"        => "post",
-                    "request"       => "ajax",
-                    "callback"      => [$this, 'actionDelete'],
-                    "priority"      => 99999,
-                ],
+                "create" => ['class'         => BackendModelCreateAction::class],
+                "update" => ['class'         => BackendModelUpdateAction::class],
+                "delete" => ['class'         => BackendModelDeleteAction::class],
 
                 "delete-multi" =>
                 [
@@ -137,28 +98,6 @@ abstract class AdminModelEditorController extends AdminController
 
             ]
         );
-    }
-
-    /**
-     * @throws InvalidConfigException
-     */
-    public function init()
-    {
-        parent::init();
-
-        $this->_ensureBackendModelController();
-    }
-
-
-
-
-    /**
-     * TODO: is deprecated!
-     * @return array|null|\skeeks\cms\modules\admin\actions\modelEditor\AdminMultiModelEditAction[]
-     */
-    public function getMultiActions()
-    {
-        return $this->modelMultiActions;
     }
 
 
@@ -190,45 +129,11 @@ abstract class AdminModelEditorController extends AdminController
     }
 
 
-
-
-
-    /**
-     * Deletes an existing Game model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @return mixed
-     */
-    public function actionDelete()
-    {
-        $rr = new RequestResponse();
-
-        if ($rr->isRequestAjaxPost())
-        {
-            try
-            {
-                if ($this->model->delete())
-                {
-                    $rr->message = \Yii::t('skeeks/cms','Record deleted successfully');
-                    $rr->success = true;
-                } else
-                {
-                    $rr->message = \Yii::t('skeeks/cms','Record deleted unsuccessfully');
-                    $rr->success = false;
-                }
-            } catch (\Exception $e)
-            {
-                $rr->message = $e->getMessage();
-                $rr->success = false;
-            }
-
-            return (array) $rr;
-        }
-    }
-
     /**
      * @param $model
      * @param $action
      * @return bool
+     * @deprecated
      */
     public function eachMultiDelete($model, $action)
     {
@@ -242,13 +147,10 @@ abstract class AdminModelEditorController extends AdminController
     }
 
 
-
-
-
-
     /**
      * @return array
      * @throws \yii\web\NotFoundHttpException
+     * @deprecated
      */
     public function actionSortablePriority()
     {
@@ -282,14 +184,4 @@ abstract class AdminModelEditorController extends AdminController
             ];
         }
     }
-
-    /**
-     * @return mixed
-     * @deprecated
-     */
-    public function getIndexUrl()
-    {
-        return $this->url;
-    }
-
 }

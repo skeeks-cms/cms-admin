@@ -84,7 +84,7 @@ class GridViewStandart extends GridViewHasSettings
         $multiActions = [];
         if ($this->adminController)
         {
-            $multiActions = $this->adminController->getMultiActions();
+            $multiActions = $this->adminController->modelMultiActions;
         }
 
         if (!$multiActions)
@@ -106,7 +106,7 @@ class GridViewStandart extends GridViewHasSettings
         $multiActions = [];
         if ($this->adminController)
         {
-            $multiActions = $this->adminController->getMultiActions();
+            $multiActions = $this->adminController->modelMultiActions;
         }
 
         if (!$multiActions)
@@ -133,7 +133,7 @@ class GridViewStandart extends GridViewHasSettings
         $multiActions = [];
         if ($this->adminController)
         {
-            $multiActions = $this->adminController->getMultiActions();
+            $multiActions = $this->adminController->modelMultiActions;
         }
 
         if (!$multiActions)

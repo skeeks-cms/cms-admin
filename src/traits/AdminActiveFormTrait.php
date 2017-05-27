@@ -33,7 +33,7 @@ trait AdminActiveFormTrait
     public function buttonsStandart(Model $model, $buttons = ['apply', 'save', 'close'])
     {
         $baseData = [];
-        $baseData['indexUrl'] = UrlHelper::construct(\Yii::$app->controller->id . '/index')->toString();
+        $baseData['indexUrl'] = ( (\Yii::$app->controller && isset(\Yii::$app->controller->url)) ? \Yii::$app->controller->url : "");
         if (\Yii::$app->request->referrer)
         {
             $baseData['indexUrl'] = \Yii::$app->request->referrer;
