@@ -24,5 +24,6 @@ class GridViewStandartAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         '\skeeks\sx\assets\Custom',
+        '\skeeks\sx\assets\ComponentAjaxLoader',
     ];
 }
