@@ -68,7 +68,7 @@ JS
 
 <div id="<?= $widget->id; ?>-wrapper" class="sx-admin-filters-form-wrapper">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-lg-9 col-md-12">
             <ul class="nav nav-tabs">
                 <? foreach($widget->savedFilters as $filter) : ?>
                     <li class="sx-tab <?= $widget->filter->id == $filter->id ? "active" : "" ?>">
