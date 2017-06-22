@@ -30,6 +30,10 @@ $form = $widget;
             <?= $form->field($searchRelatedPropertiesModel, $name); ?>
         <? endif; ?>
 
+        <? if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_BOOL) :?>
+            <?= $form->field($searchRelatedPropertiesModel, $name)->checkbox(); ?>
+        <? endif; ?>
+
         <? if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_NUMBER) :?>
             <?= $form->field($searchRelatedPropertiesModel, $searchRelatedPropertiesModel->getAttributeNameRangeFrom($name))->label($searchRelatedPropertiesModel->getAttributeLabel($name) . ' (от)'); ?>
             <?= $form->field($searchRelatedPropertiesModel, $searchRelatedPropertiesModel->getAttributeNameRangeTo($name))->label($searchRelatedPropertiesModel->getAttributeLabel($name) . ' (до)'); ?>

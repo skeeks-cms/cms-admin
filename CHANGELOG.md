@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.0.0-alpha2.pre
+-----------------
+ * new pr boolean type
+ 
 2.0.0-alpha1
 -----------------
  * Update

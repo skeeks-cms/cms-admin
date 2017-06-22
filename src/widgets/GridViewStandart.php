@@ -6,6 +6,7 @@
  * @date 24.07.2015
  */
 namespace skeeks\cms\modules\admin\widgets;
+use skeeks\cms\models\CmsContentElement;
 use skeeks\cms\modules\admin\actions\modelEditor\AdminMultiModelEditAction;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\grid\CheckboxColumn;
@@ -263,7 +264,7 @@ CSS
                     'format' => 'raw',
                     'filter' => $filter,
                     'class' => \yii\grid\DataColumn::className(),
-                    'value' => function($model, $key, $index) use ($name)
+                    'value' => function($model, $key, $index) use ($name, $relatedPropertiesModel)
                     {
                         /**
                          * @var $model \skeeks\cms\models\CmsContentElement
