@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.0.0-alpha1
+-----------------
+ * Update
+
 2.0.0-alpha
 -----------------
   * Code folder /src

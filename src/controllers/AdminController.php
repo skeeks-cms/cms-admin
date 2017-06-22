@@ -22,6 +22,7 @@ use yii\helpers\ArrayHelper;
  *
  * Class AdminController
  * @package skeeks\cms\modules\admin\controllers
+ * @deprecated
  */
 abstract class AdminController extends \skeeks\cms\admin\AdminController
 {}

@@ -55,6 +55,7 @@ class AdminSettings extends Component
 
     /**
      * @var Additional styling admin
+     * @deprecated
      */
     public $asset;
 
@@ -165,6 +166,7 @@ class AdminSettings extends Component
 
     /**
      * @return boolean whether the module can be accessed by the current user
+     * @deprecated
      */
     public function checkAccess()
     {
