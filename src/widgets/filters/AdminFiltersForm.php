@@ -69,10 +69,10 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
             $this->namespace = \Yii::$app->controller->uniqueId;
         }
 
-        /*if (!$this->indexUrl)
+        if (!$this->indexUrl && \Yii::$app->controller && isset(\Yii::$app->controller->url))
         {
-            $this->indexUrl = \Yii::$app->controller->indexUrl;
-        }*/
+            $this->indexUrl = \Yii::$app->controller->url;
+        }
 
         $this->filter;
 
@@ -178,16 +178,17 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         $query = [];
         $url = $this->indexUrl;
 
-        if ($pos = strpos($this->indexUrl, "?"))
+        if ($pos = strpos($url, "?"))
         {
-            $url = StringHelper::substr($this->indexUrl, 0, $pos);
+            $url = StringHelper::substr($url, 0, $pos);
             $stringQuery = StringHelper::substr($this->indexUrl, $pos + 1, StringHelper::strlen($this->indexUrl));
             parse_str($stringQuery, $query);
         }
 
         if ($filter->values)
         {
-            $query = ArrayHelper::merge($query, $filter->values);
+            $query = (array) $filter->values;
+            //$query = ArrayHelper::merge((array) $query, (array) $filter->values);
         }
 
         $query[$this->filterParametrName] = $filter->id;

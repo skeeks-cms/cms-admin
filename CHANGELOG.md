@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.0.0-alpha3.pre
+-----------------
+ * Fixed filters url
+ 
 2.0.0-alpha2
 -----------------
  * new pr boolean type
