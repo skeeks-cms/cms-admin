@@ -74,6 +74,11 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
             $this->indexUrl = \Yii::$app->controller->url;
         }
 
+        if (!$this->indexUrl)
+        {
+            $this->indexUrl = \Yii::$app->request->url;
+        }
+
         $this->filter;
 
         if ($classes = ArrayHelper::getValue($this->options, 'class'))
