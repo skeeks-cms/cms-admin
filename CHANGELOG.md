@@ -1,7 +1,7 @@
 CHANGELOG
 ==============
 
-2.0.0-alpha3.pre
+2.0.0-alpha3
 -----------------
  * Fixed filters url
  
