@@ -7,13 +7,16 @@
  */
 namespace skeeks\cms\modules\admin\widgets\formInputs;
 
+use skeeks\cms\backend\helpers\BackendUrlHelper;
 use skeeks\cms\Exception;
 use skeeks\cms\models\CmsContentElement;
 use skeeks\cms\models\Publication;
 use skeeks\cms\modules\admin\Module;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\web\Application;
 use yii\widgets\InputWidget;
 use Yii;
@@ -26,6 +29,8 @@ use Yii;
  */
 class SelectModelDialogInput extends InputWidget
 {
+    public static $autoIdPrefix = 'SelectModelDialogInput';
+
     /**
      * @var array
      */
@@ -40,6 +45,7 @@ class SelectModelDialogInput extends InputWidget
      * @var string
      */
     public $baseRoute;
+    public $routeParams = [];
 
     /**
      * @var boolean whether to show deselect button on single select
@@ -61,13 +67,20 @@ class SelectModelDialogInput extends InputWidget
 
         if (!$this->selectUrl)
         {
-            $additionalData = [];
-            $additionalData['callbackEvent'] = $this->getCallbackEvent();
+            $additionalData = [$this->baseRoute];
 
-            $this->selectUrl = \skeeks\cms\helpers\UrlHelper::construct($this->baseRoute, $additionalData)
-                                ->setSystemParam(\skeeks\cms\modules\admin\Module::SYSTEM_QUERY_EMPTY_LAYOUT, 'true')
-                                ->enableAdmin()
-                                ->toString();
+            if ($this->routeParams)
+            {
+                $additionalData = ArrayHelper::merge($additionalData, $this->routeParams);
+            }
+
+            $additionalData = BackendUrlHelper::createByParams($additionalData)
+                ->enableEmptyLayout()
+                ->setCallbackEventName($this->getCallbackEvent())
+                ->params
+            ;
+
+            $this->selectUrl = Url::to($additionalData);
         }
 
     }

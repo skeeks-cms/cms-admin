@@ -6,10 +6,12 @@
  * @date 12.03.2015
  */
 namespace skeeks\cms\modules\admin\widgets;
+use skeeks\cms\backend\helpers\BackendUrlHelper;
 use skeeks\cms\components\Cms;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * Class RelatedModelsGrid
@@ -120,15 +122,14 @@ class RelatedModelsGrid extends Widget
             }
         }
 
-        $createUrl = \skeeks\cms\helpers\UrlHelper::construct($this->controllerRoute . '/' . $this->controllerCreateAction, $rerlation)
-                ->setSystemParam(\skeeks\cms\modules\admin\Module::SYSTEM_QUERY_EMPTY_LAYOUT, 'true')
-                ->setSystemParam(\skeeks\cms\modules\admin\Module::SYSTEM_QUERY_NO_ACTIONS_MODEL, 'true')
-                ->enableAdmin()->toString();
+        $createUrl = BackendUrlHelper::createByParams([$this->controllerRoute . '/' . $this->controllerCreateAction])
+            ->merge((array) $rerlation)
+            ->enableEmptyLayout()
+            ->enableNoActions()
+            ->url
+        ;
 
-
-        $sortableUrl = \skeeks\cms\helpers\UrlHelper::construct($this->controllerRoute . '/' . $this->controllerSortableAction)
-                ->enableAdmin()->toString();
-
+        $sortableUrl = BackendUrlHelper::createByParams([$this->controllerRoute . '/' . $this->controllerSortableAction])->url;
 
         $search = new \skeeks\cms\models\Search($controller->modelClassName);
         $search->getDataProvider()->query->where($rerlation);

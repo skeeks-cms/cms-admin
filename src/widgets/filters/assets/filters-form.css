@@ -91,3 +91,11 @@
     margin-right: 0;
     margin-left: 0;
 }
+
+
+.sx-admin-filters-form .dropdown-menu-big
+{
+    max-height: 300px;
+    overflow: auto;
+}
+

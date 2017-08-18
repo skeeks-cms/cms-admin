@@ -10,6 +10,7 @@
  */
 
 namespace skeeks\cms\modules\admin\widgets;
+use skeeks\cms\backend\helpers\BackendUrlHelper;
 use Yii;
 use skeeks\cms\components\Cms;
 use skeeks\cms\grid\GridViewPjaxTrait;
@@ -65,15 +66,114 @@ class GridViewHasSettings extends GridView
     public function init()
     {
 
+
         $this->_initGridSettings();
         $this->_applyDataProvider();
 
         $this->_initAutoColumns();
         $this->_configureColumns();
 
+        if ($callbackEventName = BackendUrlHelper::createByParams()->setBackendParamsByCurrentRequest()->callbackEventName)
+        {
+            $this->view->registerJs(<<<JS
+(function(sx, $, _)
+{
+    sx.classes.SelectCmsElement = sx.classes.Component.extend({
+
+        _onDomReady: function()
+        {
+            $('table tr').on('dblclick', function()
+            {
+                $(".sx-row-action", $(this)).click();
+            });
+        },
+
+        submit: function(data)
+        {
+            if (window.opener)
+            {
+                if (window.opener.sx)
+                {
+                    window.opener.sx.EventManager.trigger('{$callbackEventName}', data);
+                    return this;
+                }
+            } else if (window.parent)
+            {
+                if (window.parent.sx)
+                {
+                    window.parent.sx.EventManager.trigger('{$callbackEventName}', data);
+                    return this;
+                }
+            }
+
+            return this;
+        }
+    });
+
+    sx.SelectCmsElement = new sx.classes.SelectCmsElement();
+
+})(sx, sx.$, sx._);
+JS
+);
+            $this->columns = ArrayHelper::merge([
+
+                'sx-choose' => $this->getChooseColumn(),
+
+            ], $this->columns);
+
+            if ($this->settings->visibleColumns)
+            {
+                $this->settings->visibleColumns = ArrayHelper::merge($this->settings->visibleColumns, ['sx-choose']);
+            }
+
+        }
+
         parent::init();
 
         $this->_applyGridSettings();
+
+    }
+
+    protected $_chooseColumn = null;
+
+    /**
+     * @var null
+     */
+    public $chooseCallback = null;
+
+    public function setChooseColumn($column)
+    {
+        $this->_chooseColumn = $column;
+        return $this;
+    }
+
+    public function getChooseColumn()
+    {
+        if ($this->_chooseColumn === null)
+        {
+            $this->_chooseColumn = [
+                'class'     => \yii\grid\DataColumn::className(),
+                'value'     => function($model)
+                {
+                    $data = $model->toArray();
+
+                    if ($this->chooseCallback && is_callable($this->chooseCallback))
+                    {
+                        $callback = $this->chooseCallback;
+                        $data = $callback($model);
+                    }
+
+                    return \yii\helpers\Html::a('<i class="glyphicon glyphicon-circle-arrow-left"></i> '.\Yii::t('skeeks/cms', 'Choose'), '#', [
+                        'class' => 'btn btn-primary sx-row-action',
+                        'onclick' => 'sx.SelectCmsElement.submit(' . \yii\helpers\Json::encode($data) . '); return false;',
+                        'data-pjax' => 0
+                    ]);
+                },
+                'label' => '',
+                'format' => 'raw'
+            ];
+        }
+        return $this->_chooseColumn;
     }
 
     /**

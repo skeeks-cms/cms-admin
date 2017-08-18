@@ -32,7 +32,7 @@ $editModalId = $widget->id . '-modal-update-filter';
             <a class="btn btn-default btn-sm dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="glyphicon glyphicon-plus"></i>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu dropdown-menu-big">
                 <li>
                     <?= \Yii::t('skeeks/admin', 'No filters'); ?>
                 </li>

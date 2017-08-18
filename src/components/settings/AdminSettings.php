@@ -7,6 +7,7 @@
  */
 namespace skeeks\cms\modules\admin\components\settings;
 use skeeks\cms\backend\BackendComponent;
+use skeeks\cms\backend\helpers\BackendUrlHelper;
 use skeeks\cms\base\Component;
 use skeeks\cms\base\Widget;
 use skeeks\cms\components\Cms;
@@ -238,15 +239,11 @@ class AdminSettings extends Component
     /**
      * layout пустой?
      * @return bool
+     * @deprecated
      */
     public function isEmptyLayout()
     {
-        if (UrlHelper::constructCurrent()->getSystem(\skeeks\cms\modules\admin\Module::SYSTEM_QUERY_EMPTY_LAYOUT))
-        {
-            return true;
-        }
-
-        return false;
+        return BackendUrlHelper::createByParams()->setBackendParamsByCurrentRequest()->isEmptyLayout;
     }
 
     /**

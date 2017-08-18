@@ -50,15 +50,21 @@ $form = $widget;
         <? if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_ELEMENT) :?>
            <?
                 $propertyType = $property->handler;
-                $options = \skeeks\cms\models\CmsContentElement::find()->active()->andWhere([
+                /*$options = \skeeks\cms\models\CmsContentElement::find()->active()->andWhere([
                     'content_id' => $propertyType->content_id
                 ])->all();
 
                 $items = \yii\helpers\ArrayHelper::merge(['' => ''], \yii\helpers\ArrayHelper::map(
                     $options, 'id', 'name'
-                ));
+                ));*/
 
-                echo $form->field($searchRelatedPropertiesModel, $name)->dropDownList($items);
+                echo $form->field($searchRelatedPropertiesModel, $name)->widget(
+                    \skeeks\cms\modules\admin\widgets\formInputs\SelectModelDialogContentElementInput::class,
+                    [
+                        'content_id' => $propertyType->content_id
+                    ]
+                );
+                //echo $form->field($searchRelatedPropertiesModel, $name)->dropDownList($items);
 
             ?>
 

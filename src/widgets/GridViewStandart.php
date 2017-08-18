@@ -10,6 +10,7 @@ use skeeks\cms\models\CmsContentElement;
 use skeeks\cms\modules\admin\actions\modelEditor\AdminMultiModelEditAction;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\grid\CheckboxColumn;
+use skeeks\cms\modules\admin\widgets\formInputs\SelectModelDialogContentElementInput;
 use skeeks\cms\modules\admin\widgets\gridViewStandart\GridViewStandartAsset;
 use skeeks\cms\relatedProperties\models\RelatedPropertiesModel;
 use Yii;
@@ -220,15 +221,22 @@ CSS
                 if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_ELEMENT)
                 {
                     $propertyType = $property->handler;
-                        $options = \skeeks\cms\models\CmsContentElement::find()->active()->andWhere([
+                        /*$options = \skeeks\cms\models\CmsContentElement::find()->active()->andWhere([
                             'content_id' => $propertyType->content_id
                         ])->all();
 
                         $items = \yii\helpers\ArrayHelper::merge(['' => ''], \yii\helpers\ArrayHelper::map(
                             $options, 'id', 'name'
-                        ));
+                        ));*/
 
-                    $filter = \yii\helpers\Html::activeDropDownList($searchRelatedPropertiesModel, $name, $items, ['class' => 'form-control']);
+
+
+                    $filter = SelectModelDialogContentElementInput::widget([
+                        'model' => $searchRelatedPropertiesModel,
+                        'attribute' => $name,
+                        'content_id' => $propertyType->content_id
+                    ]);
+                    //$filter = \yii\helpers\Html::activeDropDownList($searchRelatedPropertiesModel, $name, $items, ['class' => 'form-control']);
 
                 } else if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_LIST)
                 {

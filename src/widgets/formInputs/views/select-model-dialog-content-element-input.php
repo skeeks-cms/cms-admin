@@ -20,8 +20,8 @@
 
                 <span class="sx-view-cms-content">
                     <? if ($widget->modelData) : ?>
-                        <a href="#" target="_blank" data-pjax="0">
-                            <?= $widget->modelData->displayName; ?>
+                        <a href="<?= $widget->modelData->url; ?>" target="_blank" data-pjax="0">
+                            <?= $widget->modelData->name; ?>
                         </a>
                     <? endif; ?>
                 </span>
@@ -61,7 +61,6 @@ CSS
 
             sx.EventManager.bind(this.get('callbackEvent'), function(e, data)
             {
-                console.log(data);
                 self.update(data);
             });
         },
@@ -99,7 +98,7 @@ CSS
             if (_.size(model) > 0)
             {
                 this.jQueryContentWrapper.append(
-                    '<a href="' + model.url + '" target="_blank" data-pjax="0">' + model.displayName + '</a>'
+                    '<a href="' + model.url + '" target="_blank" data-pjax="0">' + model.name + '</a>'
                 );
                 self.setVal(model.id);
                 this.jQueryDeselectBtn.show();

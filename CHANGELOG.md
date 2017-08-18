@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.0.0-alpha4.pre
+-----------------
+ * Dialog select elements
+ 
 2.0.0-alpha3
 -----------------
  * Fixed filters url

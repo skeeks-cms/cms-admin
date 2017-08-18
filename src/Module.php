@@ -22,9 +22,5 @@ use yii\web\Application;
  */
 class Module extends \yii\base\Module
 {
-    //Скрывать кнопки действи сущьности
-    const SYSTEM_QUERY_NO_ACTIONS_MODEL = 'no-actions';
-    const SYSTEM_QUERY_EMPTY_LAYOUT     = 'sx-empty-layout';
-
     public $controllerNamespace = 'skeeks\cms\modules\admin\controllers';
 }

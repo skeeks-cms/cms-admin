@@ -7,6 +7,7 @@
  */
 namespace skeeks\cms\modules\admin\widgets\formInputs;
 
+use skeeks\cms\backend\helpers\BackendUrlHelper;
 use skeeks\cms\Exception;
 use skeeks\cms\models\Publication;
 use skeeks\cms\modules\admin\Module;
@@ -72,10 +73,11 @@ class OneImage extends InputWidget
             Html::addCssClass($this->options, 'form-control');
             $additionalData['callbackEvent'] = $this->getCallbackEvent();
 
-            $this->selectFileUrl = \skeeks\cms\helpers\UrlHelper::construct('cms/admin-tools/select-file', $additionalData)
-                                        ->setSystemParam(\skeeks\cms\modules\admin\Module::SYSTEM_QUERY_EMPTY_LAYOUT, 'true')
-                                        ->enableAdmin()
-                                        ->toString();
+            $this->selectFileUrl = BackendUrlHelper::createByParams(['cms/admin-tools/select-file'])
+                ->merge((array) $additionalData)
+                ->enableEmptyLayout()
+                ->url
+            ;
         }
     }
     /**
