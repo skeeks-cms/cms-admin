@@ -10,7 +10,6 @@ namespace skeeks\cms\modules\admin\dashboards;
 
 use skeeks\cms\base\Widget;
 use skeeks\cms\base\WidgetRenderable;
-use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\CmsContentElement;
 use skeeks\cms\models\CmsContentElementTree;
 use skeeks\cms\models\Search;

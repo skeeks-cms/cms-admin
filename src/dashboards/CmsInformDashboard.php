@@ -10,7 +10,6 @@ namespace skeeks\cms\modules\admin\dashboards;
 
 use skeeks\cms\base\Widget;
 use skeeks\cms\base\WidgetRenderable;
-use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\modules\admin\base\AdminDashboardWidget;
 use skeeks\cms\modules\admin\base\AdminDashboardWidgetRenderable;
 use yii\helpers\ArrayHelper;

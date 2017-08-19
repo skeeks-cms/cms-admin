@@ -22,7 +22,6 @@ use skeeks\cms\components\Cms;
 use skeeks\cms\Exception;
 use skeeks\cms\helpers\ComponentHelper;
 use skeeks\cms\helpers\RequestResponse;
-use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\IHasModel;
 use skeeks\cms\models\Search;
 use skeeks\cms\modules\admin\actions\AdminModelAction;

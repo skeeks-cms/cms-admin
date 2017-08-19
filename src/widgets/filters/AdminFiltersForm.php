@@ -11,7 +11,6 @@
 namespace skeeks\cms\modules\admin\widgets\filters;
 use skeeks\cms\base\widgets\ActiveFormAjaxSubmit;
 use skeeks\cms\helpers\StringHelper;
-use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\modules\admin\assets\AdminFormAsset;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\models\CmsAdminFilter;

@@ -11,7 +11,6 @@ use skeeks\cms\backend\helpers\BackendUrlHelper;
 use skeeks\cms\base\Component;
 use skeeks\cms\base\Widget;
 use skeeks\cms\components\Cms;
-use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\CmsLang;
 use skeeks\cms\admin\assets\AdminAsset;
 use skeeks\cms\modules\admin\base\AdminDashboardWidget;

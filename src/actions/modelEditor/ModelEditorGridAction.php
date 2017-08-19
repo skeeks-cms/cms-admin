@@ -7,7 +7,6 @@
  */
 namespace skeeks\cms\modules\admin\actions\modelEditor;
 
-use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Search;
 use skeeks\cms\modules\admin\actions\AdminAction;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
