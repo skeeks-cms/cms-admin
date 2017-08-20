@@ -63,6 +63,8 @@ class SelectModelDialogInput extends InputWidget
 
     public function init()
     {
+        $this->id = $this->id . "-" . \Yii::$app->security->generateRandomString(5);
+
         parent::init();
 
         if (!$this->selectUrl)
@@ -82,6 +84,7 @@ class SelectModelDialogInput extends InputWidget
 
             $this->selectUrl = Url::to($additionalData);
         }
+
 
     }
 

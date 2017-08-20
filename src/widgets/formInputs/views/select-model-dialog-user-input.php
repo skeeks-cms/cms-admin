@@ -61,7 +61,6 @@ CSS
 
             sx.EventManager.bind(this.get('callbackEvent'), function(e, data)
             {
-                console.log(data);
                 self.update(data);
             });
         },
