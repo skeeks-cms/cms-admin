@@ -73,7 +73,7 @@ class OneImage extends InputWidget
             Html::addCssClass($this->options, 'form-control');
             $additionalData['callbackEvent'] = $this->getCallbackEvent();
 
-            $this->selectFileUrl = BackendUrlHelper::createByParams(['cms/admin-tools/select-file'])
+            $this->selectFileUrl = BackendUrlHelper::createByParams(['/cms/admin-tools/select-file'])
                 ->merge((array) $additionalData)
                 ->enableEmptyLayout()
                 ->url
