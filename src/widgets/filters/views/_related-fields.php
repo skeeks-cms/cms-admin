@@ -59,7 +59,7 @@ $form = $widget;
                 ));*/
 
                 echo $form->field($searchRelatedPropertiesModel, $name)->widget(
-                    \skeeks\cms\modules\admin\widgets\formInputs\SelectModelDialogContentElementInput::class,
+                    \skeeks\cms\backend\widgets\SelectModelDialogContentElementWidget::class,
                     [
                         'content_id' => $propertyType->content_id
                     ]

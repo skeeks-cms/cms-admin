@@ -273,9 +273,6 @@ class ContentElementListDashboard extends AdminDashboardWidget
                 ->hint(\Yii::t('skeeks/cms',"Will be considered time of beginning and end of the publication"));
 
             echo $form->fieldSelectMulti($this, 'content_ids', \skeeks\cms\models\CmsContent::getDataForSelect());
-            /*echo $form->fieldSelectMulti($this, 'createdBy')->widget(
-                \skeeks\cms\modules\admin\widgets\formInputs\SelectModelDialogUserInput::className()
-            );*/
 
             echo $form->field($this, 'tree_ids')->widget(
                 \skeeks\cms\widgets\formInputs\selectTree\SelectTree::className(),
