@@ -28,7 +28,7 @@
         "config-plugin": {
             "common": "src/config/common.php",
             "console": "$common",
-            "web": "$common",
+            "web": "$common"
         }
     }
 }
