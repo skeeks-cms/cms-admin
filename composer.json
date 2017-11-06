@@ -22,12 +22,8 @@
 	"extra": {
         "config-plugin": {
             "common": "src/config/common.php",
-            "console": [
-                "$common",
-            ],
-            "web": [
-                "$common",
-            ],
+            "console": "$common",
+            "web": "$common",
         }
     },
     "autoload": {
