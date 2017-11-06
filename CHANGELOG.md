@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.0.1
+-----------------
+ * Using composer-config-plugin
+ 
 2.0.0-beta
 -----------------
  * Dialog select elements

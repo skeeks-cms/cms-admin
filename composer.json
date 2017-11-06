@@ -17,8 +17,19 @@
 		}
 	],
 	"require": {
-		"skeeks/cms": "*"
+		"skeeks/cms": "^4"
 	},
+	"extra": {
+        "config-plugin": {
+            "common": "src/config/common.php",
+            "console": [
+                "$common",
+            ],
+            "web": [
+                "$common",
+            ],
+        }
+    },
     "autoload": {
         "psr-4": {
             "skeeks\\cms\\modules\\admin\\": "src/"
