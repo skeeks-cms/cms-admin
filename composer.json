@@ -27,7 +27,7 @@
     "extra": {
         "config-plugin": {
             "common": "src/config/common.php",
-            "common1": "src/config/common1.php"
+            "console": "$common"
         }
     }
 }
