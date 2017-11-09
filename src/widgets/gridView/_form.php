@@ -16,6 +16,21 @@ $controller = \Yii::$app->controller;
     <? if ($columns) : ?>
         <?= $form->fieldSet(\Yii::t('skeeks/admin','Table fields')); ?>
 
+<?/*
+                echo $form->field($model, 'visibleColumns')->widget(\skeeks\widget\duallistbox\WidgetDualListbox::className(),[
+                    'items' => $columns,
+                    'options' => [
+                        'size' => 40,
+                        'multiple' => true
+                    ],
+                    'clientOptions' => [
+                        'moveOnSelect' => false,
+                        'selectedListLabel' => 'Selected Items',
+                        'nonSelectedListLabel' => 'Available Items',
+                    ],
+                ]);
+            */?>
+
             <div class="row">
                 <div class="col-lg-6">
 
