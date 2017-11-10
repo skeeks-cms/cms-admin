@@ -40,11 +40,23 @@ $form = $widget;
         <? endif; ?>
         <? if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_LIST) :?>
             <?
-            $items = \yii\helpers\ArrayHelper::merge(['' => ''], \yii\helpers\ArrayHelper::map(
+
+            /*$items = \yii\helpers\ArrayHelper::merge(['' => ''], \yii\helpers\ArrayHelper::map(
                 $property->enums, 'id', 'value'
             ));
 
-            echo $form->field($searchRelatedPropertiesModel, $name)->dropDownList($items);?>
+            echo $form->field($searchRelatedPropertiesModel, $name)->dropDownList($items);*/
+            echo $form->field($searchRelatedPropertiesModel, $name)->widget(
+                \skeeks\cms\backend\widgets\SelectModelDialogWidget::class,
+                [
+                    'modelClassName' => \skeeks\cms\models\CmsContentPropertyEnum::class,
+                    'dialogRoute' => ['/cms/admin-cms-content-property-enum', 'CmsContentPropertyEnum' => [
+                        'property_id' => $property->id
+                    ]],
+                ]
+            );
+
+            ?>
         <? endif; ?>
 
         <? if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_ELEMENT) :?>

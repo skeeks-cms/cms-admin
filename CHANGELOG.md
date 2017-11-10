@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.0.2.pre
+-----------------
+ * Admin filter table
+ 
 2.0.1
 -----------------
  * Using composer-config-plugin
