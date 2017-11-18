@@ -108,7 +108,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
             ->andWhere([
                 'or',
                 ['cms_user_id' => null],
-                ['cms_user_id' => ''],
+                //['cms_user_id' => ''],
                 ['cms_user_id' => \Yii::$app->user->id]
             ])
             ->orderBy(['is_default' => SORT_DESC])

@@ -43,15 +43,13 @@ class m160522_093837__create_table__cms_admin_filter extends Migration
 
         ], $tableOptions);
 
-        $this->createIndex('updated_by', '{{%cms_admin_filter}}', 'updated_by');
-        $this->createIndex('created_by', '{{%cms_admin_filter}}', 'created_by');
-        $this->createIndex('created_at', '{{%cms_admin_filter}}', 'created_at');
-        $this->createIndex('updated_at', '{{%cms_admin_filter}}', 'updated_at');
+        $this->createIndex('cms_admin_filter__updated_by', '{{%cms_admin_filter}}', 'updated_by');
+        $this->createIndex('cms_admin_filter__created_by', '{{%cms_admin_filter}}', 'created_by');
+        $this->createIndex('cms_admin_filter__created_at', '{{%cms_admin_filter}}', 'created_at');
+        $this->createIndex('cms_admin_filter__updated_at', '{{%cms_admin_filter}}', 'updated_at');
 
-        $this->createIndex('cms_user_id', '{{%cms_admin_filter}}', 'cms_user_id');
-        $this->createIndex('unique_default', '{{%cms_admin_filter}}', ['cms_user_id', 'is_default', 'namespace']);
-
-        $this->execute("ALTER TABLE {{%cms_admin_filter}} COMMENT = 'Filters in the administrative part';");
+        $this->createIndex('cms_admin_filter__cms_user_id', '{{%cms_admin_filter}}', 'cms_user_id');
+        $this->createIndex('cms_admin_filter__unique_default', '{{%cms_admin_filter}}', ['cms_user_id', 'is_default', 'namespace']);
 
         $this->addForeignKey(
             'cms_admin_filter__created_by', "{{%cms_admin_filter}}",
