@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.0.5.pre
+-----------------
+ * Removed assets
+ 
 2.0.4
 -----------------
  * Pgsql support

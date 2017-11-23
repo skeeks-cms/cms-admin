@@ -9,7 +9,6 @@ namespace skeeks\cms\modules\admin\widgets;
 
 use skeeks\cms\components\Cms;
 use skeeks\cms\grid\GridViewPjaxTrait;
-use skeeks\cms\modules\admin\assets\AdminGridAsset;
 use skeeks\cms\modules\admin\traits\GridViewSortableTrait;
 use skeeks\cms\modules\admin\widgets\gridView\GridViewSettings;
 use skeeks\cms\traits\HasComponentDescriptorTrait;
