@@ -5,13 +5,13 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 12.03.2015
  */
+
 namespace skeeks\cms\modules\admin\widgets;
+
 use skeeks\cms\backend\helpers\BackendUrlHelper;
-use skeeks\cms\components\Cms;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 
 /**
  * Class RelatedModelsGrid
@@ -22,35 +22,35 @@ class RelatedModelsGrid extends Widget
     /**
      * @var null контроллер который управляет связанными моделями
      */
-    public $controllerRoute         = null;//'cms/admin-user-email';
+    public $controllerRoute = null;//'cms/admin-user-email';
 
-    public $namespace               = null;
+    public $namespace = null;
 
     /**
      * @var string действие добавления связанной модели
      */
-    public $controllerCreateAction      = 'create';
-    public $controllerSortableAction  = 'sortable-priority';
+    public $controllerCreateAction = 'create';
+    public $controllerSortableAction = 'sortable-priority';
 
     /**
      * @var string название
      */
-    public $label  = '';
+    public $label = '';
 
     /**
      * @var string небольшое описание
      */
-    public $hint    = '';
+    public $hint = '';
 
     /**
      * @var array опции для грида
      */
-    public $gridViewOptions  = [];
+    public $gridViewOptions = [];
 
     /**
      * @var array связь
      */
-    public $relation  = [];
+    public $relation = [];
 
     /**
      * @var array
@@ -65,32 +65,27 @@ class RelatedModelsGrid extends Widget
     /**
      * @var Родительская модель к которой будут строиться привязанные сущьности
      */
-    public $parentModel  = null;
+    public $parentModel = null;
 
     public function init()
     {
         parent::init();
 
-        if ($this->namespace === null)
-        {
+        if ($this->namespace === null) {
             $id = [];
-            if (\Yii::$app->controller)
-            {
+            if (\Yii::$app->controller) {
                 $id = [\Yii::$app->controller->getUniqueId()];
             }
 
-            if (\Yii::$app->controller->action)
-            {
+            if (\Yii::$app->controller->action) {
                 $id = [\Yii::$app->controller->action->getUniqueId()];
             }
 
-            if ($this->controllerRoute)
-            {
+            if ($this->controllerRoute) {
                 $id[] = $this->controllerRoute;
             }
 
-            if ($this->parentModel)
-            {
+            if ($this->parentModel) {
                 $id[] = $this->parentModel->className();
             }
 
@@ -100,8 +95,7 @@ class RelatedModelsGrid extends Widget
 
     public function run()
     {
-        if ($this->parentModel->isNewRecord)
-        {
+        if ($this->parentModel->isNewRecord) {
             return "";
         }
 
@@ -111,36 +105,30 @@ class RelatedModelsGrid extends Widget
         $controller = \Yii::$app->createController($this->controllerRoute)[0];
 
         $rerlation = [];
-        foreach ($this->relation as $relationLink => $parent)
-        {
-            if ($this->parentModel->getAttribute($parent))
-            {
+        foreach ($this->relation as $relationLink => $parent) {
+            if ($this->parentModel->getAttribute($parent)) {
                 $rerlation[$relationLink] = $this->parentModel->{$parent};
-            } else
-            {
+            } else {
                 $rerlation[$relationLink] = $parent;
             }
         }
 
         $createUrl = BackendUrlHelper::createByParams([$this->controllerRoute . '/' . $this->controllerCreateAction])
-            ->merge((array) $rerlation)
+            ->merge((array)$rerlation)
             ->enableEmptyLayout()
             ->enableNoActions()
-            ->url
-        ;
+            ->url;
 
         $sortableUrl = BackendUrlHelper::createByParams([$this->controllerRoute . '/' . $this->controllerSortableAction])->url;
 
         $search = new \skeeks\cms\models\Search($controller->modelClassName);
         $search->getDataProvider()->query->where($rerlation);
 
-        if (isset($this->sort['defaultOrder']))
-        {
+        if (isset($this->sort['defaultOrder'])) {
             $search->getDataProvider()->sort->defaultOrder = $this->sort['defaultOrder'];
         }
 
-        if ($this->dataProviderCallback && is_callable($this->dataProviderCallback))
-        {
+        if ($this->dataProviderCallback && is_callable($this->dataProviderCallback)) {
             $function = $this->dataProviderCallback;
             $function($search->getDataProvider());
         }
@@ -159,24 +147,23 @@ class RelatedModelsGrid extends Widget
             "sortableOptions" => [
                 'backend' => $sortableUrl
             ],
-            'dataProvider'  => $search->getDataProvider(),
+            'dataProvider' => $search->getDataProvider(),
             'layout' => "\n{beforeTable}\n{items}\n{afterTable}\n{pager}",
             'columns' => [
                 //['class' => 'yii\grid\SerialColumn'],
 
                 [
-                    'class'                 => \skeeks\cms\modules\admin\grid\ActionColumn::className(),
-                    'controller'            => $controller,
-                    'isOpenNewWindow'       => true
+                    'class' => \skeeks\cms\modules\admin\grid\ActionColumn::className(),
+                    'controller' => $controller,
+                    'isOpenNewWindow' => true
                 ],
 
             ],
-        ], (array) $this->gridViewOptions);
+        ], (array)$this->gridViewOptions);
 
 
         //TODO:: Bad hardcode
-        if (ArrayHelper::getValue($gridOptions, 'sortable') === true)
-        {
+        if (ArrayHelper::getValue($gridOptions, 'sortable') === true) {
             $gridOptions['settingsData'] = [
                 'pageSize' => 100,
                 'orderBy' => 'priority',
@@ -184,12 +171,12 @@ class RelatedModelsGrid extends Widget
             ];
         }
 
-        return $this->render('related-models-grid',[
-            'widget'        => $this,
-            'createUrl'     => $createUrl,
-            'controller'    => $controller,
-            'gridOptions'   => $gridOptions,
-            'pjaxId'        => $pjaxId,
+        return $this->render('related-models-grid', [
+            'widget' => $this,
+            'createUrl' => $createUrl,
+            'controller' => $controller,
+            'gridOptions' => $gridOptions,
+            'pjaxId' => $pjaxId,
         ]);
     }
 

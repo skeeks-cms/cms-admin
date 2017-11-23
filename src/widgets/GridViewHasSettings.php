@@ -10,15 +10,13 @@
  */
 
 namespace skeeks\cms\modules\admin\widgets;
+
 use skeeks\cms\backend\helpers\BackendUrlHelper;
-use Yii;
 use skeeks\cms\components\Cms;
-use skeeks\cms\grid\GridViewPjaxTrait;
 use skeeks\cms\grid\ImageColumn;
 use skeeks\cms\modules\admin\grid\ActionColumn;
-use skeeks\cms\modules\admin\traits\GridViewSortableTrait;
 use skeeks\cms\modules\admin\widgets\gridView\GridViewSettings;
-use skeeks\cms\traits\HasComponentDescriptorTrait;
+use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -30,7 +28,6 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\helpers\Json;
-use yii\jui\Sortable;
 use yii\web\JsExpression;
 
 /**
@@ -46,12 +43,12 @@ class GridViewHasSettings extends GridView
     /**
      * @var array
      */
-    public $settingsData    = [];
+    public $settingsData = [];
 
     /**
      * @var bool Включение автоматического добавления колонок таблицы
      */
-    public $autoColumns     = true;
+    public $autoColumns = true;
 
     /**
      * @var array исходные настройки колонок с сгенерированными ключами.
@@ -73,8 +70,7 @@ class GridViewHasSettings extends GridView
         $this->_initAutoColumns();
         $this->_configureColumns();
 
-        if ($callbackEventName = BackendUrlHelper::createByParams()->setBackendParamsByCurrentRequest()->callbackEventName)
-        {
+        if ($callbackEventName = BackendUrlHelper::createByParams()->setBackendParamsByCurrentRequest()->callbackEventName) {
             $this->view->registerJs(<<<JS
 (function(sx, $, _)
 {
@@ -114,15 +110,14 @@ class GridViewHasSettings extends GridView
 
 })(sx, sx.$, sx._);
 JS
-);
+            );
             $this->columns = ArrayHelper::merge([
 
                 'sx-choose' => $this->getChooseColumn(),
 
             ], $this->columns);
 
-            if ($this->settings->visibleColumns)
-            {
+            if ($this->settings->visibleColumns) {
                 $this->settings->visibleColumns = ArrayHelper::merge($this->settings->visibleColumns, ['sx-choose']);
             }
 
@@ -149,21 +144,19 @@ JS
 
     public function getChooseColumn()
     {
-        if ($this->_chooseColumn === null)
-        {
+        if ($this->_chooseColumn === null) {
             $this->_chooseColumn = [
-                'class'     => \yii\grid\DataColumn::className(),
-                'value'     => function($model)
-                {
+                'class' => \yii\grid\DataColumn::className(),
+                'value' => function ($model) {
                     $data = $model->toArray();
 
-                    if ($this->chooseCallback && is_callable($this->chooseCallback))
-                    {
+                    if ($this->chooseCallback && is_callable($this->chooseCallback)) {
                         $callback = $this->chooseCallback;
                         $data = $callback($model);
                     }
 
-                    return \yii\helpers\Html::a('<i class="glyphicon glyphicon-circle-arrow-left"></i> '.\Yii::t('skeeks/cms', 'Choose'), '#', [
+                    return \yii\helpers\Html::a('<i class="glyphicon glyphicon-circle-arrow-left"></i> ' . \Yii::t('skeeks/cms',
+                            'Choose'), '#', [
                         'class' => 'btn btn-primary sx-row-action',
                         'onclick' => 'sx.SelectCmsElement.submit(' . \yii\helpers\Json::encode($data) . '); return false;',
                         'data-pjax' => 0
@@ -181,8 +174,7 @@ JS
      */
     protected function _initAutoColumns()
     {
-        if (!$this->autoColumns)
-        {
+        if (!$this->autoColumns) {
             return $this;
         }
 
@@ -190,21 +182,17 @@ JS
         $models = $this->dataProvider->getModels();
         $model = reset($models);
 
-        if (is_array($model) || is_object($model))
-        {
+        if (is_array($model) || is_object($model)) {
             foreach ($model as $name => $value) {
                 $autoColumns[] = [
                     'attribute' => $name,
                     'visible' => false,
                     'format' => 'raw',
                     'class' => \yii\grid\DataColumn::className(),
-                    'value' => function($model, $key, $index) use ($name)
-                    {
-                        if (is_array($model->{$name}))
-                        {
+                    'value' => function ($model, $key, $index) use ($name) {
+                        if (is_array($model->{$name})) {
                             return implode(",", $model->{$name});
-                        } else
-                        {
+                        } else {
                             return $model->{$name};
                         }
                     },
@@ -212,8 +200,7 @@ JS
             }
         }
 
-        if ($autoColumns)
-        {
+        if ($autoColumns) {
             $this->columns = ArrayHelper::merge($this->columns, $autoColumns);
         }
 
@@ -234,9 +221,6 @@ JS
     }
 
 
-
-
-
     /**
      * @return string
      */
@@ -255,26 +239,27 @@ JS
         $id = $this->id . "-callable-data";
 
         $gridEditSettings = [
-            'url'           => (string) $this->settings->getCallableEditUrl(),
-            'enabledPjax'   => $this->enabledPjax,
-            'pjax'          => $this->pjax
+            'url' => (string)$this->settings->getCallableEditUrl(),
+            'enabledPjax' => $this->enabledPjax,
+            'pjax' => $this->pjax
         ];
 
         $gridEditSettings = Json::encode($gridEditSettings);
         $callableData = $this->settings->callableData;
 
         $callableDataInput = Html::textarea('callableData', base64_encode(serialize($callableData)), [
-            'id'    => $this->settings->callableId,
+            'id' => $this->settings->callableId,
             'style' => 'display: none;'
         ]);
 
-        return '<div class="sx-grid-settings">' . Html::a('<i class="glyphicon glyphicon-cog"></i>', $this->settings->getCallableEditUrl(), [
-            'class' => 'btn btn-default btn-sm',
-            'onclick' => new JsExpression(<<<JS
+        return '<div class="sx-grid-settings">' . Html::a('<i class="glyphicon glyphicon-cog"></i>',
+                $this->settings->getCallableEditUrl(), [
+                    'class' => 'btn btn-default btn-sm',
+                    'onclick' => new JsExpression(<<<JS
             new sx.classes.GridEditSettings({$gridEditSettings}); return false;
 JS
-)
-        ]) .  $callableDataInput . "</div>";
+                    )
+                ]) . $callableDataInput . "</div>";
 
     }
 
@@ -333,7 +318,7 @@ JS
             });
         })(sx, sx.$, sx._);
 JS
-);
+        );
     }
 
     /**
@@ -343,14 +328,14 @@ JS
     protected function _initGridSettings()
     {
         $defaultSettingsData =
-        [
-            //namespace настроек по умолчанию.
-            'namespace' => \Yii::$app->controller->action->getUniqueId(),
-            'grid'      => $this
-        ];
+            [
+                //namespace настроек по умолчанию.
+                'namespace' => \Yii::$app->controller->action->getUniqueId(),
+                'grid' => $this
+            ];
 
-        $settingsData       = ArrayHelper::merge($defaultSettingsData, (array) $this->settingsData);
-        $this->_settings    = new GridViewSettings($settingsData);
+        $settingsData = ArrayHelper::merge($defaultSettingsData, (array)$this->settingsData);
+        $this->_settings = new GridViewSettings($settingsData);
 
         return $this;
     }
@@ -362,11 +347,9 @@ JS
     protected function _applyGridSettings()
     {
         //Pjax init
-        if ($this->settings->enabledPjaxPagination == Cms::BOOL_Y)
-        {
+        if ($this->settings->enabledPjaxPagination == Cms::BOOL_Y) {
             $this->enabledPjax = true;
-        } else
-        {
+        } else {
             $this->enabledPjax = false;
         }
 
@@ -384,21 +367,17 @@ JS
      */
     protected function _applyColumns()
     {
-        if ($this->settings->visibleColumns)
-        {
+        if ($this->settings->visibleColumns) {
             $newColumns = [];
             $hiddenColumns = [];
 
-            foreach ($this->settings->visibleColumns as $code)
-            {
-                if ($column = ArrayHelper::getValue($this->allColumns, $code))
-                {
+            foreach ($this->settings->visibleColumns as $code) {
+                if ($column = ArrayHelper::getValue($this->allColumns, $code)) {
                     $newColumns[$code] = $column;
                 }
             }
 
-            if ($newColumns)
-            {
+            if ($newColumns) {
                 $this->columns = $newColumns;
             }
         }
@@ -421,7 +400,7 @@ JS
                 $column = $this->createDataColumn($column);
             } else {
                 $column = Yii::createObject(array_merge([
-                    'class' => $this->dataColumnClass ? : DataColumn::className(),
+                    'class' => $this->dataColumnClass ?: DataColumn::className(),
                     'grid' => $this,
                 ], $column));
             }
@@ -440,23 +419,22 @@ JS
     {
         $this->dataProvider;
 
-        $this->dataProvider->getPagination()->defaultPageSize   = (int) $this->settings->pageSize;
-        $this->dataProvider->getPagination()->pageParam         = $this->settings->pageParamName;
-        $this->dataProvider->getPagination()->pageSizeLimit     = [$this->settings->pageSizeLimitMin, $this->settings->pageSizeLimitMax];
+        $this->dataProvider->getPagination()->defaultPageSize = (int)$this->settings->pageSize;
+        $this->dataProvider->getPagination()->pageParam = $this->settings->pageParamName;
+        $this->dataProvider->getPagination()->pageSizeLimit = [
+            $this->settings->pageSizeLimitMin,
+            $this->settings->pageSizeLimitMax
+        ];
 
-        if ($this->settings->orderBy)
-        {
+        if ($this->settings->orderBy) {
             $this->dataProvider->getSort()->defaultOrder =
-            [
-                $this->settings->orderBy => (int) $this->settings->order
-            ];
+                [
+                    $this->settings->orderBy => (int)$this->settings->order
+                ];
         }
 
         return $this;
     }
-
-
-
 
 
     /**
@@ -525,7 +503,9 @@ JS
     {
         $matches = [];
         if (!preg_match('/^([\w\.]+)(:(\w*))?(:(.*))?$/', $column, $matches)) {
-            throw new InvalidConfigException(\Yii::t('skeeks/cms',"Invalid column configuration for '{column}'. The column must be specified in the format of 'attribute', 'attribute:format' or 'attribute:format: label'.",['column' => $column]));
+            throw new InvalidConfigException(\Yii::t('skeeks/cms',
+                "Invalid column configuration for '{column}'. The column must be specified in the format of 'attribute', 'attribute:format' or 'attribute:format: label'.",
+                ['column' => $column]));
         }
         return $matches;
     }
@@ -535,57 +515,52 @@ JS
     {
         $data = [];
 
-        foreach ($this->allColumns as $code => $column)
-        {
-            if ($column instanceof ActionColumn)
-            {
-                $data[$code] = \Yii::t('skeeks/cms','Button actions');
-            }
-            else if ($column instanceof CheckboxColumn)
-            {
-                $data[$code] = \Yii::t('skeeks/cms','Selecting items');
-            }
-            else if ($column instanceof SerialColumn)
-            {
-                $data[$code] = \Yii::t('skeeks/cms','Sequence number');
-            } else if ($column instanceof ImageColumn)
-            {
-                $data[$code] = \Yii::t('skeeks/cms','Main Image');
-            } else if ($column instanceof DataColumn)
-            {
-                if ($column->label === null)
-                {
-                    $provider = $this->dataProvider;
-
-                    if ($provider instanceof ActiveDataProvider && $provider->query instanceof ActiveQueryInterface) {
-                        /* @var $model Model */
-                        $model = new $provider->query->modelClass;
-                        $label = $model->getAttributeLabel($column->attribute);
-                    } else
-                    {
-                        $models = $provider->getModels();
-                        if (($model = reset($models)) instanceof Model) {
-                            /* @var $model Model */
-                            $label = $model->getAttributeLabel($column->attribute);
+        foreach ($this->allColumns as $code => $column) {
+            if ($column instanceof ActionColumn) {
+                $data[$code] = \Yii::t('skeeks/cms', 'Button actions');
+            } else {
+                if ($column instanceof CheckboxColumn) {
+                    $data[$code] = \Yii::t('skeeks/cms', 'Selecting items');
+                } else {
+                    if ($column instanceof SerialColumn) {
+                        $data[$code] = \Yii::t('skeeks/cms', 'Sequence number');
+                    } else {
+                        if ($column instanceof ImageColumn) {
+                            $data[$code] = \Yii::t('skeeks/cms', 'Main Image');
                         } else {
-                            $label = Inflector::camel2words($column->attribute);
+                            if ($column instanceof DataColumn) {
+                                if ($column->label === null) {
+                                    $provider = $this->dataProvider;
+
+                                    if ($provider instanceof ActiveDataProvider && $provider->query instanceof ActiveQueryInterface) {
+                                        /* @var $model Model */
+                                        $model = new $provider->query->modelClass;
+                                        $label = $model->getAttributeLabel($column->attribute);
+                                    } else {
+                                        $models = $provider->getModels();
+                                        if (($model = reset($models)) instanceof Model) {
+                                            /* @var $model Model */
+                                            $label = $model->getAttributeLabel($column->attribute);
+                                        } else {
+                                            $label = Inflector::camel2words($column->attribute);
+                                        }
+                                    }
+                                } else {
+                                    $label = $column->label;
+                                }
+
+                                $data[$code] = $label;
+
+                            } else {
+                                $data[$code] = $code;
+                            }
                         }
                     }
-                } else
-                {
-                    $label = $column->label;
                 }
-
-                $data[$code] = $label;
-
-            } else
-            {
-                $data[$code] = $code;
             }
 
-            if (!$data[$code])
-            {
-                $data[$code] = " — "  . $column->className();
+            if (!$data[$code]) {
+                $data[$code] = " — " . $column->className();
             }
         }
 

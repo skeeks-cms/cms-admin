@@ -5,7 +5,9 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 30.09.2015
  */
+
 namespace skeeks\cms\modules\admin\widgets;
+
 use yii\base\Widget;
 use yii\helpers\Url;
 
@@ -20,24 +22,24 @@ class UserLastActivityWidget extends Widget
      */
     public function run()
     {
-        $userLastActivity           = \yii\helpers\Json::encode($this->getOptions());
+        $userLastActivity = \yii\helpers\Json::encode($this->getOptions());
 
         $this->view->registerJs(<<<JS
         new sx.classes.UserLastActivity({$userLastActivity});
 JS
-);
+        );
     }
 
     public function getOptions()
     {
         return [
-            'blockedAfterTime'      => (\Yii::$app->admin->blockedTime - \Yii::$app->user->identity->lastAdminActivityAgo),
-            'startTime'             => \Yii::$app->formatter->asTimestamp(time()),
-            'leftTimeInfo'          => 30,
-            'isGuest'               => (bool) \Yii::$app->user->isGuest,
-            'ajaxLeftTimeInfo'      => 300,
-            'interval'              => 5,
-            'backendGetUser'        => Url::to(['/cms/admin-tools/admin-last-activity']),
+            'blockedAfterTime' => (\Yii::$app->admin->blockedTime - \Yii::$app->user->identity->lastAdminActivityAgo),
+            'startTime' => \Yii::$app->formatter->asTimestamp(time()),
+            'leftTimeInfo' => 30,
+            'isGuest' => (bool)\Yii::$app->user->isGuest,
+            'ajaxLeftTimeInfo' => 300,
+            'interval' => 5,
+            'backendGetUser' => Url::to(['/cms/admin-tools/admin-last-activity']),
         ];
     }
 

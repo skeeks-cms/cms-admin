@@ -8,19 +8,16 @@
  * @date 11.11.2014
  * @since 1.0.0
  */
+
 namespace skeeks\cms\modules\admin\widgets;
+
 use skeeks\cms\admin\assets\AdminFormAsset;
-use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\traits\ActiveFormTrait;
 use skeeks\cms\modules\admin\traits\AdminActiveFormTrait;
 use skeeks\cms\traits\ActiveFormAjaxSubmitTrait;
-use skeeks\widget\chosen\Chosen;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
-use skeeks\cms\modules\admin\widgets\Pjax;
 use yii\helpers\Json;
-use yii\helpers\Url;
 
 /**
  * Class ActiveForm
@@ -58,20 +55,17 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
      */
     public function init()
     {
-        if ($classes = ArrayHelper::getValue($this->options, 'class'))
-        {
+        if ($classes = ArrayHelper::getValue($this->options, 'class')) {
             $this->options = ArrayHelper::merge($this->options, [
                 'class' => $classes . ' sx-form-admin'
             ]);
-        } else
-        {
+        } else {
             $this->options = ArrayHelper::merge($this->options, [
                 'class' => 'sx-form-admin'
             ]);
         }
 
-        if ($this->usePjax)
-        {
+        if ($this->usePjax) {
             Pjax::begin(ArrayHelper::merge([
                 'id' => 'sx-pjax-form-' . $this->id,
                 'enablePushState' => false,
@@ -105,16 +99,14 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
     new sx.classes.forms.AdminForm({$clientOptions});
 })(sx, sx.$, sx._);
 JS
-);
+        );
 
 
-        if ($this->useAjaxSubmit)
-        {
+        if ($this->useAjaxSubmit) {
             $this->registerJs();
         }
 
-        if ($this->usePjax)
-        {
+        if ($this->usePjax) {
             Pjax::end();
         }
     }

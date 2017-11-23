@@ -5,19 +5,15 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 24.07.2015
  */
+
 namespace skeeks\cms\modules\admin\widgets;
-use skeeks\cms\backend\widgets\SelectModelDialogContentElementWidget;
-use skeeks\cms\models\CmsContentElement;
-use skeeks\cms\modules\admin\actions\modelEditor\AdminMultiModelEditAction;
+
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
-use skeeks\cms\modules\admin\grid\CheckboxColumn;
 use skeeks\cms\modules\admin\widgets\gridViewStandart\GridViewStandartAsset;
 use skeeks\cms\relatedProperties\models\RelatedPropertiesModel;
-use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\web\JsExpression;
 
 /**
  * @property string $gridJsObject
@@ -39,19 +35,16 @@ class GridViewStandart extends GridViewHasSettings
     {
         $defaultColumns = [];
 
-        if ($this->enabledCheckbox)
-        {
+        if ($this->enabledCheckbox) {
             $defaultColumns[] = ['class' => 'skeeks\cms\modules\admin\grid\CheckboxColumn'];
         }
 
-        if ($this->adminController)
-        {
-            if ($this->enabledEditActions)
-            {
+        if ($this->adminController) {
+            if ($this->enabledEditActions) {
                 $defaultColumns[] = [
-                    'class'                 => \skeeks\cms\modules\admin\grid\ActionColumn::className(),
-                    'controller'            => $this->adminController,
-                    'isOpenNewWindow'       => $this->isOpenNewWindow
+                    'class' => \skeeks\cms\modules\admin\grid\ActionColumn::className(),
+                    'controller' => $this->adminController,
+                    'isOpenNewWindow' => $this->isOpenNewWindow
                 ];
             }
 
@@ -84,13 +77,11 @@ class GridViewStandart extends GridViewHasSettings
     public function renderBeforeTable()
     {
         $multiActions = [];
-        if ($this->adminController)
-        {
+        if ($this->adminController) {
             $multiActions = $this->adminController->modelMultiActions;
         }
 
-        if (!$multiActions)
-        {
+        if (!$multiActions) {
             return parent::renderBeforeTable();
         }
 
@@ -106,13 +97,11 @@ class GridViewStandart extends GridViewHasSettings
     public function renderAfterTable()
     {
         $multiActions = [];
-        if ($this->adminController)
-        {
+        if ($this->adminController) {
             $multiActions = $this->adminController->modelMultiActions;
         }
 
-        if (!$multiActions)
-        {
+        if (!$multiActions) {
             return parent::renderAfterTable();
         }
 
@@ -125,29 +114,26 @@ class GridViewStandart extends GridViewHasSettings
 
     protected function _initMultiActions()
     {
-        if ($this->_initMultiOptions === true)
-        {
+        if ($this->_initMultiOptions === true) {
             return $this;
         }
 
         $this->_initMultiOptions = true;
 
         $multiActions = [];
-        if ($this->adminController)
-        {
+        if ($this->adminController) {
             $multiActions = $this->adminController->modelMultiActions;
         }
 
-        if (!$multiActions)
-        {
+        if (!$multiActions) {
             return $this;
         }
 
         $options = [
-            'id'                    => $this->id,
-            'enabledPjax'           => $this->enabledPjax,
-            'pjaxId'                => $this->pjax->id,
-            'requestPkParamName'    => $this->adminController->requestPkParamName
+            'id' => $this->id,
+            'enabledPjax' => $this->enabledPjax,
+            'pjaxId' => $this->pjax->id,
+            'requestPkParamName' => $this->adminController->requestPkParamName
         ];
         $optionsString = Json::encode($options);
 
@@ -156,14 +142,13 @@ class GridViewStandart extends GridViewHasSettings
         $this->view->registerJs(<<<JS
         {$gridJsObject} = new sx.classes.grid.Standart($optionsString);
 JS
-);
+        );
 
         $buttons = "";
 
         $additional = [];
-        foreach ($multiActions as $action)
-        {
-            $additional[]               = $action->registerForGrid($this);
+        foreach ($multiActions as $action) {
+            $additional[] = $action->registerForGrid($this);
 
             $buttons .= <<<HTML
             <button class="btn btn-default btn-sm sx-grid-multi-btn" data-id="{$action->id}">
@@ -192,25 +177,27 @@ HTML;
         margin-left: 20px;
     }
 CSS
-);
+        );
     }
 
     protected $_initMultiOptions = null;
     protected $_buttonsMulti = null;
     protected $_additionalsMulti = null;
+
     /**
      * @param RelatedPropertiesModel|null $relatedPropertiesModel
      * @return array
      */
-    static public function getColumnsByRelatedPropertiesModel(RelatedPropertiesModel $relatedPropertiesModel = null, $searchModel)
-    {
+    static public function getColumnsByRelatedPropertiesModel(
+        RelatedPropertiesModel $relatedPropertiesModel = null,
+        $searchModel
+    ) {
         $autoColumns = [];
         $searchRelatedPropertiesModel = $searchModel;
         /**
          * @var $model \skeeks\cms\models\CmsContentElement
          */
-        if ($relatedPropertiesModel)
-        {
+        if ($relatedPropertiesModel) {
             foreach ($relatedPropertiesModel->toArray($relatedPropertiesModel->attributes()) as $name => $value) {
 
 
@@ -218,17 +205,15 @@ CSS
                 $filter = '';
 
                 //TODO: добавить лимиты, поменять элементы фильтрации. Mempry limit когда много записей.
-                if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_ELEMENT)
-                {
+                if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_ELEMENT) {
                     $propertyType = $property->handler;
-                        /*$options = \skeeks\cms\models\CmsContentElement::find()->active()->andWhere([
-                            'content_id' => $propertyType->content_id
-                        ])->all();
+                    /*$options = \skeeks\cms\models\CmsContentElement::find()->active()->andWhere([
+                        'content_id' => $propertyType->content_id
+                    ])->all();
 
-                        $items = \yii\helpers\ArrayHelper::merge(['' => ''], \yii\helpers\ArrayHelper::map(
-                            $options, 'id', 'name'
-                        ));*/
-
+                    $items = \yii\helpers\ArrayHelper::merge(['' => ''], \yii\helpers\ArrayHelper::map(
+                        $options, 'id', 'name'
+                    ));*/
 
 
                     $filter = false;
@@ -239,31 +224,35 @@ CSS
                     ]);*/
                     //$filter = \yii\helpers\Html::activeDropDownList($searchRelatedPropertiesModel, $name, $items, ['class' => 'form-control']);
 
-                } else if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_LIST)
-                {
-                    $items = \yii\helpers\ArrayHelper::merge(['' => ''], \yii\helpers\ArrayHelper::map(
-                        $property->enums, 'id', 'value'
-                    ));
+                } else {
+                    if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_LIST) {
+                        $items = \yii\helpers\ArrayHelper::merge(['' => ''], \yii\helpers\ArrayHelper::map(
+                            $property->enums, 'id', 'value'
+                        ));
 
-                    $filter = \yii\helpers\Html::activeDropDownList($searchRelatedPropertiesModel, $name, $items, ['class' => 'form-control']);
+                        $filter = \yii\helpers\Html::activeDropDownList($searchRelatedPropertiesModel, $name, $items,
+                            ['class' => 'form-control']);
 
-                } else if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_STRING)
-                {
-                    $filter = \yii\helpers\Html::activeTextInput($searchRelatedPropertiesModel, $name, [
-                        'class' => 'form-control'
-                    ]);
-                }
-                else if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_NUMBER)
-                {
-                    $filter = "<div class='row'><div class='col-md-6'>" . \yii\helpers\Html::activeTextInput($searchRelatedPropertiesModel, $searchRelatedPropertiesModel->getAttributeNameRangeFrom($name), [
-                                    'class' => 'form-control',
-                                    'placeholder' => 'от'
-                                ]) . "</div><div class='col-md-6'>" .
-                                    \yii\helpers\Html::activeTextInput($searchRelatedPropertiesModel, $searchRelatedPropertiesModel->getAttributeNameRangeTo($name), [
-                                    'class' => 'form-control',
-                                    'placeholder' => 'до'
-                                ]) . "</div></div>"
-                            ;
+                    } else {
+                        if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_STRING) {
+                            $filter = \yii\helpers\Html::activeTextInput($searchRelatedPropertiesModel, $name, [
+                                'class' => 'form-control'
+                            ]);
+                        } else {
+                            if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_NUMBER) {
+                                $filter = "<div class='row'><div class='col-md-6'>" . \yii\helpers\Html::activeTextInput($searchRelatedPropertiesModel,
+                                        $searchRelatedPropertiesModel->getAttributeNameRangeFrom($name), [
+                                            'class' => 'form-control',
+                                            'placeholder' => 'от'
+                                        ]) . "</div><div class='col-md-6'>" .
+                                    \yii\helpers\Html::activeTextInput($searchRelatedPropertiesModel,
+                                        $searchRelatedPropertiesModel->getAttributeNameRangeTo($name), [
+                                            'class' => 'form-control',
+                                            'placeholder' => 'до'
+                                        ]) . "</div></div>";
+                            }
+                        }
+                    }
                 }
 
                 $autoColumns[] = [
@@ -273,17 +262,14 @@ CSS
                     'format' => 'raw',
                     'filter' => $filter,
                     'class' => \yii\grid\DataColumn::className(),
-                    'value' => function($model, $key, $index) use ($name, $relatedPropertiesModel)
-                    {
+                    'value' => function ($model, $key, $index) use ($name, $relatedPropertiesModel) {
                         /**
                          * @var $model \skeeks\cms\models\CmsContentElement
                          */
                         $value = $model->relatedPropertiesModel->getSmartAttribute($name);
-                        if (is_array($value))
-                        {
+                        if (is_array($value)) {
                             return implode(",", $value);
-                        } else
-                        {
+                        } else {
                             return $value;
                         }
                     },

@@ -5,17 +5,13 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 02.06.2015
  */
+
 namespace skeeks\cms\modules\admin\widgets;
 
-use skeeks\cms\components\Cms;
 use skeeks\cms\grid\GridViewPjaxTrait;
 use skeeks\cms\modules\admin\traits\GridViewSortableTrait;
-use skeeks\cms\modules\admin\widgets\gridView\GridViewSettings;
-use skeeks\cms\traits\HasComponentDescriptorTrait;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Json;
-use yii\jui\Sortable;
 
 /**
  * Простейший крид амдинки.
@@ -28,8 +24,8 @@ class GridView extends \yii\grid\GridView
     use GridViewSortableTrait;
     use GridViewPjaxTrait;
 
-    public $tableOptions    = ['class' => 'table table-striped table-bordered sx-table'];
-    public $options         = ['class' => 'grid-view sx-grid-view'];
+    public $tableOptions = ['class' => 'table table-striped table-bordered sx-table'];
+    public $options = ['class' => 'grid-view sx-grid-view'];
 
     public function init()
     {
@@ -42,20 +38,20 @@ class GridView extends \yii\grid\GridView
     /**
      * @var string
      */
-    public $afterTableLeft     = "";
+    public $afterTableLeft = "";
     /**
      * @var string
      */
-    public $afterTableRight     = "";
+    public $afterTableRight = "";
 
     /**
      * @var string
      */
-    public $beforeTableLeft     = "";
+    public $beforeTableLeft = "";
     /**
      * @var string
      */
-    public $beforeTableRight     = "";
+    public $beforeTableRight = "";
 
     /**
      * @var string the layout that determines how different sections of the list view should be organized.
@@ -90,8 +86,8 @@ class GridView extends \yii\grid\GridView
     {
         $this->pjaxBegin();
 
-            parent::run();
-            $this->registerAsset();
+        parent::run();
+        $this->registerAsset();
 
         $this->pjaxEnd();
     }
@@ -101,8 +97,6 @@ class GridView extends \yii\grid\GridView
         $this->registerSortableJs();
         \skeeks\cms\admin\assets\AdminGridAsset::register($this->view);
     }
-
-
 
 
     /**
@@ -124,20 +118,17 @@ class GridView extends \yii\grid\GridView
     }
 
 
-
     /**
      * @return string
      */
     public function renderAfterTable()
     {
-        if ($this->afterTableLeft || $this->afterTableRight)
-        {
+        if ($this->afterTableLeft || $this->afterTableRight) {
             return "<div class='sx-after-table'>
                         <div class='pull-left'>{$this->afterTableLeft}</div>
                         <div class='pull-right'>{$this->afterTableRight}</div>
                     </div>";
-        } else
-        {
+        } else {
             return "";
         }
 
@@ -155,10 +146,8 @@ class GridView extends \yii\grid\GridView
 
         $items = [];
         $i = 0;
-        for ($i >= $min; $i <= $max; $i++)
-        {
-            if ($i % 5 == 0 && $i > 0)
-            {
+        for ($i >= $min; $i <= $max; $i++) {
+            if ($i % 5 == 0 && $i > 0) {
                 $items[$i] = $i;
             }
         }
@@ -169,7 +158,7 @@ class GridView extends \yii\grid\GridView
         ArrayHelper::remove($get, $pagination->pageSizeParam);
         $get[$pagination->pageSizeParam] = "";
 
-        $url = '/' .  \Yii::$app->request->pathInfo . "?" . http_build_query($get);
+        $url = '/' . \Yii::$app->request->pathInfo . "?" . http_build_query($get);
 
         $this->view->registerJs(<<<JS
 (function(sx, $, _)
@@ -201,13 +190,14 @@ class GridView extends \yii\grid\GridView
     });
 })(sx, sx.$, sx._);
 JS
-);
+        );
 
 
-        return "<div class='sx-per-page'><form method='get' action='" . $url . "'> <span class='per-page-label'>".\Yii::t('skeeks/cms','On the page').":</span>"
-                    . Html::dropDownList($pagination->pageSizeParam, [$pagination->pageSize], $items, [
-                    'id' => $id
-                ]) . "</form></div>";
+        return "<div class='sx-per-page'><form method='get' action='" . $url . "'> <span class='per-page-label'>" . \Yii::t('skeeks/cms',
+                'On the page') . ":</span>"
+            . Html::dropDownList($pagination->pageSizeParam, [$pagination->pageSize], $items, [
+                'id' => $id
+            ]) . "</form></div>";
     }
 
     /**
@@ -215,8 +205,7 @@ JS
      */
     public function renderBeforeTable()
     {
-        if ($this->beforeTableLeft || $this->beforeTableRight)
-        {
+        if ($this->beforeTableLeft || $this->beforeTableRight) {
 
             return <<<HTML
         <div class='sx-before-table'>
@@ -224,8 +213,7 @@ JS
             <div class='pull-right'>{$this->beforeTableRight}</div>
           </div>
 HTML;
-        } else
-        {
+        } else {
             return '';
         }
 

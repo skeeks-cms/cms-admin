@@ -5,7 +5,9 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 24.07.2015
  */
+
 namespace skeeks\cms\modules\admin\grid;
+
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
@@ -73,7 +75,7 @@ class CheckboxColumn extends \yii\grid\CheckboxColumn
             new sx.classes.CheckboxAdmin({$jsOptionsString});
         })(sx, sx.$, sx._);
 JS
-);
+        );
 
         return parent::renderHeaderCellContent();
     }

@@ -5,7 +5,9 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 02.06.2015
  */
+
 namespace skeeks\cms\modules\admin\traits;
+
 use yii\helpers\Json;
 use yii\jui\Sortable;
 use yii\widgets\Pjax;
@@ -21,26 +23,23 @@ trait GridViewSortableTrait
      * Включить возможность сортировки (таскать tr таблицы вверх вниз)
      * @var bool
      */
-    public $sortable            = false;
+    public $sortable = false;
 
-    public $sortableOptions     = [
+    public $sortableOptions = [
         'backend' => ''
     ];
 
     public function registerSortableJs()
     {
         $pjaxId = '';
-        if (property_exists($this, 'pjax'))
-        {
+        if (property_exists($this, 'pjax')) {
             $pjax = $this->pjax;
-            if ($pjax && ($pjax instanceof Pjax))
-            {
+            if ($pjax && ($pjax instanceof Pjax)) {
                 $pjaxId = $pjax->id;
             }
         }
 
-        if ($this->sortable)
-        {
+        if ($this->sortable) {
             Sortable::widget();
 
             $options = $this->sortableOptions;
@@ -53,7 +52,7 @@ trait GridViewSortableTrait
                 cursor: move;
             }
 Css
-        );
+            );
             $this->view->registerJs(<<<JS
             (function(sx, $, _)
             {
@@ -145,7 +144,7 @@ Css
                 new sx.classes.TableSortable('#{$this->id}', {$sortableOptions});
             })(sx, sx.$, sx._);
 JS
-);
+            );
         }
     }
 }

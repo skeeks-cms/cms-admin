@@ -3,6 +3,7 @@ CHANGELOG
 
 2.0.5.pre
 -----------------
+ * Code style
  * Removed assets
  
 2.0.4

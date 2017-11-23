@@ -5,7 +5,9 @@
  * @copyright (c) 2010 SkeekS
  * @date 16.03.2017
  */
+
 namespace skeeks\cms\modules\admin\actions;
+
 use skeeks\cms\backend\ViewBackendAction;
 
 /**

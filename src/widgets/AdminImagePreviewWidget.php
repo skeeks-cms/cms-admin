@@ -8,7 +8,6 @@
 
 namespace skeeks\cms\modules\admin\widgets;
 
-use skeeks\cms\mail\helpers\Html;
 use skeeks\cms\models\CmsStorageFile;
 use yii\base\Widget;
 
@@ -22,22 +21,22 @@ class AdminImagePreviewWidget extends Widget
     /**
      * @var string
      */
-    public $maxWidth        = "50px";
+    public $maxWidth = "50px";
 
     public function run()
     {
-        if ($this->image)
-        {
-            $originalSrc    = $this->image->src;
-            $src            = \Yii::$app->imaging->getImagingUrl($this->image->src, new \skeeks\cms\components\imaging\filters\Thumbnail());
-        } else
-        {
-            $src            = \Yii::$app->cms->noImageUrl;
-            $originalSrc    = $src;
+        if ($this->image) {
+            $originalSrc = $this->image->src;
+            $src = \Yii::$app->imaging->getImagingUrl($this->image->src,
+                new \skeeks\cms\components\imaging\filters\Thumbnail());
+        } else {
+            $src = \Yii::$app->cms->noImageUrl;
+            $originalSrc = $src;
         }
 
 
-        return "<a href='" . $originalSrc . "' class='sx-fancybox sx-img-link-hover' title='".\Yii::t('skeeks/cms','Increase')."' data-pjax='0'>
+        return "<a href='" . $originalSrc . "' class='sx-fancybox sx-img-link-hover' title='" . \Yii::t('skeeks/cms',
+                'Increase') . "' data-pjax='0'>
                     <img src='" . $src . "' style='width: " . $this->maxWidth . ";' />
                 </a>";
     }

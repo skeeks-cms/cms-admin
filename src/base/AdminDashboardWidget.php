@@ -5,6 +5,7 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 18.02.2016
  */
+
 namespace skeeks\cms\modules\admin\base;
 
 use skeeks\cms\base\ConfigFormInterface;
@@ -35,22 +36,21 @@ class AdminDashboardWidget extends Model implements ViewContextInterface, Config
      * @param ActiveForm|null $form
      */
     public function renderConfigForm(ActiveForm $form)
-    {}
+    {
+    }
 
     /**
      * @var null Файл в котором будет реднериться виджет
      */
-    public $viewFile    = "default";
+    public $viewFile = "default";
 
     public function run()
     {
-        if ($this->viewFile)
-        {
+        if ($this->viewFile) {
             echo $this->render($this->viewFile, [
                 'widget' => $this
             ]);
-        } else
-        {
+        } else {
             return \Yii::t('skeeks/admin', "Template not found");
         }
     }

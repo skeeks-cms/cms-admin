@@ -9,15 +9,6 @@
 namespace skeeks\cms\modules\admin\traits;
 
 use skeeks\cms\components\Cms;
-use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
-use skeeks\widget\chosen\Chosen;
-use yii\base\Model;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
-use skeeks\cms\modules\admin\widgets\Pjax;
-use yii\helpers\Json;
-use yii\helpers\Url;
-use yii\widgets\ActiveField;
 
 /**
  * Class AdminActiveFormTrait
@@ -33,12 +24,10 @@ trait AdminModelEditorStandartControllerTrait
      */
     public function eachMultiActivate($model, $action)
     {
-        try
-        {
+        try {
             $model->active = Cms::BOOL_Y;
             return $model->save(false);
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return false;
         }
     }
@@ -50,12 +39,10 @@ trait AdminModelEditorStandartControllerTrait
      */
     public function eachMultiInActivate($model, $action)
     {
-        try
-        {
+        try {
             $model->active = Cms::BOOL_N;
             return $model->save(false);
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return false;
         }
     }

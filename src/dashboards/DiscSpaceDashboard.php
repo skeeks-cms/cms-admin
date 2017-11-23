@@ -8,13 +8,9 @@
 
 namespace skeeks\cms\modules\admin\dashboards;
 
-use skeeks\cms\base\Widget;
-use skeeks\cms\base\WidgetRenderable;
 use skeeks\cms\modules\admin\base\AdminDashboardWidget;
 use skeeks\cms\modules\admin\base\AdminDashboardWidgetRenderable;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
-use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 
 /**
@@ -30,18 +26,18 @@ class DiscSpaceDashboard extends AdminDashboardWidget
         ]);
     }
 
-    public $viewFile    = 'disc-space';
+    public $viewFile = 'disc-space';
     public $name;
 
     public function init()
     {
         parent::init();
 
-        if (!$this->name)
-        {
+        if (!$this->name) {
             $this->name = \Yii::t('skeeks/cms', 'Disk space');
         }
     }
+
     /**
      * @return array
      */
@@ -55,7 +51,7 @@ class DiscSpaceDashboard extends AdminDashboardWidget
     public function attributeLabels()
     {
         return ArrayHelper::merge(parent::attributeLabels(), [
-            'name'                           => \Yii::t('skeeks/cms', 'Name'),
+            'name' => \Yii::t('skeeks/cms', 'Name'),
         ]);
     }
 

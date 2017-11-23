@@ -38,7 +38,7 @@ class BlockTitleWidget extends Widget
     margin-bottom: 5px;
 }
 CSS
-);
+        );
         Html::addCssClass($this->options, 'sx-admin-block-title');
         echo Html::tag('div', $this->content, $this->options);
     }

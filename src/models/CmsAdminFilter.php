@@ -6,7 +6,6 @@ use skeeks\cms\models\behaviors\Implode;
 use skeeks\cms\models\behaviors\Serialize;
 use skeeks\cms\models\CmsUser;
 use Yii;
-use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "cms_admin_filter".
@@ -66,10 +65,6 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
     }
 
 
-
-
-
-
     /**
      * @inheritdoc
      */
@@ -81,9 +76,27 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
             [['values', 'visibles'], 'safe'],
             [['name'], 'string', 'max' => 64],
             [['namespace'], 'string', 'max' => 255],
-            [['cms_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => CmsUser::className(), 'targetAttribute' => ['cms_user_id' => 'id']],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => CmsUser::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => CmsUser::className(), 'targetAttribute' => ['updated_by' => 'id']],
+            [
+                ['cms_user_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => CmsUser::className(),
+                'targetAttribute' => ['cms_user_id' => 'id']
+            ],
+            [
+                ['created_by'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => CmsUser::className(),
+                'targetAttribute' => ['created_by' => 'id']
+            ],
+            [
+                ['updated_by'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => CmsUser::className(),
+                'targetAttribute' => ['updated_by' => 'id']
+            ],
 
             [['cms_user_id'], 'default', 'value' => null],
             [['name'], 'default', 'value' => null],
@@ -119,17 +132,15 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
 
     public function getIsPublic()
     {
-        return (int) ($this->cms_user_id ? 0 : 1);
+        return (int)($this->cms_user_id ? 0 : 1);
     }
 
     public function setIsPublic($value)
     {
-        if ($value)
-        {
-            $this->cms_user_id  = null;
-        } else
-        {
-            $this->cms_user_id  = \Yii::$app->user->id;
+        if ($value) {
+            $this->cms_user_id = null;
+        } else {
+            $this->cms_user_id = \Yii::$app->user->id;
         }
     }
 
@@ -138,8 +149,7 @@ class CmsAdminFilter extends \skeeks\cms\models\Core
      */
     public function getDisplayName()
     {
-        if (!$this->name)
-        {
+        if (!$this->name) {
             return \Yii::t('skeeks/admin', 'Filter');
         }
 

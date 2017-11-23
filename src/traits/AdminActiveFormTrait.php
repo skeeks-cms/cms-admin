@@ -8,14 +8,11 @@
 
 namespace skeeks\cms\modules\admin\traits;
 
-use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\widget\chosen\Chosen;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use skeeks\cms\modules\admin\widgets\Pjax;
 use yii\helpers\Json;
-use yii\helpers\Url;
 use yii\widgets\ActiveField;
 
 /**
@@ -32,48 +29,46 @@ trait AdminActiveFormTrait
     public function buttonsStandart(Model $model, $buttons = ['apply', 'save', 'close'])
     {
         $baseData = [];
-        $baseData['indexUrl'] = ( (\Yii::$app->controller && isset(\Yii::$app->controller->url)) ? \Yii::$app->controller->url : "");
-        if (\Yii::$app->request->referrer)
-        {
+        $baseData['indexUrl'] = ((\Yii::$app->controller && isset(\Yii::$app->controller->url)) ? \Yii::$app->controller->url : "");
+        if (\Yii::$app->request->referrer) {
             $baseData['indexUrl'] = \Yii::$app->request->referrer;
         }
-        $baseData['isEmptyLayout'] = (int) \Yii::$app->admin->isEmptyLayout();
+        $baseData['isEmptyLayout'] = (int)\Yii::$app->admin->isEmptyLayout();
         $baseData['input-id'] = $this->id . '-submit-btn';
 
         $baseDataJson = Json::encode($baseData);
 
         //TODO: пока так
-        if (\Yii::$app->admin->isEmptyLayout())
-        {
+        if (\Yii::$app->admin->isEmptyLayout()) {
             $buttons = ['apply'];
         }
 
         $submit = "";
-        if (in_array("save", $buttons))
-        {
-            $submit     .= Html::submitButton("<i class=\"glyphicon glyphicon-save\"></i> " .  \Yii::t('skeeks/cms', 'Save'), [
-                'class'         => 'btn btn-success',
-                'onclick'       => "return sx.CmsActiveFormButtons.go('save');",
-            ]);
+        if (in_array("save", $buttons)) {
+            $submit .= Html::submitButton("<i class=\"glyphicon glyphicon-save\"></i> " . \Yii::t('skeeks/cms', 'Save'),
+                [
+                    'class' => 'btn btn-success',
+                    'onclick' => "return sx.CmsActiveFormButtons.go('save');",
+                ]);
         }
 
-        if (in_array("apply", $buttons))
-        {
-            $submit .= ' ' . Html::submitButton("<i class=\"glyphicon glyphicon-ok\"></i> " . \Yii::t('skeeks/cms', 'Apply'), [
+        if (in_array("apply", $buttons)) {
+            $submit .= ' ' . Html::submitButton("<i class=\"glyphicon glyphicon-ok\"></i> " . \Yii::t('skeeks/cms',
+                        'Apply'), [
                     'class' => 'btn btn-primary',
                     'onclick' => "return sx.CmsActiveFormButtons.go('apply');",
                 ]);
         }
 
-        if (in_array("close", $buttons))
-        {
-            $submit     .= ' ' . Html::submitButton("<i class=\"glyphicon glyphicon-remove\"></i> " .  \Yii::t('skeeks/cms', 'Cancel'), [
-                'class' => 'btn btn-danger pull-right',
-                'onclick'       => "return sx.CmsActiveFormButtons.go('close');",
-            ]);
+        if (in_array("close", $buttons)) {
+            $submit .= ' ' . Html::submitButton("<i class=\"glyphicon glyphicon-remove\"></i> " . \Yii::t('skeeks/cms',
+                        'Cancel'), [
+                    'class' => 'btn btn-danger pull-right',
+                    'onclick' => "return sx.CmsActiveFormButtons.go('close');",
+                ]);
         }
 
-        $submit     .= Html::hiddenInput("submit-btn", 'apply', [
+        $submit .= Html::hiddenInput("submit-btn", 'apply', [
             'id' => $baseData['input-id']
         ]);
 
@@ -112,7 +107,7 @@ trait AdminActiveFormTrait
         sx.CmsActiveFormButtons = new sx.classes.CmsActiveFormButtons({$baseDataJson});
     })(sx, sx.$, sx._);
 JS
-);
+        );
         return Html::tag('div',
             $submit,
             ['class' => 'form-group sx-buttons-standart']
@@ -137,14 +132,12 @@ JS
             ['allowDeselect' => false],
             $config,
             [
-                'items'         => $items,
+                'items' => $items,
             ]
         );
 
-        foreach ($config as $key => $value)
-        {
-            if (property_exists(Chosen::className(), $key) === false)
-            {
+        foreach ($config as $key => $value) {
+            if (property_exists(Chosen::className(), $key) === false) {
                 unset($config[$key]);
             }
         }

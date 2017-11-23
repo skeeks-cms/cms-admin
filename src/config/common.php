@@ -4,9 +4,9 @@ return [
     'components' => [
 
         'admin' =>
-        [
-            'class' => '\skeeks\cms\modules\admin\components\settings\AdminSettings'
-        ],
+            [
+                'class' => '\skeeks\cms\modules\admin\components\settings\AdminSettings'
+            ],
     ],
 
 ];

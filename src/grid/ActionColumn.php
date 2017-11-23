@@ -8,6 +8,7 @@
  * @date 30.10.2014
  * @since 1.0.0
  */
+
 namespace skeeks\cms\modules\admin\grid;
 
 use skeeks\cms\backend\widgets\DropdownControllerActionsWidget;
@@ -23,14 +24,14 @@ use yii\grid\DataColumn;
  */
 class ActionColumn extends DataColumn
 {
-    public $filter          = false;
+    public $filter = false;
 
     /**
      * @var AdminModelEditorController
      */
-    public $controller              = null;
-    public $isOpenNewWindow         = null;
-    public $clientOptions           = [];
+    public $controller = null;
+    public $isOpenNewWindow = null;
+    public $clientOptions = [];
 
     /**
      * @inheritdoc
@@ -39,13 +40,11 @@ class ActionColumn extends DataColumn
     {
         parent::init();
 
-        if (!$this->controller)
-        {
-            throw new InvalidConfigException("controller - " .\Yii::t('skeeks/cms',"not specified").".");
+        if (!$this->controller) {
+            throw new InvalidConfigException("controller - " . \Yii::t('skeeks/cms', "not specified") . ".");
         }
 
-        if (!$this->controller instanceof AdminModelEditorController)
-        {
+        if (!$this->controller instanceof AdminModelEditorController) {
             //TODO::need interface
             //throw new InvalidConfigException(\Yii::t('skeeks/cms',"{controller} must be inherited from") . ": " . AdminModelEditorController::className());
         }
@@ -58,8 +57,7 @@ class ActionColumn extends DataColumn
     {
         //print_r($this->grid->pjax);die;
         //Строемся в гриде который использует pjax
-        if ($this->grid->pjax)
-        {
+        if ($this->grid->pjax) {
             $this->clientOptions['pjax-id'] = $this->grid->pjax->options['id'];
         }
 
@@ -69,9 +67,9 @@ class ActionColumn extends DataColumn
         $this->gridDoubleClickAction();
 
         return DropdownControllerActionsWidget::widget([
-            "actions"               => $controller->modelActions,
-            "isOpenNewWindow"       => $this->isOpenNewWindow,
-            "clientOptions"         => $this->clientOptions,
+            "actions" => $controller->modelActions,
+            "isOpenNewWindow" => $this->isOpenNewWindow,
+            "clientOptions" => $this->clientOptions,
         ]);
     }
 
@@ -79,8 +77,7 @@ class ActionColumn extends DataColumn
 
     protected function gridDoubleClickAction()
     {
-        if (!isset(self::$grids[$this->grid->id]))
-        {
+        if (!isset(self::$grids[$this->grid->id])) {
             $this->grid->view->registerJs(<<<JS
             $('tr', $("#{$this->grid->id}")).on('dblclick', function()
             {
