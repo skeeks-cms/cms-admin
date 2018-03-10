@@ -34,6 +34,7 @@ use yii\web\JsExpression;
  * Расширенный грид, с настройками.
  *
  * @property GridViewSettings $settings
+ * @depricated
  *
  * Class GridView
  * @package skeeks\cms\modules\admin\widgets

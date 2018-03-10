@@ -17,6 +17,7 @@ use yii\helpers\Json;
 
 /**
  * @property string $gridJsObject
+ * @deprecated
  *
  * Class GridViewStandart
  * @package skeeks\cms\modules\admin\widgets
