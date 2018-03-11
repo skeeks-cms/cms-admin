@@ -20,6 +20,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 /**
+ * @depricated
+ *
  * Class ActiveForm
  * @package skeeks\cms\modules\admin\widgets
  */
