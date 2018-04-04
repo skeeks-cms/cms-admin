@@ -63,8 +63,6 @@ class GridViewHasSettings extends GridView
 
     public function init()
     {
-
-
         $this->_initGridSettings();
         $this->_applyDataProvider();
 

@@ -16,6 +16,8 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 
 /**
+ * @deprecated
+ *
  * Class ActiveFormUseTab
  * @package skeeks\cms\modules\admin\widgets\form
  */
