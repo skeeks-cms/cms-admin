@@ -113,7 +113,7 @@ class ModelEditorGridAction extends AdminAction
      * @param string $viewName view name
      * @return string result of the rendering
      */
-    protected function render($viewName)
+    protected function render($viewName, $params = [])
     {
         $result = '';
 

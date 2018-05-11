@@ -12,8 +12,8 @@
 
         _init: function()
         {
-            this.CheckFullAll   = new sx.classes.grid.CheckFullAll(this);
-            this.CheckAll       = new sx.classes.grid.CheckAll(this);
+            /*this.CheckFullAll   = new sx.classes.grid.CheckFullAll(this);
+            this.CheckAll       = new sx.classes.grid.CheckAll(this);*/
 
             this.Actions        = new sx.classes.Entity();
         },
@@ -51,6 +51,9 @@
             this.JQueryGrid                 = $("#" + this.get('id'));
             this.JQueryMultiBtnsWrapper     = $(".sx-grid-multi-controlls");
 
+            this.CheckFullAll   = new sx.classes.grid.CheckFullAll(this);
+            this.CheckAll       = new sx.classes.grid.CheckAll(this);
+
             this.JQueryMultiBtns = $('.sx-grid-multi-btn', this.JQueryMultiBtnsWrapper);
 
             this.JQueryMultiBtns.on('click', function()
@@ -71,7 +74,9 @@
                 return this;
             });
 
-            self.updateMultiBtns();
+            _.delay(function() {
+                self.updateMultiBtns();
+            }, 200);
         },
 
         updateMultiBtns: function()
@@ -272,7 +277,7 @@
             var self = this;
 
             this.JQueryCheckboxAll = $(".select-on-check-all", this.Grid.JQueryGrid);
-            this.JQueryCheckbox = $(".sx-admin-grid-checkbox", this.Grid.JQueryGrid);
+            this.JQueryCheckbox = $(".sx-grid-checkbox", this.Grid.JQueryGrid);
             this.JQueryCheckbox.on("change", function()
             {
                 self.trigger("change");
@@ -292,6 +297,7 @@
          */
         getValue: function()
         {
+            console.log(this.JQueryCheckbox);
             var result = [];
             this.JQueryCheckbox.each(function(e, data)
             {

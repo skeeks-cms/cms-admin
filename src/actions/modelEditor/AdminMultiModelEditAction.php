@@ -32,6 +32,8 @@ use \skeeks\cms\modules\admin\controllers\AdminController;
  *
  * Class AdminModelsGridAction
  * @package skeeks\cms\modules\admin\actions
+ *
+ * @deprecated
  */
 class AdminMultiModelEditAction extends AdminAction
     implements IBackendModelMultiAction
@@ -115,15 +117,14 @@ class AdminMultiModelEditAction extends AdminAction
      * @param GridView $grid
      * @return string
      */
-    public function registerForGrid(GridViewStandart $grid)
+    public function registerForGrid($grid)
     {
-
         $clientOptions = Json::encode($this->getClientOptions());
 
         $grid->view->registerJs(<<<JS
 (function(sx, $, _)
 {
-    new sx.classes.grid.MultiAction({$grid->gridJsObject}, '{$this->id}' ,{$clientOptions});
+    new sx.classes.grid.MultiAction(sx.Grid{$grid->id}, '{$this->id}' ,{$clientOptions});
 })(sx, sx.$, sx._);
 JS
 );

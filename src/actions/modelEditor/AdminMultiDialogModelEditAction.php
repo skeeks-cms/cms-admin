@@ -40,7 +40,7 @@ class AdminMultiDialogModelEditAction extends AdminMultiModelEditAction
      * @param GridView $grid
      * @return string
      */
-    public function registerForGrid(GridViewStandart $grid)
+    public function registerForGrid($grid)
     {
         $dialogId = $this->getGridActionId($grid);
 
