@@ -9,6 +9,8 @@ namespace skeeks\cms\modules\admin\components;
 /**
  * Class Storage
  * @package skeeks\cms\components
+ * @deprecated
+ *
  */
 class UrlRule
     extends \yii\web\UrlRule

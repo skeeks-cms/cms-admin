@@ -1,7 +1,7 @@
 CHANGELOG
 ==============
 
-2.0.5.pre
+2.0.5
 -----------------
  * Code style
  * Removed assets
