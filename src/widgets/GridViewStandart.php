@@ -199,6 +199,8 @@ CSS
          * @var $model \skeeks\cms\models\CmsContentElement
          */
         if ($relatedPropertiesModel) {
+            $relatedPropertiesModel->initAllProperties();
+
             foreach ($relatedPropertiesModel->toArray($relatedPropertiesModel->attributes()) as $name => $value) {
 
 
