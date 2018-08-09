@@ -118,6 +118,11 @@
 
             _.delay(function()
             {
+                if (self.JQueryGrid.closest("[data-pjax-container]").length > 0) {
+                    $.pjax.reload('#' + self.JQueryGrid.closest("[data-pjax-container]").attr("id"), {});
+                    return true;
+                }
+
                 if (self.get('enabledPjax'))
                 {
                     var pjaxId = self.get('pjaxId');
@@ -263,7 +268,7 @@
             {
                 sx.notify.error(response.errorThrown + '. Обратитесь к разарботчикам');
                 self.Grid.getBlocker().unblock();
-                self.Grid.reload();
+                //self.Grid.reload();
             });
 
             return this.ajax;

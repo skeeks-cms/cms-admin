@@ -122,7 +122,7 @@ JS
      * @param GridViewStandart $grid
      * @return string
      */
-    public function getGridActionId(GridViewStandart $grid)
+    public function getGridActionId($grid)
     {
         return $grid->id . "-" . $this->id;
     }
