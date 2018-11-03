@@ -74,11 +74,11 @@ $controller = \Yii::$app->createController('/cms/admin-cms-content-element')[0];
     <div class="col-md-12">
         <div class="sx-content-element-list-controlls">
             <a href="<?= \skeeks\cms\helpers\UrlHelper::construct(['/cms/admin-cms-content-element', 'content_id' => $contentId])?>" data-pjax="0" class="btn btn-primary">
-                <i class="glyphicon glyphicon-th-list"></i> <?/*= $content->name_meny */?> Все записи
+                <i class="fa fa-list"></i> <?/*= $content->name_meny */?> Все записи
             </a>
 
             <a href="<?= \skeeks\cms\helpers\UrlHelper::construct(['/cms/admin-cms-content-element/create', 'content_id' => $contentId])?>" data-pjax="0" class="btn btn-primary">
-                <i class="glyphicon glyphicon-plus"></i> <?/*= $content->name_meny */?> Добавить
+                <i class="fa fa-plus"></i> <?/*= $content->name_meny */?> Добавить
             </a>
         </div>
     </div>

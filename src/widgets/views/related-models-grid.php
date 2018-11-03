@@ -41,7 +41,7 @@ JS
              'namespace' => $widget->namespace
         ],
         'beforeTableLeft' => <<<HTML
-        <a class="btn btn-default btn-sm" onclick="{$onclick}"><i class="glyphicon glyphicon-plus"></i>{$add}</a>
+        <a class="btn btn-default btn-sm" onclick="{$onclick}"><i class="fa fa-plus"></i>{$add}</a>
 HTML
 
     ], $gridOptions)); ?>

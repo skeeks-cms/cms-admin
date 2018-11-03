@@ -251,7 +251,7 @@ JS
             'style' => 'display: none;'
         ]);
 
-        return '<div class="sx-grid-settings">' . Html::a('<i class="glyphicon glyphicon-cog"></i>',
+        return '<div class="sx-grid-settings">' . Html::a('<i class="fa fa-cog"></i>',
                 $this->settings->getCallableEditUrl(), [
                     'class' => 'btn btn-default btn-sm',
                     'onclick' => new JsExpression(<<<JS

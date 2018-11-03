@@ -78,7 +78,7 @@ JS
 
                 <li>
                     <a href="#<?= $createModal->id; ?>" class="sx-btn-filter-create">
-                        <i class="glyphicon glyphicon-plus"></i>
+                        <i class="fa fa-plus"></i>
                     </a>
                 </li>
             </ul>

@@ -77,7 +77,7 @@ abstract class AdminModelEditorController extends AdminController
                 [
                     'class'         => ModelEditorGridAction::className(),
                     'name'          => \Yii::t('skeeks/cms','List'),
-                    "icon"          => "glyphicon glyphicon-th-list",
+                    "icon"          => "fa fa-list",
                     "priority"      => 10,
                 ],
 
@@ -89,7 +89,7 @@ abstract class AdminModelEditorController extends AdminController
                 [
                     'class'             => AdminMultiModelEditAction::className(),
                     "name"              => \Yii::t('skeeks/cms',"Delete"),
-                    "icon"              => "glyphicon glyphicon-trash",
+                    "icon"              => "fa fa-trash",
                     "confirm"           => \Yii::t('skeeks/cms', 'Are you sure you want to permanently delete the selected items?'),
                     "eachCallback"      => [$this, 'eachMultiDelete'],
                     "priority"          => 99999,
