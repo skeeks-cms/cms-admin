@@ -109,6 +109,7 @@ HTML;
                             'aria-controls' : $(this).attr('id'),
                             'role' : 'tab',
                             'data-toggle' : 'tab',
+                            'class' : 'nav-link',
                         }).append($(this).data('name'));
 
                         Jcontroll.on('click', function()
@@ -118,7 +119,7 @@ HTML;
 
                         var Jli = $("<li>", {
                             'role' : 'presentation',
-                            'class' : 'presentation'
+                            'class' : 'presentation nav-item',
                         }).append(Jcontroll);
 
 
@@ -127,6 +128,7 @@ HTML;
                              if (self.activeTab == $(this).attr('id'))
                             {
                                 Jli.addClass("active");
+                                Jcontroll.addClass("active");
                                 $(this).addClass("active");
                             }
                         } else
@@ -134,6 +136,7 @@ HTML;
                             if (counter == 1)
                             {
                                 Jli.addClass("active");
+                                Jcontroll.addClass("active");
                                 $(this).addClass("active");
                             }
                         }
