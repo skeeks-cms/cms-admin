@@ -31,7 +31,7 @@ class AdminLastActivityAccessControl extends \yii\filters\AccessControl
         $rr = new RequestResponse();
 
         if (!$user->getIsGuest()) {
-            $authUrl = UrlHelper::construct(["/admin/auth/blocked"])->setCurrentRef()->enableAdmin()->createUrl();
+            $authUrl = UrlHelper::construct(["/admin/admin-auth/blocked"])->setCurrentRef()->enableAdmin()->createUrl();
 
             if (\Yii::$app->request->isAjax && !\Yii::$app->request->isPjax) {
                 $rr->redirect = $authUrl;
