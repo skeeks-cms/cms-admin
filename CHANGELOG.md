@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.1.2
+-----------------
+ * yii2 v2.0.16
+
 2.1.1
 -----------------
  * Update icons to fontawesome for bootstrap4
