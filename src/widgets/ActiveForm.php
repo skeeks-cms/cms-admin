@@ -59,22 +59,22 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
     {
         if ($classes = ArrayHelper::getValue($this->options, 'class')) {
             $this->options = ArrayHelper::merge($this->options, [
-                'class' => $classes . ' sx-form-admin'
+                'class' => $classes.' sx-form-admin',
             ]);
         } else {
             $this->options = ArrayHelper::merge($this->options, [
-                'class' => 'sx-form-admin'
+                'class' => 'sx-form-admin',
             ]);
         }
 
         if ($this->usePjax) {
             Pjax::begin(ArrayHelper::merge([
-                'id' => 'sx-pjax-form-' . $this->id,
+                'id'              => 'sx-pjax-form-'.$this->id,
                 'enablePushState' => false,
             ], $this->pjaxOptions));
 
             $this->options = ArrayHelper::merge($this->options, [
-                'data-pjax' => true
+                'data-pjax' => true,
             ]);
 
             echo \skeeks\cms\modules\admin\widgets\Alert::widget();
@@ -85,10 +85,10 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
 
     public function run()
     {
-
+        $formHtml = parent::run();
 
         $clientOptions = Json::encode([
-            'id' => $this->id,
+            'id'        => $this->id,
             'msg_title' => \Yii::t('skeeks/admin', 'This field is required'),
         ]);
 
@@ -108,11 +108,11 @@ JS
             $this->registerJs();
         }
 
-        if ($this->usePjax) {
-            return parent::run() . Pjax::end();
-        }
+        echo $formHtml;
 
-        return parent::run();
+        if ($this->usePjax) {
+            Pjax::end();
+        }
     }
 
 
