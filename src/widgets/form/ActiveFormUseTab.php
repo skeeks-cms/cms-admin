@@ -158,11 +158,11 @@ HTML;
 JS
 );
 
-        echo <<<HTML
+        $html = <<<HTML
             </div>
         </div>
 HTML;
 
-        return parent::run();
+        return $html . parent::run();
     }
 }

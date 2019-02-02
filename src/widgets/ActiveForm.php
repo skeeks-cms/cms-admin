@@ -109,7 +109,7 @@ JS
         }
 
         if ($this->usePjax) {
-            Pjax::end();
+            return parent::run() . Pjax::end();
         }
 
         return parent::run();
