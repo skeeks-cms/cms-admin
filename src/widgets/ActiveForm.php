@@ -103,7 +103,6 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
 JS
         );
 
-
         if ($this->useAjaxSubmit) {
             $this->registerJs();
         }
