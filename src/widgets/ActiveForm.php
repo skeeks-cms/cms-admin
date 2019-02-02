@@ -85,7 +85,7 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
 
     public function run()
     {
-        parent::run();
+
 
         $clientOptions = Json::encode([
             'id' => $this->id,
@@ -111,6 +111,8 @@ JS
         if ($this->usePjax) {
             Pjax::end();
         }
+
+        return parent::run();
     }
 
 

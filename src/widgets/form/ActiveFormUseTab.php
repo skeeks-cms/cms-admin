@@ -163,6 +163,6 @@ JS
         </div>
 HTML;
 
-        parent::run();
+        return parent::run();
     }
 }
