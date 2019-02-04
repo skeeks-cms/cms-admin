@@ -53,5 +53,5 @@ JS
         <button style="display: none;"></button>
     <? \skeeks\cms\base\widgets\ActiveFormAjaxSubmit::end(); ?>
 
-<? \yii\bootstrap\Modal::end();?>
+<? $updateModal::end();?>
 
