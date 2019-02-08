@@ -91,7 +91,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
             ]);
         }
 
-        echo $this->render('_header');
+
 
         parent::init();
 
@@ -203,15 +203,33 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
     public function run()
     {
 
+        $result = $this->render('_header');
+
         $closeUrl = $this->indexUrl;
 
-        echo Html::hiddenInput($this->filterParametrName, $this->filter->id);
+        $result .= Html::hiddenInput($this->filterParametrName, $this->filter->id);
 
-        echo $this->render('_footer-group');
 
-        parent::run();
+        //$result .= parent::run();
 
-        echo <<<HTML
+        if (!empty($this->_fields)) {
+            throw new InvalidCallException('Each beginField() should have a matching endField() call.');
+        }
+
+        $content = ob_get_clean();
+        $result .= Html::beginForm($this->action, $this->method, $this->options);
+        $result .= $content;
+
+        if ($this->enableClientScript) {
+            $this->registerClientScript();
+        }
+        $result .= $this->render('_footer-group');
+
+        $result .= Html::endForm();
+
+
+
+        $result .= <<<HTML
 
                 </div>
             </div>
@@ -221,7 +239,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
 HTML;
 ;
 
-        echo $this->render('_edit-filter-form');
+        $result .=  $this->render('_edit-filter-form');
 
         AdminFiltersFormAsset::register($this->view);
 
@@ -241,6 +259,8 @@ HTML;
         new sx.classes.filters.Form({$jsOptions});
 JS
 );
+
+        return $result;
     }
 
 
