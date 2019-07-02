@@ -148,8 +148,15 @@
          */
         getDataForRequest: function()
         {
-            var data = {"all": this.CheckFullAll.getValue()};
-            data[this.get('requestPkParamName', 'pk')] = this.CheckAll.getValue();
+            if (this.CheckFullAll.isChecked()) {
+                //Выбрано все
+                var data = {};
+                data[this.get('requestPkParamName', 'pk')] = this.CheckFullAll.getValue();
+            } else {
+                //Только отмеченные
+                var data = {};
+                data[this.get('requestPkParamName', 'pk')] = this.CheckAll.getValue();
+            }
 
             return data;
         }
@@ -334,6 +341,8 @@
         {
             var self = this;
 
+            this.selectedIds = [];
+
             this.JQueryCheckbox = $(".sx-select-full-all", this.Grid.JQueryGrid);
             this.JQueryCheckbox.on('change', function()
             {
@@ -349,7 +358,20 @@
                         },
                         'yes': function(e, data)
                         {
+                            //Собираются id записей
                             self.JQueryCheckbox.attr("checked", "checked");
+                            var AjaxQuery = sx.ajax.preparePostQuery();
+                            AjaxQuery.setData({
+                                '__gird-all-ids' : '__gird-all-ids'
+                            });
+                            AjaxQuery.on('success', function(e, data) {
+                                sx.notify.success('Всего выборано: ' + data.response.message.total);
+                                self.selectedIds = data.response.message.pks;
+                            });
+                            AjaxQuery.on('error', function(e, data) {
+                                sx.notify.error('Ошибка выборки');
+                            });
+                            AjaxQuery.execute();
                         }
                     });
                 } else {
@@ -373,12 +395,13 @@
          */
         getValue: function()
         {
-            if (this.isChecked())
+            return this.selectedIds;
+            /*if (this.isChecked())
             {
                 return 1;
             }
 
-            return 0;
+            return 0;*/
         }
     });
 

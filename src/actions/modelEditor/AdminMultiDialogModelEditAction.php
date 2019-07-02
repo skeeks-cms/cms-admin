@@ -67,9 +67,9 @@ class AdminMultiDialogModelEditAction extends AdminMultiModelEditAction
 
             $('form', this.jDialog).on('submit', function()
             {
-                var data = _.extend(self.Grid.getDataForRequest(), {
+                var data = _.extend({
                     'formData' : $(this).serialize()
-                });
+                }, self.Grid.getDataForRequest());
 
                 self.Blocker.block();
 
