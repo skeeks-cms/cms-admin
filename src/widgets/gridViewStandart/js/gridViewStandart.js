@@ -119,12 +119,15 @@
             _.delay(function()
             {
                 if (self.JQueryGrid.closest("[data-pjax-container]").length > 0) {
+                    console.log(self.JQueryGrid.closest("[data-pjax-container]"));
                     $.pjax.reload('#' + self.JQueryGrid.closest("[data-pjax-container]").attr("id"), {});
                     return true;
                 }
 
                 if (self.get('enabledPjax'))
                 {
+                    console.log('2222');
+
                     var pjaxId = self.get('pjaxId');
                     $.pjax.reload('#' + pjaxId, {});
                     return self;
@@ -340,12 +343,17 @@
                     sx.confirm('Вы уверены что хотите применить действие для ВСЕХ записей в списке, в том числе на других страницах списка, а не только для отмеченных флажками?', {
                         'no': function(e, data)
                         {
-                            ThisJquery.attr("checked", false);
+                            /*ThisJquery.attr("checked", false);*/
+                            self.JQueryCheckbox.attr("checked", false);
                             self.trigger("change");
                         },
                         'yes': function(e, data)
-                        {}
+                        {
+                            self.JQueryCheckbox.attr("checked", "checked");
+                        }
                     });
+                } else {
+                    self.JQueryCheckbox.attr("checked", false);
                 }
 
                 self.trigger("change");
