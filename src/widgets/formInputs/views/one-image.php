@@ -16,7 +16,7 @@
                 <?= \yii\helpers\Html::activeTextInput($widget->model, $widget->attribute, $widget->options); ?>
 
             <? else: ?>
-                <?= \yii\helpers\Html::textInput($widget->id, $widget->attribute, $widget->options); ?>
+                <?= \yii\helpers\Html::textInput($widget->name, $widget->attribute, $widget->options); ?>
             <? endif; ?>
             </div>
             <div class="sx-one-btn col-lg-2 col-md-2 col-sm-2">
