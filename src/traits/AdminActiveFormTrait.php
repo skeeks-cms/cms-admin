@@ -33,20 +33,14 @@ trait AdminActiveFormTrait
         if (\Yii::$app->request->referrer) {
             $baseData['indexUrl'] = \Yii::$app->request->referrer;
         }
-        $baseData['isEmptyLayout'] = (int)\Yii::$app->admin->isEmptyLayout();
         $baseData['input-id'] = $this->id . '-submit-btn';
 
         $baseDataJson = Json::encode($baseData);
 
-        //TODO: пока так
-        if (\Yii::$app->admin->isEmptyLayout()) {
-            $buttons = ['apply'];
-        }
-
         $submit = "";
         if (in_array("save", $buttons)) {
-            $submit .= Html::submitButton("<i class=\"fa fa-check\"></i> " . \Yii::t('skeeks/cms', 'Save'),
-                [
+            $submit .= Html::submitButton("<i class=\"fa fa-check\"></i> " . \Yii::t('skeeks/cms', 'Сохранить и закрыть'),  [
+                    'title' => 'Результат будет сохранен и окно редактирования будет закрыто',
                     'class' => 'btn btn-success',
                     'onclick' => "return sx.CmsActiveFormButtons.go('save');",
                 ]);
@@ -55,6 +49,7 @@ trait AdminActiveFormTrait
         if (in_array("apply", $buttons)) {
             $submit .= ' ' . Html::submitButton("<i class=\"glyphicon glyphicon-ok\"></i> " . \Yii::t('skeeks/cms',
                         'Apply'), [
+                    'title' => 'Результат будет сохранен и вы сможете дальше редактировать данные.',
                     'class' => 'btn btn-primary',
                     'onclick' => "return sx.CmsActiveFormButtons.go('apply');",
                 ]);
@@ -76,24 +71,19 @@ trait AdminActiveFormTrait
     (function(sx, $, _)
     {
         sx.classes.CmsActiveFormButtons = sx.classes.Component.extend({
-
-            _init: function()
-            {},
-
-            _onDomReady: function()
-            {},
-
             go: function(value)
             {
                 if (value == "close")
                 {
-                    if (this.get('isEmptyLayout'))
-                    {
-
+                    if (sx.Window.openerWidget()) {
+                        sx.Window.openerWidget().close();
+                        return false;
                     } else
                     {
                         window.location = this.get('indexUrl');
+                        return false;
                     }
+                    
                     return false;
                 } else
                 {
