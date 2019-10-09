@@ -78,10 +78,6 @@ use yii\helpers\Html;
         'label'                 => \Yii::t('skeeks/admin','Access to edit dashboards'),
     ]); ?>
 
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_USER_FULL_EDIT,
-        'label'                 => \Yii::t('skeeks/admin','The ability to manage user groups'),
-    ]); ?>
 
 
 <?= $form->fieldSetEnd(); ?>
