@@ -11,11 +11,7 @@
 
 namespace yii\web;
 
-use skeeks\cms\modules\admin\components\settings\AdminSettings;
-
 /**
- * @property AdminSettings $admin
- *
  * @property \yii\web\User|UserIde $user
  *
  * Class Application
