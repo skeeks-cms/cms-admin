@@ -291,14 +291,15 @@
         {
             var self = this;
 
-            this.JQueryCheckboxAll = $(".select-on-check-all", this.Grid.JQueryGrid);
-            this.JQueryCheckbox = $(".sx-grid-checkbox", this.Grid.JQueryGrid);
-            this.JQueryCheckbox.on("change", function()
+            //this.JQueryCheckboxAll = $(".select-on-check-all", this.Grid.JQueryGrid);
+            //this.JQueryCheckbox = $(".sx-grid-checkbox", this.Grid.JQueryGrid);
+            
+            this.Grid.JQueryGrid.on("change", ".sx-grid-checkbox", function()
             {
                 self.trigger("change");
             });
 
-            this.JQueryCheckboxAll.on("change", function()
+            this.Grid.JQueryGrid.on("change", ".select-on-check-all", function()
             {
                 _.delay(function()
                 {
@@ -307,14 +308,21 @@
             });
         },
 
+        getJQueryCheckbox: function() {
+            return $(".sx-grid-checkbox", this.Grid.JQueryGrid);
+        },
+        
+        getJQueryCheckboxAll: function() {
+            return $(".select-on-check-all", this.Grid.JQueryGrid);
+        },
+        
         /**
          * @returns {Array}
          */
         getValue: function()
         {
-            console.log(this.JQueryCheckbox);
             var result = [];
-            this.JQueryCheckbox.each(function(e, data)
+            this.getJQueryCheckbox().each(function(e, data)
             {
                 if ($(this).is(":checked"))
                 {
