@@ -7,6 +7,7 @@
  */
 
 namespace skeeks\cms\modules\admin\controllers;
+
 use skeeks\admin\components\AccessControl;
 use skeeks\cms\backend\actions\BackendModelAction;
 use skeeks\cms\backend\actions\BackendModelCreateAction;
@@ -71,34 +72,31 @@ abstract class AdminModelEditorController extends AdminController
      */
     public function actions()
     {
-        return ArrayHelper::merge(parent::actions(),
-            [
-                'index' =>
+        return ArrayHelper::merge(parent::actions(), [
+            'index' => [
+                'class'      => ModelEditorGridAction::className(),
+                'name'       => \Yii::t('skeeks/cms', 'List'),
+                "icon"       => "fa fa-list",
+                "priority"   => 10,
+
+            ],
+
+            "create" => ['class' => BackendModelCreateAction::class],
+            "update" => ['class' => BackendModelUpdateAction::class],
+            "delete" => ['class' => BackendModelDeleteAction::class],
+
+            "delete-multi" =>
                 [
-                    'class'         => ModelEditorGridAction::className(),
-                    'name'          => \Yii::t('skeeks/cms','List'),
-                    "icon"          => "fa fa-list",
-                    "priority"      => 10,
+                    'class'        => AdminMultiModelEditAction::className(),
+                    "name"         => \Yii::t('skeeks/cms', "Delete"),
+                    "icon"         => "fa fa-trash",
+                    "confirm"      => \Yii::t('skeeks/cms', 'Are you sure you want to permanently delete the selected items?'),
+                    "eachCallback" => [$this, 'eachMultiDelete'],
+                    "priority"     => 99999,
                 ],
 
-                "create" => ['class'         => BackendModelCreateAction::class],
-                "update" => ['class'         => BackendModelUpdateAction::class],
-                "delete" => ['class'         => BackendModelDeleteAction::class],
-
-                "delete-multi" =>
-                [
-                    'class'             => AdminMultiModelEditAction::className(),
-                    "name"              => \Yii::t('skeeks/cms',"Delete"),
-                    "icon"              => "fa fa-trash",
-                    "confirm"           => \Yii::t('skeeks/cms', 'Are you sure you want to permanently delete the selected items?'),
-                    "eachCallback"      => [$this, 'eachMultiDelete'],
-                    "priority"          => 99999,
-                ],
-
-            ]
-        );
+        ]);
     }
-
 
 
     /**
@@ -110,16 +108,13 @@ abstract class AdminModelEditorController extends AdminController
         $data[] = \Yii::$app->name;
         $data[] = $this->name;
 
-        if ($this->model)
-        {
-            if ($this->action instanceof IBackendModelAction)
-            {
+        if ($this->model) {
+            if ($this->action instanceof IBackendModelAction) {
                 $data[] = $this->model->{$this->modelShowAttribute};
             }
         }
 
-        if ($this->action && property_exists($this->action, 'name'))
-        {
+        if ($this->action && property_exists($this->action, 'name')) {
             $data[] = $this->action->name;
         }
 
@@ -136,11 +131,9 @@ abstract class AdminModelEditorController extends AdminController
      */
     public function eachMultiDelete($model, $action)
     {
-        try
-        {
+        try {
             return $model->delete();
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return false;
         }
     }
@@ -153,22 +146,18 @@ abstract class AdminModelEditorController extends AdminController
      */
     public function actionSortablePriority()
     {
-        if (\Yii::$app->request->isAjax && \Yii::$app->request->isPost)
-        {
+        if (\Yii::$app->request->isAjax && \Yii::$app->request->isPost) {
             \Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if ($keys = \Yii::$app->request->post('keys'))
-            {
+            if ($keys = \Yii::$app->request->post('keys')) {
                 //$counter = count($keys);
 
-                foreach ($keys as $counter => $key)
-                {
+                foreach ($keys as $counter => $key) {
                     $priority = ($counter + 1) * 1000;
 
                     $modelClassName = $this->modelClassName;
                     $model = $modelClassName::findOne($key);
-                    if ($model)
-                    {
+                    if ($model) {
                         $model->priority = $priority;
                         $model->save(false);
                     }
@@ -179,7 +168,7 @@ abstract class AdminModelEditorController extends AdminController
 
             return [
                 'success' => true,
-                'message' => \Yii::t('skeeks/cms','Changes saved'),
+                'message' => \Yii::t('skeeks/cms', 'Changes saved'),
             ];
         }
     }

@@ -10,7 +10,5 @@
 /* @var $dataProvider   yii\data\ActiveDataProvider */
 /* @var $controller     \skeeks\cms\modules\admin\controllers\AdminController */
 /* @var $columns        array */
-
 ?>
-
 <?= \skeeks\cms\modules\admin\widgets\GridViewStandart::widget($gridConfig); ?>
