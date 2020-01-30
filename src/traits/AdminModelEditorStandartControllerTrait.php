@@ -11,14 +11,10 @@ namespace skeeks\cms\modules\admin\traits;
 use skeeks\cms\components\Cms;
 
 /**
- * Class AdminActiveFormTrait
- * @package skeeks\cms\modules\admin\traits
- *
  * @deprecated
  */
 trait AdminModelEditorStandartControllerTrait
 {
-
     /**
      * @param $model
      * @param $action
