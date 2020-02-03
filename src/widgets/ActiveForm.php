@@ -36,7 +36,7 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
     public $usePjax = true;
 
     /**
-     * @var bool
+     * @var boolAdtiveFormHasFieldSetsTrait
      */
     public $useAjaxSubmit = false;
     public $afterValidateCallback = "";
