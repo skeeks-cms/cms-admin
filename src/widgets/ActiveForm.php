@@ -98,7 +98,7 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
         $this->view->registerJs(<<<JS
 (function(sx, $, _)
 {
-    new sx.classes.forms.AdminForm({$clientOptions});
+    /*new sx.classes.forms.AdminForm({$clientOptions});*/
 })(sx, sx.$, sx._);
 JS
         );
@@ -122,13 +122,6 @@ JS
      */
     public function buttonsCreateOrUpdate(Model $model)
     {
-        /*if (Validate::validate(new IsNewRecord(), $model)->isValid())
-        {
-            $submit = Html::submitButton("<i class=\"fa fa-checkd\"></i> " . \Yii::t('skeeks/cms', 'Create'), ['class' => 'btn btn-success']);
-        } else
-        {
-            $submit = Html::submitButton("<i class=\"fa fa-checkd\"></i> " .  \Yii::t('skeeks/cms', 'Update'), ['class' => 'btn btn-primary']);
-        }*/
         return $this->buttonsStandart($model);
     }
 
