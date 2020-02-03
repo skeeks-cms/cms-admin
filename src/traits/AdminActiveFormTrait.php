@@ -16,6 +16,8 @@ use yii\helpers\Json;
 use yii\widgets\ActiveField;
 
 /**
+ * @deprecated
+ * 
  * Class AdminActiveFormTrait
  * @package skeeks\cms\modules\admin\traits
  */
