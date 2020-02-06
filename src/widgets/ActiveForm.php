@@ -12,6 +12,7 @@
 namespace skeeks\cms\modules\admin\widgets;
 
 use skeeks\cms\admin\assets\AdminFormAsset;
+use skeeks\cms\forms\TActiveFormDynamicReload;
 use skeeks\cms\modules\admin\traits\ActiveFormTrait;
 use skeeks\cms\modules\admin\traits\AdminActiveFormTrait;
 use skeeks\cms\traits\ActiveFormAjaxSubmitTrait;
@@ -29,6 +30,7 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
 {
     use AdminActiveFormTrait;
     use ActiveFormAjaxSubmitTrait;
+    use TActiveFormDynamicReload;
 
     /**
      * @var bool
@@ -79,6 +81,8 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
 
             echo \skeeks\cms\modules\admin\widgets\Alert::widget();
         }
+        
+        $this->_initDynamicReload();
 
         parent::init();
     }
