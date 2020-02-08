@@ -40,6 +40,6 @@ class BlockTitleWidget extends Widget
 CSS
         );
         Html::addCssClass($this->options, 'sx-admin-block-title');
-        echo Html::tag('div', $this->content, $this->options);
+        return Html::tag('div', $this->content, $this->options);
     }
 }
