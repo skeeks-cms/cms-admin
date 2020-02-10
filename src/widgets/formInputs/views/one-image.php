@@ -8,35 +8,42 @@
 /* @var $this yii\web\View */
 /* @var $widget \skeeks\cms\modules\admin\widgets\formInputs\OneImage */
 ?>
-<div class="row" id="<?= $widget->id; ?>">
-    <div class="col-lg-12">
-        <div class="row">
-            <div class="sx-one-input col-lg-8 col-md-8 col-sm-8">
-            <? if ($widget->model) : ?>
-                <?= \yii\helpers\Html::activeTextInput($widget->model, $widget->attribute, $widget->options); ?>
+    <div class="row" id="<?= $widget->id; ?>">
+        <div class="col-lg-12">
+            <div class="sx-one-input pull-left">
+                <? if ($widget->model) : ?>
+                    <?= \yii\helpers\Html::activeTextInput($widget->model, $widget->attribute, $widget->options); ?>
 
-            <? else: ?>
-                <?= \yii\helpers\Html::textInput($widget->name, $widget->attribute, $widget->options); ?>
-            <? endif; ?>
+                <? else: ?>
+                    <?= \yii\helpers\Html::textInput($widget->name, $widget->attribute, $widget->options); ?>
+                <? endif; ?>
             </div>
-            <div class="sx-one-btn col-lg-2 col-md-2 col-sm-2">
-                <a class="btn btn-default sx-btn-create-file-manager"><i class="glyphicon glyphicon-download-alt"></i> <?=\Yii::t('skeeks/cms','Choose file')?></a>
-            </div>
-
-            <div class="sx-one-image col-lg-1 col-md-1 col-sm-1" <?= !$widget->showPreview ? "style='display: none;'": ""?>>
-                <a href="" class="sx-fancybox" data-pjax="0" target="_blank">
-                    <img src="" />
+            <div class="pull-left" style="width: 210px;">
+                <a class="btn u-btn-brown sx-btn-create-file-manager pull-left">
+                    <i class="fas fa-download"></i> <?= \Yii::t('skeeks/cms', 'Choose file') ?>
                 </a>
+
+                <div class="sx-one-image pull-left" <?= !$widget->showPreview ? "style='display: none;'" : "" ?>>
+                    <a href="" class="sx-fancybox" data-pjax="0" target="_blank">
+                        <img src=""/>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 <?
 $jsonOptions = $widget->getJsonOptions();
 $this->registerCss(<<<CSS
+.sx-one-image, .sx-btn-create-file-manager {
+    margin-left: 10px;
+}
+.sx-one-input {
+    width: calc(100% - 210px);
+}
 .sx-one-image img
 {
-    width: 100%;
+    /*width: 100%;*/
+    max-height: 30px;
 }
 CSS
 );
