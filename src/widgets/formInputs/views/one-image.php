@@ -19,9 +19,9 @@
                 <? endif; ?>
             </div>
             <div class="pull-left" style="width: 210px;">
-                <a class="btn u-btn-brown sx-btn-create-file-manager pull-left">
+                <button class="btn u-btn-brown sx-btn-create-file-manager pull-left">
                     <i class="fas fa-download"></i> <?= \Yii::t('skeeks/cms', 'Choose file') ?>
-                </a>
+                </button>
 
                 <div class="sx-one-image pull-left" <?= !$widget->showPreview ? "style='display: none;'" : "" ?>>
                     <a href="" class="sx-fancybox" data-pjax="0" target="_blank">
