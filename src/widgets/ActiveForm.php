@@ -12,6 +12,7 @@
 namespace skeeks\cms\modules\admin\widgets;
 
 use skeeks\cms\admin\assets\AdminFormAsset;
+use skeeks\cms\backend\forms\TActiveFormHasButtons;
 use skeeks\cms\forms\TActiveFormDynamicReload;
 use skeeks\cms\modules\admin\traits\ActiveFormTrait;
 use skeeks\cms\modules\admin\traits\AdminActiveFormTrait;
@@ -31,6 +32,8 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
     use AdminActiveFormTrait;
     use ActiveFormAjaxSubmitTrait;
     use TActiveFormDynamicReload;
+
+    use TActiveFormHasButtons;
 
     /**
      * @var bool

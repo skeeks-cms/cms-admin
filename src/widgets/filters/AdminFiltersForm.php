@@ -8,30 +8,22 @@
  * @date 11.11.2014
  * @since 1.0.0
  */
+
 namespace skeeks\cms\modules\admin\widgets\filters;
-use skeeks\cms\base\widgets\ActiveFormAjaxSubmit;
+
 use skeeks\cms\helpers\StringHelper;
-use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\models\CmsAdminFilter;
 use skeeks\cms\modules\admin\traits\ActiveFormTrait;
-use skeeks\cms\modules\admin\traits\AdminActiveFormTrait;
-use skeeks\cms\traits\ActiveFormAjaxSubmitTrait;
-use skeeks\widget\chosen\Chosen;
 use yii\base\Exception;
 use yii\base\Model;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Tabs;
-use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use skeeks\cms\modules\admin\widgets\Pjax;
 use yii\helpers\Json;
 use yii\helpers\Url;
-use yii\jui\Dialog;
 
 /**
  * @property CmsAdminFilter[] $savedFilters
- * @property CmsAdminFilter $filter
+ * @property CmsAdminFilter   $filter
  *
  * Class ActiveForm
  * @package skeeks\cms\modules\admin\widgets
@@ -47,7 +39,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
     public $enableClientValidation = false;
 
     public $options = [
-        'data-pjax' => true
+        'data-pjax' => true,
     ];
 
     public $indexUrl = null;
@@ -62,35 +54,29 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
      */
     public function init()
     {
-        if (!$this->namespace)
-        {
+        if (!$this->namespace) {
             $this->namespace = \Yii::$app->controller->uniqueId;
         }
 
-        if (!$this->indexUrl && \Yii::$app->controller && isset(\Yii::$app->controller->url))
-        {
+        if (!$this->indexUrl && \Yii::$app->controller && isset(\Yii::$app->controller->url)) {
             $this->indexUrl = \Yii::$app->controller->url;
         }
 
-        if (!$this->indexUrl)
-        {
+        if (!$this->indexUrl) {
             $this->indexUrl = \Yii::$app->request->url;
         }
 
         $this->filter;
 
-        if ($classes = ArrayHelper::getValue($this->options, 'class'))
-        {
+        if ($classes = ArrayHelper::getValue($this->options, 'class')) {
             $this->options = ArrayHelper::merge($this->options, [
-                'class' => $classes . 'sx-admin-filters-form form-horizontal'
+                'class' => $classes.'sx-admin-filters-form form-horizontal',
             ]);
-        } else
-        {
+        } else {
             $this->options = ArrayHelper::merge($this->options, [
-                'class' => 'sx-admin-filters-form form-horizontal'
+                'class' => 'sx-admin-filters-form form-horizontal',
             ]);
         }
-
 
 
         parent::init();
@@ -108,10 +94,9 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
                 'or',
                 ['cms_user_id' => null],
                 //['cms_user_id' => ''],
-                ['cms_user_id' => \Yii::$app->user->id]
+                ['cms_user_id' => \Yii::$app->user->id],
             ])
-            ->orderBy(['is_default' => SORT_DESC])
-        ;
+            ->orderBy(['is_default' => SORT_DESC]);
 
         return $query->all();
     }
@@ -124,17 +109,13 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
 
     public function getFilter()
     {
-        if ($this->_filter === null || !$this->_filter instanceof CmsAdminFilter)
-        {
+        if ($this->_filter === null || !$this->_filter instanceof CmsAdminFilter) {
             //Find in get params
-            if ($activeFilterId = (int) \Yii::$app->request->get($this->filterParametrName))
-            {
-                if ($filter = CmsAdminFilter::findOne($activeFilterId))
-                {
+            if ($activeFilterId = (int)\Yii::$app->request->get($this->filterParametrName)) {
+                if ($filter = CmsAdminFilter::findOne($activeFilterId)) {
                     $this->_filter = $filter;
                     return $this->_filter;
-                } else
-                {
+                } else {
                     \Yii::$app->response->redirect($this->indexUrl);
                     \Yii::$app->end();
                 }
@@ -145,23 +126,19 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
                 ->where(['namespace' => $this->namespace])
                 ->andWhere(['cms_user_id' => \Yii::$app->user->id])
                 ->andWhere(['is_default' => 1])
-                ->one()
-            ;
+                ->one();
 
-            if (!$filter)
-            {
+            if (!$filter) {
                 $filter = new CmsAdminFilter([
-                    'namespace' => $this->namespace,
+                    'namespace'   => $this->namespace,
                     'cms_user_id' => \Yii::$app->user->id,
-                    'is_default' => 1
+                    'is_default'  => 1,
                 ]);
                 $filter->loadDefaultValues();
 
-                if ($filter->save())
-                {
+                if ($filter->save()) {
 
-                } else
-                {
+                } else {
                     throw new Exception('Filter not saved');
                 }
             }
@@ -181,23 +158,21 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         $query = [];
         $url = $this->indexUrl;
 
-        if ($pos = strpos($url, "?"))
-        {
+        if ($pos = strpos($url, "?")) {
             $url = StringHelper::substr($url, 0, $pos);
             $stringQuery = StringHelper::substr($this->indexUrl, $pos + 1, StringHelper::strlen($this->indexUrl));
             parse_str($stringQuery, $query);
         }
 
-        if ($filter->values)
-        {
-            $query = (array) $filter->values;
+        if ($filter->values) {
+            $query = (array)$filter->values;
             //$query = ArrayHelper::merge((array) $query, (array) $filter->values);
         }
 
         $query[$this->filterParametrName] = $filter->id;
 
 
-        return $url . "?" . http_build_query($query);
+        return $url."?".http_build_query($query);
     }
 
     public function run()
@@ -228,7 +203,6 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         $result .= Html::endForm();
 
 
-
         $result .= <<<HTML
 
                 </div>
@@ -236,29 +210,28 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         </div>
     </div>
 </div>
-HTML;
-;
+HTML;;
 
-        $result .=  $this->render('_edit-filter-form');
+        $result .= $this->render('_edit-filter-form');
 
         AdminFiltersFormAsset::register($this->view);
 
         $jsOptions = Json::encode([
-            'id'                                => $this->id,
-            'createModalId'                     => $this->getCreateModalId(),
-            'backendSaveVisibles'               => Url::to(['/admin/admin-filter/save-visibles', 'pk' => $this->filter->id]),
-            'backendSaveValues'                 => Url::to(['/admin/admin-filter/save-values', 'pk' => $this->filter->id]),
-            'backendDelete'                     => Url::to(['/admin/admin-filter/delete', 'pk' => $this->filter->id]),
-            'visibles'                          => $this->filter->visibles,
-            'indexUrl'                          => $this->indexUrl,
-            'showAllTitle'                      => \Yii::t('skeeks/admin', 'Show all conditions'),
-            'hideAllTitle'                      => \Yii::t('skeeks/admin', 'Hide all conditions'),
+            'id'                  => $this->id,
+            'createModalId'       => $this->getCreateModalId(),
+            'backendSaveVisibles' => Url::to(['/admin/admin-filter/save-visibles', 'pk' => $this->filter->id]),
+            'backendSaveValues'   => Url::to(['/admin/admin-filter/save-values', 'pk' => $this->filter->id]),
+            'backendDelete'       => Url::to(['/admin/admin-filter/delete', 'pk' => $this->filter->id]),
+            'visibles'            => $this->filter->visibles,
+            'indexUrl'            => $this->indexUrl,
+            'showAllTitle'        => \Yii::t('skeeks/admin', 'Show all conditions'),
+            'hideAllTitle'        => \Yii::t('skeeks/admin', 'Hide all conditions'),
         ]);
 
         $this->view->registerJs(<<<JS
         new sx.classes.filters.Form({$jsOptions});
 JS
-);
+        );
 
         return $result;
     }
@@ -266,12 +239,12 @@ JS
 
     public function getEditFilterFormModalId()
     {
-        return $this->id . '-modal-update-filter';
+        return $this->id.'-modal-update-filter';
     }
 
     public function getCreateModalId()
     {
-        return $this->id . '-modal-create-filter';
+        return $this->id.'-modal-create-filter';
     }
 
     public function fieldSet($name, $options = [])
@@ -297,9 +270,9 @@ HTML;
     public $fields = [];
 
     /**
-     * @param Model $model
+     * @param Model  $model
      * @param string $attribute
-     * @param array $options
+     * @param array  $options
      * @return FilterActiveField
      */
     public function field($model, $attribute, $options = [])
@@ -319,7 +292,7 @@ HTML;
     public function relatedFields($searchRelatedPropertiesModel)
     {
         echo $this->render('_related-fields', [
-            'searchRelatedPropertiesModel'     => $searchRelatedPropertiesModel,
+            'searchRelatedPropertiesModel' => $searchRelatedPropertiesModel,
         ]);
     }
 }
