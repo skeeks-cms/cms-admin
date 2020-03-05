@@ -59,6 +59,7 @@ $this->registerJs(<<<JS
 
             sx.EventManager.bind(this.get('callbackEvent'), function(e, data)
             {
+                console.log('111');
                 self.setFile(data.file);
             });
         },
@@ -72,8 +73,9 @@ $this->registerJs(<<<JS
             this.jQueryImage            = $(".sx-one-image img", this.jQuryWrapper());
             this.jQueryImageA           = $(".sx-one-image a", this.jQuryWrapper());
 
-            this.jQueryCreateBtn.on("click", function()
-            {
+            this.jQueryCreateBtn.on("click", function() {
+                console.log(self.jQuryWrapper());
+                console.log($(this));
                 self.createFileManager();
                 return this;
             });
@@ -117,14 +119,19 @@ $this->registerJs(<<<JS
         {
             var self = this;
             
-            this.WindowFileManager = new sx.classes.Window(this.get('selectFileUrl'), 'sx-select-file-manager');
+            var WindowFileManager = new sx.classes.Window(this.get('selectFileUrl'), 'sx-select-file-manager-' + self.get('id'));
             
-            this.WindowFileManager.on('selectFile', function(e, data) {
+            WindowFileManager.on('selectFile', function(e, data) {
                 self.setFile(data.file);
-                self.WindowFileManager.close();
-            })
+                WindowFileManager.close();
+            });
             
-            this.WindowFileManager.open();
+            /*WindowFileManager.on('close', function(e, data) {
+                WindowFileManager.off("selectFile");
+                WindowFileManager.off("close");
+            });*/
+            
+            WindowFileManager.open();
 
             return this;
         },
