@@ -200,6 +200,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         }
         $result .= $this->render('_footer-group');
 
+        
         $result .= Html::endForm();
 
 
@@ -210,7 +211,7 @@ class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
         </div>
     </div>
 </div>
-HTML;;
+HTML;
 
         $result .= $this->render('_edit-filter-form');
 
@@ -218,7 +219,7 @@ HTML;;
 
         $jsOptions = Json::encode([
             'id'                  => $this->id,
-            'createModalId'       => $this->getCreateModalId(),
+            'createModalId'       => $this->id . '-modal-create-filter',
             'backendSaveVisibles' => Url::to(['/admin/admin-filter/save-visibles', 'pk' => $this->filter->id]),
             'backendSaveValues'   => Url::to(['/admin/admin-filter/save-values', 'pk' => $this->filter->id]),
             'backendDelete'       => Url::to(['/admin/admin-filter/delete', 'pk' => $this->filter->id]),
@@ -242,10 +243,6 @@ JS
         return $this->id.'-modal-update-filter';
     }
 
-    public function getCreateModalId()
-    {
-        return $this->id.'-modal-create-filter';
-    }
 
     public function fieldSet($name, $options = [])
     {
