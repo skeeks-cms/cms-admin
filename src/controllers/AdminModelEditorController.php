@@ -9,22 +9,15 @@
 namespace skeeks\cms\modules\admin\controllers;
 
 use skeeks\admin\components\AccessControl;
-use skeeks\cms\backend\actions\BackendModelAction;
 use skeeks\cms\backend\actions\BackendModelCreateAction;
 use skeeks\cms\backend\actions\BackendModelDeleteAction;
 use skeeks\cms\backend\actions\BackendModelUpdateAction;
 use skeeks\cms\backend\actions\IBackendModelAction;
-use skeeks\cms\backend\actions\IBackendModelMultiAction;
 use skeeks\cms\backend\BackendInfoInterface;
 use skeeks\cms\backend\controllers\IBackendModelController;
 use skeeks\cms\backend\controllers\TBackendModelController;
-use skeeks\cms\base\widgets\ActiveForm;
-use skeeks\cms\components\Cms;
 use skeeks\cms\Exception;
-use skeeks\cms\helpers\ComponentHelper;
-use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\IHasModel;
-use skeeks\cms\models\Search;
 use skeeks\cms\modules\admin\actions\AdminModelAction;
 use skeeks\cms\modules\admin\actions\modelEditor\AdminModelEditorUpdateAction;
 use skeeks\cms\modules\admin\actions\modelEditor\AdminMultiModelEditAction;
@@ -33,23 +26,9 @@ use skeeks\cms\modules\admin\controllers\helpers\Action;
 use skeeks\cms\modules\admin\controllers\helpers\ActionModel;
 use skeeks\cms\modules\admin\controllers\helpers\rules\HasModel;
 use skeeks\cms\modules\admin\controllers\helpers\rules\NoModel;
-use skeeks\cms\admin\AdminAccessControl;
 use skeeks\cms\modules\admin\widgets\ControllerActions;
 use skeeks\cms\modules\admin\widgets\ControllerModelActions;
-use skeeks\cms\rbac\CmsManager;
-use yii\base\ActionEvent;
-use yii\base\Component;
-use yii\base\InvalidConfigException;
-use yii\base\InvalidParamException;
-use yii\base\Model;
-use yii\behaviors\BlameableBehavior;
-use yii\data\ActiveDataProvider;
-use yii\db\ActiveRecord;
-use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Inflector;
-use yii\web\ForbiddenHttpException;
-use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -74,26 +53,24 @@ abstract class AdminModelEditorController extends AdminController
     {
         return ArrayHelper::merge(parent::actions(), [
             'index' => [
-                'class'      => ModelEditorGridAction::className(),
-                'name'       => \Yii::t('skeeks/cms', 'List'),
-                "icon"       => "fa fa-list",
-                "priority"   => 10,
-
+                'class'    => ModelEditorGridAction::className(),
+                'name'     => \Yii::t('skeeks/cms', 'List'),
+                "icon"     => "fa fa-list",
+                "priority" => 10,
             ],
 
             "create" => ['class' => BackendModelCreateAction::class],
             "update" => ['class' => BackendModelUpdateAction::class],
             "delete" => ['class' => BackendModelDeleteAction::class],
 
-            "delete-multi" =>
-                [
-                    'class'        => AdminMultiModelEditAction::className(),
-                    "name"         => \Yii::t('skeeks/cms', "Delete"),
-                    "icon"         => "fa fa-trash",
-                    "confirm"      => \Yii::t('skeeks/cms', 'Are you sure you want to permanently delete the selected items?'),
-                    "eachCallback" => [$this, 'eachMultiDelete'],
-                    "priority"     => 99999,
-                ],
+            "delete-multi" => [
+                'class'        => AdminMultiModelEditAction::className(),
+                "name"         => \Yii::t('skeeks/cms', "Delete"),
+                "icon"         => "fa fa-trash",
+                "confirm"      => \Yii::t('skeeks/cms', 'Are you sure you want to permanently delete the selected items?'),
+                "eachCallback" => [$this, 'eachMultiDelete'],
+                "priority"     => 99999,
+            ],
 
         ]);
     }
