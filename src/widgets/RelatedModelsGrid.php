@@ -170,6 +170,7 @@ class RelatedModelsGrid extends Widget
                 'order' => SORT_ASC,
             ];
         }
+        
 
         return $this->render('related-models-grid', [
             'widget' => $this,

@@ -69,6 +69,7 @@ class GridViewHasSettings extends GridView
         $this->_initAutoColumns();
         $this->_configureColumns();
 
+        
         if ($callbackEventName = BackendUrlHelper::createByParams()->setBackendParamsByCurrentRequest()->callbackEventName) {
             $this->view->registerJs(<<<JS
 (function(sx, $, _)
@@ -110,12 +111,15 @@ class GridViewHasSettings extends GridView
 })(sx, sx.$, sx._);
 JS
             );
+                    ;
+
+                    
             $this->columns = ArrayHelper::merge([
 
                 'sx-choose' => $this->getChooseColumn(),
 
             ], $this->columns);
-
+            
             if ($this->settings->visibleColumns) {
                 $this->settings->visibleColumns = ArrayHelper::merge($this->settings->visibleColumns, ['sx-choose']);
             }
@@ -334,6 +338,7 @@ JS
             ];
 
         $settingsData = ArrayHelper::merge($defaultSettingsData, (array)$this->settingsData);
+
         $this->_settings = new GridViewSettings($settingsData);
 
         return $this;
