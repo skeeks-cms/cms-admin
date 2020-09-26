@@ -208,7 +208,7 @@ JS
         if ($this->beforeTableLeft || $this->beforeTableRight) {
 
             return <<<HTML
-        <div class='sx-before-table'>
+        <div class='sx-before-table sx-bg-secondary'>
             <div class='pull-left'>{$this->beforeTableLeft}</div>
             <div class='pull-right'>{$this->beforeTableRight}</div>
           </div>
