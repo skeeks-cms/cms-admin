@@ -59,7 +59,7 @@ $this->registerJs(<<<JS
 
             sx.EventManager.bind(this.get('callbackEvent'), function(e, data)
             {
-                console.log('111');
+                console.log(data);
                 self.setFile(data.file);
             });
         },
