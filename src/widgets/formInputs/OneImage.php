@@ -20,6 +20,7 @@ use yii\widgets\InputWidget;
 use Yii;
 
 /**
+ * @deprecated
  * @author Semenov Alexander <semenov@skeeks.com>
  */
 class OneImage extends SelectModelDialogStorageFileSrcWidget
