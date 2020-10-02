@@ -8,7 +8,7 @@
 
 namespace skeeks\cms\modules\admin\traits;
 
-use skeeks\widget\chosen\Chosen;
+use skeeks\cms\widgets\Select;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -38,21 +38,20 @@ trait AdminActiveFormTrait
     public function fieldSelect($model, $attribute, $items, $config = [], $fieldOptions = [])
     {
         $config = ArrayHelper::merge(
-            ['allowDeselect' => false],
-            $config,
-            [
+            //['allowDeselect' => false],
+            $config, [
                 'items' => $items,
             ]
         );
 
-        foreach ($config as $key => $value) {
-            if (property_exists(Chosen::className(), $key) === false) {
+        /*foreach ($config as $key => $value) {
+            if (property_exists(Select::class, $key) === false) {
                 unset($config[$key]);
             }
-        }
+        }*/
 
         return $this->field($model, $attribute, $fieldOptions)->widget(
-            Chosen::className(),
+            Select::class,
             $config
         );
     }
