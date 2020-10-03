@@ -228,7 +228,7 @@ CSS
                     //$filter = \yii\helpers\Html::activeDropDownList($searchRelatedPropertiesModel, $name, $items, ['class' => 'form-control']);
 
                 } else {
-                    if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_LIST) {
+                    /*if ($property->property_type == \skeeks\cms\relatedProperties\PropertyType::CODE_LIST) {
                         $items = \yii\helpers\ArrayHelper::merge(['' => ''], \yii\helpers\ArrayHelper::map(
                             $property->enums, 'id', 'value'
                         ));
@@ -255,7 +255,7 @@ CSS
                                         ]) . "</div></div>";
                             }
                         }
-                    }
+                    }*/
                 }
 
                 $autoColumns[] = [
@@ -263,7 +263,7 @@ CSS
                     'label' => \yii\helpers\ArrayHelper::getValue($relatedPropertiesModel->attributeLabels(), $name),
                     'visible' => false,
                     'format' => 'raw',
-                    'filter' => $filter,
+                    'filter' => false,
                     'class' => \yii\grid\DataColumn::className(),
                     'value' => function ($model, $key, $index) use ($name, $relatedPropertiesModel) {
                         /**
