@@ -38,6 +38,7 @@
             var Action = this.Actions.get(id);
             if (!Action || !Action instanceof sx.classes.grid._Action)
             {
+                console.log(Action);
                 throw new Error("Некорректное действие");
             }
 
