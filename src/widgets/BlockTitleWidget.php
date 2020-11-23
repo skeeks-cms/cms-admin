@@ -28,10 +28,10 @@ class BlockTitleWidget extends Widget
         $this->view->registerCss(<<<CSS
 .sx-admin-block-title
 {
-    background: #e0e8ea;
-    padding: 8px 70px 10px!important;
+    background: #ececec;
+    padding: 8px 10px 10px!important;
     font-weight: bold;
-    text-align: center!important;
+    text-align: left;
     color: #4b6267;
     text-shadow: 0 1px #fff;
     font-size: 14px;
