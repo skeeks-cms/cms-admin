@@ -41,7 +41,7 @@ CSS
                 </li>
             <li>
                 <i class="icon-users"></i>
-                <div class="number"><a href="<?= \skeeks\cms\helpers\UrlHelper::construct('/cms/admin-user')->enableAdmin()->toString(); ?>"><?= \skeeks\cms\models\User::find()->count(); ?></a></div>
+                <div class="number"><a href="<?= \skeeks\cms\helpers\UrlHelper::construct('/cms/admin-user')->enableAdmin()->toString(); ?>"><?= \skeeks\cms\models\User::find()->cmsSite()->count(); ?></a></div>
                 <div class="title"><?=\Yii::t('skeeks/cms','Number of users')?></div>
             </li>
         </ul>
