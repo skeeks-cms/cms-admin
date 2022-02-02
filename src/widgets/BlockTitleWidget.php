@@ -29,13 +29,14 @@ class BlockTitleWidget extends Widget
 .sx-admin-block-title
 {
     background: #ececec;
-    padding: 8px 10px 10px!important;
+    padding: 8px 15px 10px!important;
     font-weight: bold;
     text-align: left;
     color: #4b6267;
     text-shadow: 0 1px #fff;
     font-size: 14px;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 CSS
         );
