@@ -86,6 +86,8 @@ class GridViewHasSettings extends GridView
 
         submit: function(data)
         {
+            sx.Window.openerWidgetTriggerEvent('{$callbackEventName}', data);
+            /*
             if (window.opener)
             {
                 if (window.opener.sx)
@@ -100,7 +102,7 @@ class GridViewHasSettings extends GridView
                     window.parent.sx.EventManager.trigger('{$callbackEventName}', data);
                     return this;
                 }
-            }
+            }*/
 
             return this;
         }
