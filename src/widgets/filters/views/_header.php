@@ -65,7 +65,6 @@ JS
 
 
 
-
 <div id="<?= $widget->id; ?>-wrapper" class="sx-admin-filters-form-wrapper">
     <div class="row">
         <div class="col-lg-9 col-md-12">

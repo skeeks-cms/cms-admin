@@ -160,7 +160,7 @@ JS
                         $data = $callback($model);
                     }
 
-                    return \yii\helpers\Html::a('<i class="glyphicon glyphicon-circle-arrow-left"></i> ' . \Yii::t('skeeks/cms',
+                    return \yii\helpers\Html::a('<i class="fas fa-chevron-circle-left"></i> ' . \Yii::t('skeeks/cms',
                             'Choose'), '#', [
                         'class' => 'btn btn-primary sx-row-action',
                         'onclick' => 'sx.SelectCmsElement.submit(' . \yii\helpers\Json::encode($data) . '); return false;',
