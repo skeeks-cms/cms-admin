@@ -8,6 +8,7 @@
 
 namespace skeeks\cms\modules\admin\widgets;
 
+use skeeks\cms\backend\grid\ControllerActionsColumn;
 use skeeks\cms\modules\admin\controllers\AdminModelEditorController;
 use skeeks\cms\modules\admin\widgets\gridViewStandart\GridViewStandartAsset;
 use skeeks\cms\relatedProperties\models\RelatedPropertiesModel;
@@ -37,23 +38,28 @@ class GridViewStandart extends GridViewHasSettings
         $defaultColumns = [];
 
         if ($this->enabledCheckbox) {
-            $defaultColumns[] = ['class' => 'skeeks\cms\modules\admin\grid\CheckboxColumn'];
+            $defaultColumns[] = [
+                'class'         => 'skeeks\cms\grid\CheckboxColumn',
+                'headerOptions' => [
+                    'class' => 'sx-grid-checkbox',
+                ],
+            ];
         }
 
         if ($this->adminController) {
             if ($this->enabledEditActions) {
                 $defaultColumns[] = [
-                    'class' => \skeeks\cms\modules\admin\grid\ActionColumn::className(),
-                    'controller' => $this->adminController,
-                    'isOpenNewWindow' => $this->isOpenNewWindow
+                    'class'           => ControllerActionsColumn::class,
+                    'controller'      => $this->adminController,
+                    'isOpenNewWindow' => $this->isOpenNewWindow,
                 ];
             }
 
         }
 
         $defaultColumns[] = [
-            'class' => 'yii\grid\SerialColumn',
-            'visible' => false
+            'class'   => 'yii\grid\SerialColumn',
+            'visible' => false,
         ];
 
         $this->columns = ArrayHelper::merge($defaultColumns, $this->columns);
@@ -68,7 +74,7 @@ class GridViewStandart extends GridViewHasSettings
      */
     public function getGridJsObject()
     {
-        return "sx.Grid" . $this->id;
+        return "sx.Grid".$this->id;
     }
 
 
@@ -107,7 +113,7 @@ class GridViewStandart extends GridViewHasSettings
         }
 
         $this->_initMultiActions();
-        $this->afterTableLeft = $this->_buttonsMulti . $this->_additionalsMulti;
+        $this->afterTableLeft = $this->_buttonsMulti.$this->_additionalsMulti;
 
         return parent::renderAfterTable();
     }
@@ -131,10 +137,10 @@ class GridViewStandart extends GridViewHasSettings
         }
 
         $options = [
-            'id' => $this->id,
-            'enabledPjax' => $this->enabledPjax,
-            'pjaxId' => $this->pjax->id,
-            'requestPkParamName' => $this->adminController->requestPkParamName
+            'id'                 => $this->id,
+            'enabledPjax'        => $this->enabledPjax,
+            'pjaxId'             => $this->pjax->id,
+            'requestPkParamName' => $this->adminController->requestPkParamName,
         ];
         $optionsString = Json::encode($options);
 
@@ -161,7 +167,7 @@ HTML;
         $additional = implode("", $additional);
 
         $checkbox = Html::checkbox('sx-select-full-all', false, [
-            'class' => 'sx-select-full-all'
+            'class' => 'sx-select-full-all',
         ]);
 
         $this->_buttonsMulti = <<<HTML
@@ -260,12 +266,12 @@ CSS
 
                 $autoColumns[] = [
                     'attribute' => $name,
-                    'label' => \yii\helpers\ArrayHelper::getValue($relatedPropertiesModel->attributeLabels(), $name),
-                    'visible' => false,
-                    'format' => 'raw',
-                    'filter' => false,
-                    'class' => \yii\grid\DataColumn::className(),
-                    'value' => function ($model, $key, $index) use ($name, $relatedPropertiesModel) {
+                    'label'     => \yii\helpers\ArrayHelper::getValue($relatedPropertiesModel->attributeLabels(), $name),
+                    'visible'   => false,
+                    'format'    => 'raw',
+                    'filter'    => false,
+                    'class'     => \yii\grid\DataColumn::className(),
+                    'value'     => function ($model, $key, $index) use ($name, $relatedPropertiesModel) {
                         /**
                          * @var $model \skeeks\cms\models\CmsContentElement
                          */

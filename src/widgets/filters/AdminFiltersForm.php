@@ -11,6 +11,7 @@
 
 namespace skeeks\cms\modules\admin\widgets\filters;
 
+use skeeks\cms\backend\widgets\filters\Bootstrap4InlineActiveField;
 use skeeks\cms\helpers\StringHelper;
 use skeeks\cms\modules\admin\models\CmsAdminFilter;
 use skeeks\cms\modules\admin\traits\ActiveFormTrait;
@@ -31,6 +32,8 @@ use yii\helpers\Url;
 class AdminFiltersForm extends \skeeks\cms\base\widgets\ActiveForm
 {
     public $fieldClass = 'skeeks\cms\modules\admin\widgets\filters\FilterActiveField';
+    //public $fieldClass = Bootstrap4InlineActiveField::class;
+    public $layout = "inline";
 
     public $namespace;
 

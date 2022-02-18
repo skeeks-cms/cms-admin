@@ -1,64 +1,62 @@
-.sx-admin-filters-form-wrapper .tab-content
-{
-    box-shadow: inset 0 1px 0 #fff/*, inset 0 0 2px -1px rgba(232,19,64, 1)*/;
-    background: #EFF3F4;
-    border-radius: 0px 4px 4px 4px;
-    border-bottom: 1px solid #adbdca;
-    border-right: 1px solid #adbdca;
-    border-top: 1px solid #adbdca;
-    border-left: 1px solid #adbdca;
+.sx-admin-filters-form-wrapper .tab-content {
+    box-shadow: inset 0 1px 0 #fff /*, inset 0 0 2px -1px rgba(232,19,64, 1)*/;
+    background: #f9f9f9;
+    border-radius: 4px 4px 4px 4px;
+    border-bottom: 1px solid #dee2e685;
+    border-right: 1px solid #dee2e685;
+    border-top: 1px solid #dee2e685;
+    border-left: 1px solid #dee2e685;
     padding: 5px;
-    border-color: #d6dfe1 #ced7d8 #969d9e #bec7c8;
+    /*border-color: #d6dfe1 #ced7d8 #969d9e #bec7c8;*/
     margin-bottom: 10px;
 }
 
-.sx-admin-filters-form
-{
+.sx-admin-filters-form {
     padding-top: 10px;
 }
 
-.sx-admin-filters-form .form-group:hover
-{
-    background: rgba(93, 195, 231, 0.15);
+.sx-admin-filters-form .form-group:hover {
+    /*background: rgba(93, 195, 231, 0.15);*/
+    background: #f5f5f5;
 }
 
-.sx-admin-filters-form .form-group-footer:hover
-{
+.sx-admin-filters-form .form-group-footer:hover {
     background: none;
 }
-.sx-admin-filters-form-wrapper
-{
+
+.sx-admin-filters-form-wrapper {
     margin-bottom: 10px;
 }
-.sx-admin-filters-form-wrapper .form-horizontal .form-group
-{
+
+.sx-admin-filters-form-wrapper .form-horizontal .form-group {
     margin-bottom: 0px;
     padding-bottom: 5px;
     padding-top: 5px;
+    display: flex;
 }
-.sx-admin-filters-form-wrapper .nav-tabs
-{
+
+.sx-admin-filters-form-wrapper .nav-tabs {
     border: 0px;
 }
 
-.sx-admin-filters-form-wrapper .nav-tabs>li.active>a
-{
-    background-color: #EFF3F4;
-    border-right: 1px solid #adbdca;
-    border-left: 1px solid #adbdca;
-    border-top: 1px solid #adbdca;
-    font-weight: bold;
+.sx-admin-filters-form-wrapper .nav-tabs > li.active > a {
+    color: #f5231b !important;
+    background-color: #f9f9f9;
 }
-.sx-admin-filters-form-wrapper .nav-tabs>li>a
-{
-    border-right: 1px solid silver;
-    border-left: 1px solid silver;
-    border-top: 1px solid silver;
+
+.sx-admin-filters-form-wrapper .nav-tabs > li > a {
+    padding: 5px 10px;
+    border-right: 1px solid #dee2e685;
+    border-left: 1px solid #dee2e685;
+    border-top: 1px solid #dee2e685;
+    color: #333;
+    background-color: white;
 }
-.sx-admin-filters-form-wrapper .nav-tabs>li
-{
+
+.sx-admin-filters-form-wrapper .nav-tabs > li {
     margin-bottom: -1px;
     margin-right: 3px;
+    display: flex;
 }
 
 .sx-admin-filters-form-wrapper .dropdown-menu:after {
@@ -71,6 +69,7 @@
     border-left: 8px solid transparent;
     content: ''
 }
+
 .sx-admin-filters-form-wrapper .dropdown-menu:before {
     position: absolute;
     top: -9.5px;
@@ -82,20 +81,48 @@
     content: '';
 }
 
-.sx-default-hidden
-{
+.sx-default-hidden {
     display: none;
 }
 
-.sx-admin-filters-form-wrapper .form-horizontal .form-group{
+.sx-admin-filters-form-wrapper .form-horizontal .form-group {
     margin-right: 0;
     margin-left: 0;
 }
 
 
-.sx-admin-filters-form .dropdown-menu-big
-{
+.sx-admin-filters-form .dropdown-menu-big {
     max-height: 300px;
     overflow: auto;
 }
 
+
+.sx-admin-filters-form-wrapper .dropdown-toggle::after, .sx-admin-filters-form-wrapper .sx-icon-arrow-down--after::after {
+    content: "";
+}
+.sx-admin-filters-form-wrapper .dropdown-menu:after {
+    border: none;
+    background: none;
+}
+.sx-admin-filters-form-wrapper .dropdown-menu:before {
+    border: none;
+    background: none;
+}
+.sx-admin-filters-form-wrapper .dropdown-menu>li.divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}
+.sx-admin-filters-form-wrapper .dropdown-menu>li>a:hover {
+    background: #f9f9f9;
+}
+.sx-admin-filters-form-wrapper .dropdown-menu>li>a {
+    display: block;
+    padding: 5px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
