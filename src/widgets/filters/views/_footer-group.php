@@ -19,10 +19,10 @@ $editModalId = $widget->id . '-modal-update-filter';
         <hr style="margin-top: 5px; margin-bottom: 15px;"/>
 
         <button type="submit" class="btn btn-default pull-left">
-            <i class="fas fa-search"></i> <?= \Yii::t('skeeks/admin', 'To find'); ?>
+            <i class="fa fa-search"></i> <?= \Yii::t('skeeks/admin', 'To find'); ?>
         </button>
         <a href="<?= $widget->getFilterUrl($widget->filter); ?>" class="btn btn-default pull-left sx-btn-filter-close" style="margin-left: 10px;">
-            <i class="fas fa-times"></i> <?= \Yii::t('skeeks/admin', 'Close'); ?>
+            <i class="fa fa-times"></i> <?= \Yii::t('skeeks/admin', 'Close'); ?>
         </a>
 
 
@@ -40,12 +40,12 @@ $editModalId = $widget->id . '-modal-update-filter';
 
         <div class="dropdown pull-right sx-btn-filter-actions">
             <a class="btn btn-default btn-sm dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-cog"></i>
+                <i class="fa fa-cog"></i>
             </a>
             <ul class="dropdown-menu">
                 <? if ($widget->filter->is_default) : ?>
                     <li>
-                        <a href="#" class="sx-btn-filter-save-as"><i class="fas fa-check"></i> <?= \Yii::t('skeeks/admin', 'Save as'); ?></a>
+                        <a href="#" class="sx-btn-filter-save-as"><i class="fa fa-check"></i> <?= \Yii::t('skeeks/admin', 'Save as'); ?></a>
                     </li>
                     <li>
                         <a href="#" class="sx-btn-filter-delete"><i class="fa fa-times"></i> <?= \Yii::t('skeeks/admin', 'Reset'); ?></a>
@@ -55,14 +55,14 @@ $editModalId = $widget->id . '-modal-update-filter';
                         <a href="#<?= $widget->getEditFilterFormModalId(); ?>" data-toggle="modal" data-target="#<?= $widget->getEditFilterFormModalId(); ?>"><i class="fa fa-edit"></i> <?= \Yii::t('skeeks/admin', 'Edit'); ?></a>
                     </li>
                     <li>
-                        <a href="#" class="sx-btn-filter-save-values"><i class="far fa-check-circle"></i> <?= \Yii::t('skeeks/admin', 'Save'); ?></a>
+                        <a href="#" class="sx-btn-filter-save-values"><i class="fa fa-check-circle"></i> <?= \Yii::t('skeeks/admin', 'Save'); ?></a>
                     </li>
                     <li>
-                        <a href="#" class="sx-btn-filter-save-as"><i class="fas fa-check"></i> <?= \Yii::t('skeeks/admin', 'Save as'); ?></a>
+                        <a href="#" class="sx-btn-filter-save-as"><i class="fa fa-check"></i> <?= \Yii::t('skeeks/admin', 'Save as'); ?></a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#" class="sx-btn-filter-delete"><i class="fas fa-times"></i> <?= \Yii::t('skeeks/admin', 'Delete'); ?></a>
+                        <a href="#" class="sx-btn-filter-delete"><i class="fa fa-times"></i> <?= \Yii::t('skeeks/admin', 'Delete'); ?></a>
                     </li>
                 <? endif; ?>
 

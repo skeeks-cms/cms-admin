@@ -25,7 +25,7 @@ class FilterActiveField extends ActiveField
 
     public $template = "<div class='col-sm-2'>{label}</div><div class='col-sm-9'>{input}{hint}\n{error}</div><div class='col-sm-1 pull-right'>
             <a class=\"btn btn-default btn-sm pull-right sx-btn-hide-field\" href=\"#\">
-                <i class=\"fas fa-minus\"></i>
+                <i class=\"fa fa-minus\"></i>
             </a>
 </div>";
 
