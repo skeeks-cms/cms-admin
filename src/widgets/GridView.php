@@ -70,12 +70,13 @@ class GridView extends \yii\grid\GridView
                           {items}\n
                       </div>
                       {afterTable}
-                      <div class='row sx-table-additional'>
-                          <div class='col-md-12'>
-                      \n<div class='pull-left'>{pager}</div>
-                      \n<div class='pull-left'>{perPage}</div>
+                      <div class='sx-table-additional'>
+                      \n<div class=sx-table-additional-left'>
+                      <div class='sx-pager'>{pager}</div>
+                      \n<div class='sx-perpager'>{perPage}</div>
+                      </div>
                       \n<!--<div class='pull-left'>{sorter}</div>-->
-                        <div class='pull-right'>{summary}</div></div>
+                        <div class='sx-table-additional-right'>{summary}</div>
                       </div>";
 
 
@@ -125,8 +126,8 @@ class GridView extends \yii\grid\GridView
     {
         if ($this->afterTableLeft || $this->afterTableRight) {
             return "<div class='sx-after-table'>
-                        <div class='pull-left'>{$this->afterTableLeft}</div>
-                        <div class='pull-right'>{$this->afterTableRight}</div>
+                        <div class='float-left'>{$this->afterTableLeft}</div>
+                        <div class='float-right'>{$this->afterTableRight}</div>
                     </div>";
         } else {
             return "";
@@ -208,9 +209,9 @@ JS
         if ($this->beforeTableLeft || $this->beforeTableRight) {
 
             return <<<HTML
-        <div class='sx-before-table sx-bg-secondary'>
-            <div class='pull-left'>{$this->beforeTableLeft}</div>
-            <div class='pull-right'>{$this->beforeTableRight}</div>
+        <div class='sx-before-table'>
+            <div class='sx-before-table-left'>{$this->beforeTableLeft}</div>
+            <div class='sx-before-table-right'>{$this->beforeTableRight}</div>
           </div>
 HTML;
         } else {

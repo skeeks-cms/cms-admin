@@ -27,7 +27,7 @@ $editModalId = $widget->id . '-modal-update-filter';
 
 
 
-        <div class="dropdown pull-right sx-btn-trigger-fields" style="margin-left: 10px;">
+        <div class="dropdown float-right sx-btn-trigger-fields" style="margin-left: 10px;">
             <a class="btn btn-default btn-sm dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-plus"></i>
             </a>
@@ -38,7 +38,7 @@ $editModalId = $widget->id . '-modal-update-filter';
            </ul>
         </div>
 
-        <div class="dropdown pull-right sx-btn-filter-actions">
+        <div class="dropdown float-right sx-btn-filter-actions">
             <a class="btn btn-default btn-sm dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-cog"></i>
             </a>
