@@ -8,8 +8,11 @@
 
 namespace skeeks\cms\modules\admin\filters;
 
+use skeeks\cms\components\Cms;
 use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
+use skeeks\cms\rbac\CmsManager;
+use yii\helpers\Url;
 use yii\web\ForbiddenHttpException;
 use yii\web\User;
 
@@ -31,7 +34,13 @@ class AdminLastActivityAccessControl extends \yii\filters\AccessControl
         $rr = new RequestResponse();
 
         if (!$user->getIsGuest()) {
-            $authUrl = UrlHelper::construct(["/admin/admin-auth/blocked"])->setCurrentRef()->enableAdmin()->createUrl();
+            if (!$user->can(CmsManager::PERMISSION_ADMIN_ACCESS)) {
+                $authUrl = Url::to(\Yii::$app->cms->afterAuthUrl);
+            } else {
+                $authUrl = UrlHelper::construct(["/admin/admin-auth/blocked"])->setCurrentRef()->enableAdmin()->createUrl();
+            }
+            
+            
 
             if (\Yii::$app->request->isAjax && !\Yii::$app->request->isPjax) {
                 $rr->redirect = $authUrl;
