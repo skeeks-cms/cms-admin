@@ -46,10 +46,8 @@ class ActiveForm extends \skeeks\cms\base\widgets\ActiveForm
     public $useAjaxSubmit = false;
     public $afterValidateCallback = "";
 
-    /**
-     * @var bool
-     */
-    public $enableAjaxValidation = true;
+    public $validateOnChange = true;
+    public $validateOnBlur = true;
 
     /**
      * @var array
