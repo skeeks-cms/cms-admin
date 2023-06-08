@@ -541,7 +541,7 @@ JS
                                     if ($provider instanceof ActiveDataProvider && $provider->query instanceof ActiveQueryInterface) {
                                         /* @var $model Model */
                                         $model = new $provider->query->modelClass;
-                                        $label = $model->getAttributeLabel($column->attribute);
+                                        $label = $model->getAttributeLabel((string) $column->attribute);
                                     } else {
                                         $models = $provider->getModels();
                                         if (($model = reset($models)) instanceof Model) {
