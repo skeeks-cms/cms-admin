@@ -492,7 +492,7 @@ JS
         } elseif (!empty($column['class'])) {
             $columnKey = $column['class'];
         } else {
-            $columnKey = null;
+            $columnKey = "";
         }
         return hash('crc32', $columnKey);
     }
