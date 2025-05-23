@@ -327,7 +327,7 @@
             {
                 if ($(this).is(":checked"))
                 {
-                    result.push( Number($(this).val()) );
+                    result.push( $(this).val() );
                 }
             });
 
