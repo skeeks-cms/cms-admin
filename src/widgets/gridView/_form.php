@@ -12,8 +12,9 @@ $controller = \Yii::$app->controller;
 
 <? $columns = \yii\helpers\ArrayHelper::getValue($controller->callableData, 'columns'); ?>
 <? $selectedColumns = \yii\helpers\ArrayHelper::getValue($controller->callableData, 'selectedColumns'); ?>
+<? $columnsUrl = \yii\helpers\ArrayHelper::getValue($controller->callableData, 'columnsUrl'); ?>
 
-<? if ($columns) : ?>
+<? if ($columns || $columnsUrl) : ?>
     <?= $form->fieldSet(\Yii::t('skeeks/admin', 'Table fields')); ?>
 
     <? /*
@@ -103,6 +104,7 @@ $options = [
     'id'              => \yii\helpers\Html::getInputId($model, 'visibleColumns'),
     'selectedColumns' => $model->visibleColumns ? $model->visibleColumns : $selectedColumns,
     'hasColumns'      => $model->visibleColumns,
+    'columnsUrl'       => $columnsUrl,
 ];
 $optionsString = \yii\helpers\Json::encode($options);
 
@@ -145,7 +147,70 @@ $this->registerJs(<<<JS
             }*/
 
             this.initVisible();
+            this.loadColumns();
 
+        },
+
+        loadColumns: function()
+        {
+            var self = this;
+            var columnsUrl = this.get('columnsUrl');
+
+            if (!columnsUrl)
+            {
+                return this;
+            }
+
+            $.getJSON(columnsUrl)
+                .done(function(response)
+                {
+                    var columns = response.items || response.columns || {};
+
+                    _.each(columns, function(label, value)
+                    {
+                        var exists = false;
+                        $('option', self.JQueryPossibleColumns).each(function()
+                        {
+                            if (String($(this).attr('value')) === String(value))
+                            {
+                                $(this).text(label);
+                                exists = true;
+                            }
+                        });
+
+                        if (!exists)
+                        {
+                            $("<option>", {
+                                'value': value
+                            }).text(label)
+                            .on('dblclick', function()
+                            {
+                                self.appendToVisible($(this));
+                            })
+                            .appendTo(self.JQueryPossibleColumns);
+                        }
+
+                        $('option', self.JQuerySelect).each(function()
+                        {
+                            if (String($(this).attr('value')) === String(value))
+                            {
+                                $(this).text(label);
+                            }
+                        });
+
+                        $('li', self.JQueryVisibleSelected).each(function()
+                        {
+                            if (String($(this).data('value')) === String(value))
+                            {
+                                $(this).text(label);
+                            }
+                        });
+                    });
+
+                    self.updateHiddenSelect();
+                });
+
+            return this;
         },
 
 
@@ -220,7 +285,9 @@ $this->registerJs(<<<JS
                 {
                     $("<li>", {
                         'data-value': value
-                    }).text( $('option[value=' + value + ']', self.JQuerySelect).text() )
+                    }).text( $('option', self.JQuerySelect).filter(function() {
+                        return String($(this).attr('value')) === String(value);
+                    }).text() )
                     .on('dblclick', function()
                     {
                         $(this).remove();

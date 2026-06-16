@@ -251,6 +251,26 @@ JS
 
         $gridEditSettings = Json::encode($gridEditSettings);
         $callableData = $this->settings->callableData;
+        $columns = (array)ArrayHelper::remove($callableData, 'columns', []);
+        if ($columns) {
+            $columnsCacheKey = 'sx-grid-settings-columns-'.md5($this->id.microtime(true).mt_rand());
+            \Yii::$app->cache->set($columnsCacheKey, $columns, 3600);
+
+            $selectedColumns = (array)ArrayHelper::getValue($callableData, 'selectedColumns', []);
+            $selectedColumnsData = [];
+            foreach ($selectedColumns as $columnCode) {
+                if (array_key_exists($columnCode, $columns)) {
+                    $selectedColumnsData[$columnCode] = $columns[$columnCode];
+                }
+            }
+
+            $callableData['columns'] = $selectedColumnsData;
+            $callableData['columnsCacheKey'] = $columnsCacheKey;
+            $callableData['columnsUrl'] = (string)BackendUrlHelper::createByParams(['/cms/admin-component-settings/callable-data'])
+                ->merge(['key' => $columnsCacheKey])
+                ->enableEmptyLayout()
+                ->url;
+        }
 
         $callableDataInput = Html::textarea('callableData', base64_encode(serialize($callableData)), [
             'id' => $this->settings->callableId,
