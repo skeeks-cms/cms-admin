@@ -93,7 +93,10 @@ $this->registerCss(<<<CSS
     list-style: none;
     margin: 3px;
     padding: 5px;
-    border: 1px solid silver;
+    color: var(--sx-color-text, inherit);
+    border: 1px solid var(--sx-color-border-strong, silver);
+    border-radius: var(--sx-form-field-radius, 6px);
+    background: var(--sx-form-section-background, transparent);
     cursor: move;
 }
 CSS

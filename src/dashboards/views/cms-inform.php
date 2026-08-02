@@ -30,7 +30,7 @@ CSS
 
         <ul class="statistics">
                 <li>
-                    <i class="icon-pie-chart"></i>
+                    <i class="fas fa-chart-pie"></i>
                     <div class="number"><?= round($freeSpacePercent); ?>%</div>
                     <div class="title"><?=\Yii::t('skeeks/cms','Free place')?></div>
                     <div class="progress thin">
@@ -40,7 +40,7 @@ CSS
                     </div>
                 </li>
             <li>
-                <i class="icon-users"></i>
+                <i class="fas fa-users"></i>
                 <div class="number"><a href="<?= \skeeks\cms\helpers\UrlHelper::construct('/cms/admin-user')->enableAdmin()->toString(); ?>"><?= \skeeks\cms\models\User::find()->cmsSite()->count(); ?></a></div>
                 <div class="title"><?=\Yii::t('skeeks/cms','Number of users')?></div>
             </li>

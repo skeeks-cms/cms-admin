@@ -28,13 +28,15 @@ class BlockTitleWidget extends Widget
         $this->view->registerCss(<<<CSS
 .sx-admin-block-title
 {
-    background: var(--bg-block-header-color);
-    padding: 8px 15px 10px!important;
-    font-weight: bold;
+    background: var(--sx-form-section-header-background, var(--bg-block-header-color, #f5f5f5));
+    padding: var(--sx-form-section-title-padding, 8px 15px 10px) !important;
+    font-weight: var(--sx-form-label-font-weight, 600);
     text-align: left;
-    color: #4b6267;
-    text-shadow: 0 1px #fff;
-    font-size: 14px;
+    color: var(--sx-form-section-color, var(--sx-form-label-color, #4b6267));
+    border: 1px solid var(--sx-form-section-border-color, #dedede);
+    border-radius: var(--sx-form-section-radius, 8px);
+    text-shadow: none;
+    font-size: var(--sx-form-section-title-font-size, 14px);
     margin-bottom: 5px;
     margin-top: 5px;
 }

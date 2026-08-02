@@ -63,10 +63,10 @@ HTML;
         <div class="sx-pre-loader-form" style="text-align: center; padding: 20px;">
             {$loadText}...
         </div>
-        <div role="tabpanel" class="sx-form-tab-panel" style="display: none;">
-            <ul class="nav nav-tabs" role="tablist">
+        <div role="tabpanel" class="sx-tabs sx-form-tab-panel" style="display: none;">
+            <ul class="nav nav-tabs sx-tabs__nav" role="tablist">
             </ul>
-            <div class="tab-content">
+            <div class="tab-content sx-tabs__content">
 HTML;
     }
 

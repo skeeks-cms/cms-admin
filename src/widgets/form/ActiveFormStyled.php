@@ -49,7 +49,7 @@ HTML;
         $view->registerCss(<<<CSS
         .sx-form-fieldset
         {
-            border-bottom: 1px dashed silver;
+            border-bottom: 1px solid var(--sx-form-section-border-color, #c0c0c0);
         }
             .sx-form-fieldset .sx-form-fieldset-title
             {
@@ -58,7 +58,8 @@ HTML;
                 .sx-form-fieldset .sx-form-fieldset-title a
                 {
                     font-weight: bold;
-                    border-bottom: 1px dashed silver;
+                    color: var(--sx-form-section-color, inherit);
+                    border-bottom: 1px dashed var(--sx-form-section-border-color, #c0c0c0);
                     text-decoration: none;
                 }
 
