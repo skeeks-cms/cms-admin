@@ -11,6 +11,8 @@
 
 namespace skeeks\cms\modules\admin\widgets;
 
+use yii\helpers\Json;
+
 /**
  * Alert widget renders a message from session flash. All flash messages are displayed
  * in the sequence they were assigned using setFlash. You can set message as following:
@@ -63,6 +65,7 @@ class Alert extends \yii\bootstrap\Widget
             if (isset($this->alertTypes[$type])) {
                 $data = (array)$data;
                 foreach ($data as $message) {
+                    $messageJson = Json::htmlEncode((string)$message);
                     /* initialize css class for each alert box */
                     $this->options['class'] = $this->alertTypes[$type] . $appendCss;
 
@@ -79,7 +82,7 @@ class Alert extends \yii\bootstrap\Widget
                         $this->view->registerJs(<<<JS
                             (function(sx, $, _)
                             {
-                                sx.notify.error('{$message}')
+                                sx.notify.error({$messageJson}, {allowHtml: false})
                             })(sx, sx.$, sx._);
 JS
                         );
@@ -88,7 +91,7 @@ JS
                             $this->view->registerJs(<<<JS
                             (function(sx, $, _)
                             {
-                                sx.notify.success('{$message}')
+                                sx.notify.success({$messageJson}, {allowHtml: false})
                             })(sx, sx.$, sx._);
 JS
                             );
