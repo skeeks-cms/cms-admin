@@ -23,6 +23,9 @@
             "email": "semenov@skeeks.com"
         }
     ],
+    "require": {
+        "skeeks/cms-backend": "^2.0 || dev-master@dev"
+    },
     "autoload": {
         "psr-4": {
             "skeeks\\cms\\modules\\admin\\": "src/"

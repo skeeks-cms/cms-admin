@@ -8,8 +8,8 @@
 
 namespace skeeks\cms\modules\admin\traits;
 
+use skeeks\cms\backend\widgets\sortable\assets\BackendSortableAdapterAsset;
 use yii\helpers\Json;
-use yii\jui\Sortable;
 use yii\widgets\Pjax;
 
 /**
@@ -40,7 +40,7 @@ trait GridViewSortableTrait
         }
 
         if ($this->sortable) {
-            Sortable::widget();
+            BackendSortableAdapterAsset::register($this->view);
 
             $options = $this->sortableOptions;
             $options['pjaxId'] = $pjaxId;
@@ -66,75 +66,77 @@ Css
                         var self = this;
                         this.Jtable = this.getWrapper().find('table');
                         this.Jtable.addClass('sx-sortable');
-                        $('tbody', this.Jtable).sortable({
-
-                            forceHelperSize: true,
-                            forcePlaceholderSize: true,
-                            opacity: 0.5,
-                            placeholder: "ui-state-highlight",
-
-                            out: function( event, ui )
+                        this.Sortable = sx.backend.sortable.create(
+                            $('tbody', this.Jtable),
                             {
-                                var Jtbody = $(ui.item).closest("tbody");
-                                var newSort = [];
-                                Jtbody.children("tr").each(function(i, element)
+                                itemSelector: "> tr",
+                                forceHelperSize: true,
+                                forcePlaceholderSize: true,
+                                opacity: 0.5,
+                                placeholderClass: "ui-state-highlight",
+
+                                onUpdate: function(event)
                                 {
-                                    newSort.push($(this).data("key"));
-                                });
-
-                                var blocker = sx.block(self.getWrapper());
-
-                                var ajax = sx.ajax.preparePostQuery(
-                                    self.get('backend'),
+                                    var Jtbody = event.jContainer;
+                                    var newSort = [];
+                                    Jtbody.children("tr").each(function(i, element)
                                     {
-                                        "keys" : newSort,
-                                        "changeKey" : $(ui.item).data("key")
-                                    }
-                                );
+                                        newSort.push($(this).data("key"));
+                                    });
 
-                                new sx.classes.AjaxHandlerNoLoader(ajax); //отключение глобального загрузчика
-                                new sx.classes.AjaxHandlerNotifyErrors(ajax, {
-                                    'error': "Изменения не сохранились",
-                                    'success': "Изменения сохранены",
-                                }); //отключение глобального загрузчика
+                                    var blocker = sx.block(self.getWrapper());
 
-                                ajax.onError(function(e, data)
-                                {
-                                    if (self.get('pjaxId'))
-                                    {
-                                        $.pjax.reload($("#" + self.get('pjaxId')), {});
-                                    }
+                                    var ajax = sx.ajax.preparePostQuery(
+                                        self.get('backend'),
+                                        {
+                                            "keys" : newSort,
+                                            "changeKey" : event.jItem.data("key")
+                                        }
+                                    );
 
-                                    blocker.unblock();
-                                    //sx.notify.info("Подождите сейчас страница будет перезагружена");
-                                    _.delay(function()
-                                    {
-                                        //window.location.reload();
-                                        //blocker.unblock();
-                                    }, 2000);
-                                })
-                                .onSuccess(function(e, data)
-                                {
-                                    if (self.get('pjaxId'))
-                                    {
-                                        $.pjax.reload($("#" + self.get('pjaxId')), {});
-                                    }
+                                    new sx.classes.AjaxHandlerNoLoader(ajax); //отключение глобального загрузчика
+                                    new sx.classes.AjaxHandlerNotifyErrors(ajax, {
+                                        'error': "Изменения не сохранились",
+                                        'success': "Изменения сохранены",
+                                    }); //отключение глобального загрузчика
 
-                                    var response = data.response;
-                                    if (response.success === false)
+                                    ajax.onError(function(e, data)
                                     {
-                                        sx.notify.error(response.message);
-                                    } else
-                                    {
-                                        sx.notify.success(response.message);
-                                    }
+                                        if (self.get('pjaxId'))
+                                        {
+                                            $.pjax.reload($("#" + self.get('pjaxId')), {});
+                                        }
 
-                                    blocker.unblock();
-                                })
-                                .execute();
+                                        blocker.unblock();
+                                        //sx.notify.info("Подождите сейчас страница будет перезагружена");
+                                        _.delay(function()
+                                        {
+                                            //window.location.reload();
+                                            //blocker.unblock();
+                                        }, 2000);
+                                    })
+                                    .onSuccess(function(e, data)
+                                    {
+                                        if (self.get('pjaxId'))
+                                        {
+                                            $.pjax.reload($("#" + self.get('pjaxId')), {});
+                                        }
+
+                                        var response = data.response;
+                                        if (response.success === false)
+                                        {
+                                            sx.notify.error(response.message);
+                                        } else
+                                        {
+                                            sx.notify.success(response.message);
+                                        }
+
+                                        blocker.unblock();
+                                    })
+                                    .execute();
+                                }
                             }
-
-                        });
+                        );
                     },
 
                     _onWindowReady: function()

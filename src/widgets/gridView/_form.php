@@ -111,7 +111,9 @@ $options = [
 ];
 $optionsString = \yii\helpers\Json::encode($options);
 
-\yii\jui\Sortable::widget();
+if ($columns || $columnsUrl) {
+    \skeeks\cms\backend\widgets\sortable\assets\BackendSortableAdapterAsset::register($this);
+}
 
 $this->registerJs(<<<JS
 (function(sx, $, _)
@@ -129,8 +131,9 @@ $this->registerJs(<<<JS
             this.JQuerySelect               = $('#' + this.get('id'));
             this.JQueryPossibleColumns      = $('#sx-possibleColumns');
 
-            this.JQueryVisibleSelected.sortable({
-                out: function( event, ui )
+            this.Sortable = sx.backend.sortable.create(this.JQueryVisibleSelected, {
+                itemSelector: "> li",
+                onUpdate: function()
                 {
                     self.updateHiddenSelect();
                 }
