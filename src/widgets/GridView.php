@@ -87,10 +87,12 @@ class GridView extends \yii\grid\GridView
     {
         $this->pjaxBegin();
 
-        parent::run();
-        $this->registerAsset();
-
-        $this->pjaxEnd();
+        try {
+            parent::run();
+            $this->registerAsset();
+        } finally {
+            $this->pjaxEnd();
+        }
     }
 
     public function registerAsset()
