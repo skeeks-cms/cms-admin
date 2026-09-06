@@ -26,6 +26,11 @@
     "require": {
         "skeeks/cms-backend": "^2.0 || dev-master@dev"
     },
+    "extra": {
+        "config-plugin": {
+            "console": ["src/config/console.php"]
+        }
+    },
     "autoload": {
         "psr-4": {
             "skeeks\\cms\\modules\\admin\\": "src/"
